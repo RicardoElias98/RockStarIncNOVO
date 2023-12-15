@@ -32,4 +32,23 @@ public class Artista extends Utilizador {
 
     }
 
+    @Override
+    protected void listarMusicas() {
+        super.listarMusicas();
+    }
+
+    @Override
+    protected void pesquisarMusicas() {
+        super.pesquisarMusicas();
+    }
+
+
+    protected void login(String username, String password, int pin) {
+        super.login(username, password);
+    }
+
+    @Override
+    protected void logout() {
+        super.logout();
+    }
 }

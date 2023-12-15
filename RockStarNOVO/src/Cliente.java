@@ -1,6 +1,9 @@
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Scanner;
 
-public class Cliente extends Utilizador {
+public class Cliente extends Utilizador implements Serializable {
 
     private ArrayList <Playlist> playlist;
     private ArrayList <Aquisicao> aquisicoes;
@@ -57,4 +60,23 @@ public class Cliente extends Utilizador {
     private void alterarSaldo () {
 
     }
+
+    protected boolean login(String username, String password, Programa programa) {
+        int contadorParaLogin = 0;
+
+        String passEmString = new String(password);
+
+        for (Cliente c : programa.getClientes()) {
+            if (username.equals(c.getUsername())) {
+                contadorParaLogin++;
+            }
+            if (passEmString.equals(c.getPassword())){
+                contadorParaLogin++;
+            }
+        }
+        if (contadorParaLogin == 2) {
+            return true;
+        } else return false;
+    }
+
 }

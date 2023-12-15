@@ -17,11 +17,18 @@ public abstract class Utilizador {
 
     }
 
-    protected void login () {
-
+    protected void login (String username, String password) {
     }
 
     protected void logout () {
 
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
     }
 }
