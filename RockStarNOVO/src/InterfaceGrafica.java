@@ -2,7 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class InterfaceGrafica {
 
@@ -25,9 +24,12 @@ public class InterfaceGrafica {
         //PARA TESTE
         Cliente clienteTemporarioParaTeste = new Cliente("Ricardo","123",0,new ArrayList<>(),new ArrayList<>(),new ArrayList<>());
         programa.getClientes().add(clienteTemporarioParaTeste);
+        Artista artistaTemporarioParaTeste = new Artista("Ricardo","1234",0, 123,new ArrayList<>(),new ArrayList<>());
+        programa.getArtistas().add(artistaTemporarioParaTeste);
         //PARA TESTE
 
         Cliente clienteTemporario = new Cliente("","",0,new ArrayList<>(),new ArrayList<>(),new ArrayList<>());
+        Artista artistaTemporario = new Artista("","",0, -1,new ArrayList<>(),new ArrayList<>());
 
 
         JTextField usernameLogin = new JTextField();
@@ -57,7 +59,6 @@ public class InterfaceGrafica {
 
 
         JPasswordField pinArtistaLogin = new JPasswordField();
-        pinArtistaLogin.setText("Pin");
         pinArtistaLogin.setPreferredSize(new Dimension(100, 30));
         pinArtistaLogin.setVisible(false);
 
@@ -93,13 +94,23 @@ public class InterfaceGrafica {
         botaoConfirmarLogin.setText("Confirmar");
         pL.add(botaoConfirmarLogin);
 
-        botaoConfirmarLogin.addActionListener(e -> {
-            if ((clienteTemporario.login(usernameLogin.getText(), new String(passwordLogin.getPassword()),programa)) == true) {
-                JOptionPane.showMessageDialog(null, "Bem-vindo " + usernameLogin.getText() + "\nFique durante muito tempo", "Bem-vindo", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(null, "Username/Password não encontrado/encontrada", "Ups", JOptionPane.WARNING_MESSAGE);
+        botaoConfirmarLogin.addActionListener(e -> { //confirmar o Login em caso de cliente
+        if (!artistaOpcaoLogin.isSelected()) {
+                if ((clienteTemporario.login(usernameLogin.getText(), new String(passwordLogin.getPassword()),programa))) {
+                    JOptionPane.showMessageDialog(null, "Bem-vindo " + usernameLogin.getText() + "\nFique durante muito tempo", "Bem-vindo", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Username/Password não encontrado/encontrada", "Ups", JOptionPane.WARNING_MESSAGE);
+                }
             }
-        });
+        else { //confirmar o Login em caso de artista
+
+                if ((artistaTemporario.loginArtista(usernameLogin.getText(),new String(passwordLogin.getPassword()), Integer.parseInt(new String (pinArtistaLogin.getPassword())),programa))) {
+                    JOptionPane.showMessageDialog(null, "Bem-vindo " + usernameLogin.getText() + "\nFique durante muito tempo", "Bem-vindo", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Username/Password não encontrado/encontrada", "Ups", JOptionPane.WARNING_MESSAGE);
+                }
+            } } );
+
 
 
 
@@ -118,10 +129,6 @@ public class InterfaceGrafica {
         botaoVoltarAtrasLogin.setText(("Regressar"));
         botaoVoltarAtrasLogin.setVisible(true);
 
-
-
-
-
         pL.add(botaoVoltarAtrasLogin);
 
         botaoVoltarAtrasLogin.addActionListener(e -> pL.setVisible(false));
@@ -135,6 +142,7 @@ public class InterfaceGrafica {
         botaoConfirmar.setText("Confirmar");
         pR.add(botaoConfirmar);
         pR.add(botaoVoltarAtrasRegisto);
+
 
         botaoVoltarAtrasRegisto.addActionListener(e -> pR.setVisible(false));
         botaoVoltarAtrasRegisto.addActionListener(e -> pn.setVisible(true));

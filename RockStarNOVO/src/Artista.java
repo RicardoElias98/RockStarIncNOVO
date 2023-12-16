@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class Artista extends Utilizador {
 
     private int pin;
-    private ArrayList <Musica> musicas;
+    private ArrayList<Musica> musicas;
     private ArrayList<Album> albuns;
 
     public Artista(String username, String password, double saldo, int pin, ArrayList<Musica> musicas, ArrayList<Album> albuns) {
@@ -13,22 +13,23 @@ public class Artista extends Utilizador {
         this.albuns = albuns;
     }
 
-    private void adicionarMusica () {
+    private void adicionarMusica() {
 
     }
 
-    private void corrigirTitulo (int idDaMusica) {
+    private void corrigirTitulo(int idDaMusica) {
 
     }
 
-    private void alterarPreco (int idDaMusica) {
-
-    }
-    private void alterarVisibilidade (int idDaMusica) {
+    private void alterarPreco(int idDaMusica) {
 
     }
 
-    private void verEstatistias () {
+    private void alterarVisibilidade(int idDaMusica) {
+
+    }
+
+    private void verEstatistias() {
 
     }
 
@@ -43,12 +44,31 @@ public class Artista extends Utilizador {
     }
 
 
-    protected void login(String username, String password, int pin) {
-        super.login(username, password);
+    public boolean loginArtista (String username, String password, int pin, Programa programa) {
+        int contadorParaLogin = 0;
+
+        String passEmString = new String(password);
+
+
+        for (Artista a : programa.getArtistas()) {
+            if (username.equals(a.getUsername())) {
+                contadorParaLogin++;
+            }
+            if (passEmString.equals(a.getPassword())) {
+                contadorParaLogin++;
+            }
+            if (pin == a.getPin()) {
+                contadorParaLogin++;
+            }
+        }
+        if (contadorParaLogin == 3) {
+            return true;
+        } else return false;
     }
 
-    @Override
-    protected void logout() {
-        super.logout();
+    public int getPin() {
+        return pin;
     }
 }
+
+

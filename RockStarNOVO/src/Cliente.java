@@ -61,7 +61,7 @@ public class Cliente extends Utilizador implements Serializable {
 
     }
 
-    protected boolean login(String username, String password, Programa programa) {
+    public boolean login(String username, String password, Programa programa) {
         int contadorParaLogin = 0;
 
         String passEmString = new String(password);

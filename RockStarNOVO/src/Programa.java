@@ -18,6 +18,10 @@ public class Programa {
         return clientes;
     }
 
+    public ArrayList<Artista> getArtistas() {
+        return artistas;
+    }
+
     private void run () {   //como usar?
 
     }
