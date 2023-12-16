@@ -12,10 +12,39 @@ public class InterfaceGrafica {
         PainelBotoesLoginRegistar pn = new PainelBotoesLoginRegistar();
         PainelLogin pL = new PainelLogin();
         PainelRegisto pR = new PainelRegisto();
-        jp.add(pn);
+        PainelCllienteAposLogin painelCliente = new PainelCllienteAposLogin();
+        JButton minhasMusicasCliente = new JButton();
+        minhasMusicasCliente.setText("Minhas Músicas");
+        JButton minhasPlaylistsCliente = new JButton();
+        minhasPlaylistsCliente.setText("Minhas Playlists");
+        JButton pesquisarMusicas = new JButton();
+        pesquisarMusicas.setText("Pesquisar Músicas");
+        JButton pesquisarPlaylist = new JButton();
+        pesquisarPlaylist.setText("Pesquisar Playlists");
+        JButton saldo = new JButton();
+        saldo.setText("Saldo");
+        JButton cestoDeCompras = new JButton();
+        cestoDeCompras.setText("Compras pendentes");
 
+        painelCliente.add(minhasMusicasCliente);
+        painelCliente.add(minhasPlaylistsCliente);
+        painelCliente.add(pesquisarMusicas);
+        painelCliente.add(pesquisarPlaylist);
+        painelCliente.add(saldo);
+        painelCliente.add(cestoDeCompras);
+
+        JButton logout = new JButton();
+        logout.setText("Logout");
+
+
+
+
+        minhasMusicasCliente.addActionListener(e -> minhasMusicasCliente.setForeground(Color.BLUE)); //meter sempre os outros a preto ao mesmo tempo para não ficar azul após carregar noutro
+
+        jp.add(pn);
         jp.add(pL);
         jp.add(pR);
+        jp.add(painelCliente);
 
         JButton botaoLogin = new JButton();
         botaoLogin.setText("Login");
@@ -38,12 +67,14 @@ public class InterfaceGrafica {
         JTextField usernameLogin = new JTextField();
         usernameLogin.setToolTipText("exemplo: Joaquim243");
 
+
         JLabel usernameLoginTexto = new JLabel("Username");
         JLabel passwordLoginTexto = new JLabel("password");
 
         usernameLogin.setPreferredSize(new Dimension(100, 30));
         JPasswordField passwordLogin = new JPasswordField();
         passwordLogin.setToolTipText("Exemplo: AnimalDeEstimação + numero preferido");
+
         passwordLogin.setEchoChar('*');
         passwordLogin.setPreferredSize(new Dimension(100, 30));
         pL.add(usernameLoginTexto);
@@ -103,6 +134,15 @@ public class InterfaceGrafica {
         if (!artistaOpcaoLogin.isSelected()) {
                 if ((clienteTemporarioLogin.login(usernameLogin.getText(), new String(passwordLogin.getPassword()),programa))) {
                     JOptionPane.showMessageDialog(null, "Bem-vindo " + usernameLogin.getText() + "\nFique durante muito tempo", "Bem-vindo", JOptionPane.INFORMATION_MESSAGE);
+                    pL.setVisible(false);
+                    clienteTemporarioLogin.setUsername(usernameLogin.getText());
+                    JLabel olaUsername = new JLabel();
+                    olaUsername.setText("Olá, " + clienteTemporarioLogin.getUsername()+ "!");
+                    painelCliente.add(olaUsername);
+                    painelCliente.add(logout);
+                    painelCliente.setVisible(true);
+                    jp.setLayout(new BorderLayout());
+                    jp.add(painelCliente);
                 } else {
                     JOptionPane.showMessageDialog(null, "Username/Password não encontrado/encontrada", "Ups", JOptionPane.WARNING_MESSAGE);
                 }
@@ -112,10 +152,15 @@ public class InterfaceGrafica {
 
                 if ((artistaTemporarioLogin.loginArtista(usernameLogin.getText(),new String(passwordLogin.getPassword()), Integer.parseInt(new String (pinArtistaLogin.getPassword())),programa))) {
                     JOptionPane.showMessageDialog(null, "Bem-vindo " + usernameLogin.getText() + "\nFique durante muito tempo", "Bem-vindo", JOptionPane.INFORMATION_MESSAGE);
+                    pL.setVisible(false);
+                    painelCliente.setVisible(true);
                 } else {
                     JOptionPane.showMessageDialog(null, "Username/Password não encontrado/encontrada", "Ups", JOptionPane.WARNING_MESSAGE);
                 }
             } } );
+
+
+
 
         JTextField username = new JTextField();
         username.setToolTipText("Exemplo: Joaquim354");
@@ -209,7 +254,10 @@ public class InterfaceGrafica {
         botaoConfirmar.addActionListener(e -> {
             if (!artistaOpcao.isSelected()) {
                 if (clienteTemporarioRegisto.registar(username.getText(),programa)){
-                JOptionPane.showMessageDialog(null,"Foi registado com sucesso. \nQue tenha ótimos momentos connosco","Parabéns", JOptionPane.INFORMATION_MESSAGE);}
+                JOptionPane.showMessageDialog(null,"Foi registado com sucesso. \nQue tenha ótimos momentos connosco","Parabéns", JOptionPane.INFORMATION_MESSAGE);
+                pR.setVisible(false);
+                pL.setVisible(true);
+                }
                 else {
                     JOptionPane.showMessageDialog(null, "Username já existente", "Ups", JOptionPane.WARNING_MESSAGE);
                 }
@@ -218,12 +266,26 @@ public class InterfaceGrafica {
         else {
             if (artistaTemporarioRegisto.registarArtista(username.getText(),programa)){
                 JOptionPane.showMessageDialog(null,"Foi registado com sucesso. \nQue tenha ótimos momentos connosco","Parabéns", JOptionPane.INFORMATION_MESSAGE);
+                pR.setVisible(false);
+                pL.setVisible(true);
             }
             else {
                 JOptionPane.showMessageDialog(null, "Username já existente.", "Ups", JOptionPane.WARNING_MESSAGE);
             }
         }
         });
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

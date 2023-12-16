@@ -12,6 +12,14 @@ public class PainelLogin extends JPanel {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setBackground(Color.ORANGE);
         setVisible(false);
-        add(Box.createVerticalStrut(200));
+        add(Box.createVerticalStrut(150));
+
+        JLabel loginTitulo = new JLabel();
+        loginTitulo.setText("        LOGIN");   //NÃO APARECE CENTRADO SEM SER ASSIM -- IMPORTANTE!!!!!!
+        Font fonte = new Font(loginTitulo.getFont().getName(), Font.PLAIN, 20);
+        loginTitulo.setFont(fonte);
+        loginTitulo.setVisible(true);
+        add(loginTitulo);
+        add(Box.createVerticalStrut(50));
     }
 }
