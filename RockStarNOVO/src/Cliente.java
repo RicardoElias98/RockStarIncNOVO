@@ -5,9 +5,9 @@ import java.util.Scanner;
 
 public class Cliente extends Utilizador implements Serializable {
 
-    private ArrayList <Playlist> playlist;
-    private ArrayList <Aquisicao> aquisicoes;
-    private ArrayList <Aquisicao> aquisicoesEmEsperaPorValidacao;
+    private ArrayList<Playlist> playlist;
+    private ArrayList<Aquisicao> aquisicoes;
+    private ArrayList<Aquisicao> aquisicoesEmEsperaPorValidacao;
 
     public Cliente(String username, String password, double saldo, ArrayList<Playlist> playlist, ArrayList<Aquisicao> aquisicoes, ArrayList<Aquisicao> aquisicoesEmEsperaPorValidacao) {
         super(username, password, saldo);
@@ -16,15 +16,15 @@ public class Cliente extends Utilizador implements Serializable {
         this.aquisicoesEmEsperaPorValidacao = aquisicoesEmEsperaPorValidacao;
     }
 
-    private void adicionarMusicaAplaylist (Musica musica, Playlist playlist) {
+    private void adicionarMusicaAplaylist(Musica musica, Playlist playlist) {
 
     }
 
-    private void criarPlaylist (String genero, int numMusicas) {
+    private void criarPlaylist(String genero, int numMusicas) {
 
     }
 
-    private void criarPlaylist () {
+    private void criarPlaylist() {
 
     }
 
@@ -33,31 +33,31 @@ public class Cliente extends Utilizador implements Serializable {
 
     } */
 
-    private void removerPlaylist (Playlist nomePlaylist) {
+    private void removerPlaylist(Playlist nomePlaylist) {
 
     }
 
-    private void mudarVisibilidade () {
+    private void mudarVisibilidade() {
 
     }
 
-    private void adicionarRating (int pontuacao) {
+    private void adicionarRating(int pontuacao) {
 
     }
 
-    private void adicionarMusicasAoCarrinho (Musica musica) {
+    private void adicionarMusicasAoCarrinho(Musica musica) {
 
     }
 
-    private void finalizarCarrinho () {
+    private void finalizarCarrinho() {
 
     }
 
-    private void cancelarCarrinho () {
+    private void cancelarCarrinho() {
 
     }
 
-    private void alterarSaldo () {
+    private void alterarSaldo() {
 
     }
 
@@ -70,7 +70,7 @@ public class Cliente extends Utilizador implements Serializable {
             if (username.equals(c.getUsername())) {
                 contadorParaLogin++;
             }
-            if (passEmString.equals(c.getPassword())){
+            if (passEmString.equals(c.getPassword())) {
                 contadorParaLogin++;
             }
         }
@@ -79,4 +79,16 @@ public class Cliente extends Utilizador implements Serializable {
         } else return false;
     }
 
+    public boolean registar (String username, Programa programa) {
+        int contadorParaRegisto = 0;
+
+        for (Cliente c : programa.getClientes()) {
+            if (username.equals(c.getUsername())) {
+                contadorParaRegisto++;
+            }
+        }
+        if (contadorParaRegisto == 0) {
+            return true;
+        } else return false;
+    }
 }

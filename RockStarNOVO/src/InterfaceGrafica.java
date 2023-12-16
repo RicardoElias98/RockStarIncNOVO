@@ -28,8 +28,11 @@ public class InterfaceGrafica {
         programa.getArtistas().add(artistaTemporarioParaTeste);
         //PARA TESTE
 
-        Cliente clienteTemporario = new Cliente("","",0,new ArrayList<>(),new ArrayList<>(),new ArrayList<>());
-        Artista artistaTemporario = new Artista("","",0, -1,new ArrayList<>(),new ArrayList<>());
+        Cliente clienteTemporarioLogin = new Cliente("","",0,new ArrayList<>(),new ArrayList<>(),new ArrayList<>());
+        Artista artistaTemporarioLogin = new Artista("","",0, -1,new ArrayList<>(),new ArrayList<>());
+
+        Cliente clienteTemporarioRegisto = new Cliente("","",0,new ArrayList<>(),new ArrayList<>(),new ArrayList<>());
+        Artista artistaTemporarioRegisto = new Artista("", "", 0,-1,new ArrayList<>(),new ArrayList<>());
 
 
         JTextField usernameLogin = new JTextField();
@@ -94,25 +97,79 @@ public class InterfaceGrafica {
         botaoConfirmarLogin.setText("Confirmar");
         pL.add(botaoConfirmarLogin);
 
-        botaoConfirmarLogin.addActionListener(e -> { //confirmar o Login em caso de cliente
+        //CONFIRMAÇÃO DE LOGIN
+        //confirmar o Login em caso de cliente
+        botaoConfirmarLogin.addActionListener(e -> {
         if (!artistaOpcaoLogin.isSelected()) {
-                if ((clienteTemporario.login(usernameLogin.getText(), new String(passwordLogin.getPassword()),programa))) {
+                if ((clienteTemporarioLogin.login(usernameLogin.getText(), new String(passwordLogin.getPassword()),programa))) {
                     JOptionPane.showMessageDialog(null, "Bem-vindo " + usernameLogin.getText() + "\nFique durante muito tempo", "Bem-vindo", JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(null, "Username/Password não encontrado/encontrada", "Ups", JOptionPane.WARNING_MESSAGE);
                 }
             }
-        else { //confirmar o Login em caso de artista
+        //confirmar o Login em caso de artista
+        else {
 
-                if ((artistaTemporario.loginArtista(usernameLogin.getText(),new String(passwordLogin.getPassword()), Integer.parseInt(new String (pinArtistaLogin.getPassword())),programa))) {
+                if ((artistaTemporarioLogin.loginArtista(usernameLogin.getText(),new String(passwordLogin.getPassword()), Integer.parseInt(new String (pinArtistaLogin.getPassword())),programa))) {
                     JOptionPane.showMessageDialog(null, "Bem-vindo " + usernameLogin.getText() + "\nFique durante muito tempo", "Bem-vindo", JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(null, "Username/Password não encontrado/encontrada", "Ups", JOptionPane.WARNING_MESSAGE);
                 }
             } } );
 
+        JTextField username = new JTextField();
+        username.setToolTipText("Exemplo: Joaquim354");
 
+        JLabel usernameTexto = new JLabel("Username");
+        JLabel passwordTexto = new JLabel("password");
 
+        username.setPreferredSize(new Dimension(100,30));
+        JPasswordField password = new JPasswordField();
+        password.setToolTipText("Exemplo: ClubePreferido + AnoDeNascimento");
+        password.setEchoChar('*');
+        password.setPreferredSize(new Dimension(100,30));
+        pR.add(usernameTexto);
+        pR.add(username);
+        pR.add(passwordTexto);
+        pR.add(password);
+
+        JCheckBox verPassword = new JCheckBox();
+        verPassword.setText("Ver password");
+        pR.add(verPassword);
+
+        verPassword.addActionListener(e -> {if (verPassword.isSelected()){   //mete a password visível ou apenas em "*"
+            password.setEchoChar('\u0000');
+        } else {
+            password.setEchoChar('*');
+        }
+        });
+
+        JCheckBox artistaOpcao = new JCheckBox();
+
+        artistaOpcao.setBounds(200, 430, 200, 25);
+        artistaOpcao.setText("Sou Músico");
+        pR.add(artistaOpcao);
+
+        JLabel pinTexto = new JLabel("PIN");
+        pR.add(pinTexto);
+        pinTexto.setVisible(false);
+
+        JPasswordField pinArtista = new JPasswordField();
+        pinArtista.setText("Pin");
+        pinArtista.setPreferredSize(new Dimension(100,30));
+        pinArtista.setVisible(false);
+        pR.add(pinArtista);
+
+        artistaOpcao.addItemListener(e -> {
+            if (e.getStateChange() == ItemEvent.SELECTED) {
+                pinArtista.setVisible(true);
+                pinTexto.setVisible(true);
+            } else {pinArtista.setVisible(false);
+                pinTexto.setVisible(false);
+            }
+            pR.revalidate();
+            pR.repaint();
+        });
 
         JButton botaoRegistar = new JButton();
         botaoRegistar.setText("Registar");
@@ -147,7 +204,29 @@ public class InterfaceGrafica {
         botaoVoltarAtrasRegisto.addActionListener(e -> pR.setVisible(false));
         botaoVoltarAtrasRegisto.addActionListener(e -> pn.setVisible(true));
 
-        botaoConfirmar.addActionListener(e ->  JOptionPane.showMessageDialog(null,"Foi registado com sucesso. \nQue tenha ótimos momentos connosco","Parabéns", JOptionPane.INFORMATION_MESSAGE));
+        //CONFIRMAÇÃO DO REGISTO
+        //confirmação do registo em caso de cliente
+        botaoConfirmar.addActionListener(e -> {
+            if (!artistaOpcao.isSelected()) {
+                if (clienteTemporarioRegisto.registar(username.getText(),programa)){
+                JOptionPane.showMessageDialog(null,"Foi registado com sucesso. \nQue tenha ótimos momentos connosco","Parabéns", JOptionPane.INFORMATION_MESSAGE);}
+                else {
+                    JOptionPane.showMessageDialog(null, "Username já existente", "Ups", JOptionPane.WARNING_MESSAGE);
+                }
+                }
+            //confirmação do registo em caso de artista
+        else {
+            if (artistaTemporarioRegisto.registarArtista(username.getText(),programa)){
+                JOptionPane.showMessageDialog(null,"Foi registado com sucesso. \nQue tenha ótimos momentos connosco","Parabéns", JOptionPane.INFORMATION_MESSAGE);
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "Username já existente.", "Ups", JOptionPane.WARNING_MESSAGE);
+            }
+        }
+        });
+
+
+
 
         jp.pack();
         jp.setLocationRelativeTo(null);

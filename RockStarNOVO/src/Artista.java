@@ -66,6 +66,21 @@ public class Artista extends Utilizador {
         } else return false;
     }
 
+    public boolean registarArtista (String username, Programa programa) {
+        int contadorParaRegisto = 0;
+
+        for (Cliente c : programa.getClientes()) {
+            if (username.equals(c.getUsername())) {
+                contadorParaRegisto++;
+            }
+        }
+        if (contadorParaRegisto == 0) {
+            return true;
+        } else return false;
+    }
+
+
+
     public int getPin() {
         return pin;
     }
