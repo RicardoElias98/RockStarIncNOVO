@@ -24,6 +24,13 @@ public class Musica {
         this.registodeRating = registodeRating;
     }
 
+    public String getAutor() {
+        return autor;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
     // private double mediaDoRating () {    //está comentado porque falta o return
 
 

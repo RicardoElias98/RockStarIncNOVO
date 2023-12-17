@@ -1,6 +1,8 @@
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ItemEvent;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class InterfaceGrafica {
@@ -10,22 +12,64 @@ public class InterfaceGrafica {
         //Inicio o PROGRAMA
         Programa programa = new Programa(new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>());  //PARA TESTE
 
-        //Crio a JANELA PRINCIPAL
+        //JANELA PRINCIPAL
         JanelaPrincipal jp = new JanelaPrincipal("RockStar. Inc");
 
-        //Crio o painel da JP com os botões login e registar
+        //painel da JP com os botões login e registar
         PainelBotoesLoginRegistar pn = new PainelBotoesLoginRegistar();
 
-        //Crio o painel do LOGIN E DO REGISTO
+        //painel do LOGIN E DO REGISTO
         PainelLogin pL = new PainelLogin();
         PainelRegisto pR = new PainelRegisto();
 
-        //Crio o painel do CLIENTE APÓS FAZER LOGIN
+        //painel das "Minhas Músicas"
+        PainelMinhasMusicas minhasMusicas = new PainelMinhasMusicas();
+
+        //painel do CLIENTE APÓS FAZER LOGIN
         PainelCllienteAposLogin painelCliente = new PainelCllienteAposLogin();
+
+        //painelFlowLayoutParteDeCima
+        FLOWlayoutDefault painelCima = new FLOWlayoutDefault();
+
+        //painelFlowLayoutMinhasMusicas
+        PainelMinhasMusicas minhasMusicasClientePainel = new PainelMinhasMusicas();
+
+        JButton pesquisarTodas = new JButton();
+        pesquisarTodas.setText("Ver todas");
+        minhasMusicasClientePainel.add(pesquisarTodas);
+
+        DefaultTableModel tabelaMusicas = new DefaultTableModel();
+
+
+        tabelaMusicas.addColumn("Artista");
+        tabelaMusicas.addColumn("Música");
+        tabelaMusicas.addColumn("Álbum");
+        tabelaMusicas.addColumn("Ano");
+
+
+
+
+
+        String[] opcoes = {"Pesquisar por", "Nome da Música", "Norme do Artista"};
+        JComboBox<String> pesquisar = new JComboBox<>(opcoes);
+        pesquisar.setVisible(true);
+        minhasMusicasClientePainel.add(pesquisar);
+
+
+       /* pesquisar.addActionListener(e -> {if (pesquisar.getSelectedItem().equals("Nome da Música")) {
+
+        }} ); */
+
+
+
+
+
+
 
         //Crio, edito e adiciono os BOTÕES DO PAINEL DO CLIENTE APÓS LOGIN
         JButton minhasMusicasCliente = new JButton();
         minhasMusicasCliente.setText("Minhas Músicas");
+        //minhasMusicasCliente.setBounds(50, 50, 100, 30);
         JButton minhasPlaylistsCliente = new JButton();
         minhasPlaylistsCliente.setText("Minhas Playlists");
         JButton pesquisarMusicas = new JButton();
@@ -37,24 +81,35 @@ public class InterfaceGrafica {
         JButton cestoDeCompras = new JButton();
         cestoDeCompras.setText("Compras pendentes");
 
-        painelCliente.add(minhasMusicasCliente);
-        painelCliente.add(minhasPlaylistsCliente);
-        painelCliente.add(pesquisarMusicas);
-        painelCliente.add(pesquisarPlaylist);
-        painelCliente.add(saldo);
-        painelCliente.add(cestoDeCompras);
+        painelCima.add(minhasMusicasCliente);
+        painelCima.add(minhasPlaylistsCliente);
+        painelCima.add(pesquisarMusicas);
+        painelCima.add(pesquisarPlaylist);
+        painelCima.add(saldo);
+        painelCima.add(cestoDeCompras);
+
+        painelCliente.add(painelCima,BorderLayout.NORTH);
+        painelCliente.add(minhasMusicasClientePainel, BorderLayout.WEST);
+
 
         JButton logout = new JButton();
         logout.setText("Logout");
-
-        //Ao carregar no botão de uma das opções fica azul e os restantes ficam pretos (normais)
-        minhasMusicasCliente.addActionListener(e -> minhasMusicasCliente.setForeground(Color.BLUE)); //meter sempre os outros a preto ao mesmo tempo para não ficar azul após carregar noutro
 
         //adiciono TODOS OS PAINÉIS NA JP
         jp.add(pn);
         jp.add(pL);
         jp.add(pR);
         jp.add(painelCliente);
+
+
+
+        //Ao carregar no botão de uma das opções fica azul e os restantes ficam pretos (normais) //meter sempre os outros a preto ao mesmo tempo para não ficar azul após carregar noutro
+        minhasMusicasCliente.addActionListener(e -> {
+                    minhasMusicasCliente.setForeground(Color.BLUE);
+                    minhasMusicasClientePainel.setVisible(true);
+                }
+        );
+
 
         //botão LOGIN do 1º painel de todos
         JButton botaoLogin = new JButton();
@@ -80,6 +135,64 @@ public class InterfaceGrafica {
         //Criação de clientes e artistas temporários para registo que serão adicionados ou não ao programa
         Cliente clienteTemporarioRegisto = new Cliente("","",0,new ArrayList<>(),new ArrayList<>(),new ArrayList<>());
         Artista artistaTemporarioRegisto = new Artista("", "", 0,-1,new ArrayList<>(),new ArrayList<>());
+
+        //PARA TESTE
+        Musica musica1Teste = new Musica("Olá","Roberto", LocalDate.of(2023,10,8),new ArrayList<>(),true,"Olá album",1,new ArrayList<>());
+        clienteTemporarioParaTeste.getAquisicoes().add(musica1Teste);
+        //PARA TESTE
+
+        tabelaMusicas.addRow(new Object[]{"Autor","Nome"});
+        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+       /* tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()}); */
+
+
+
+
+        JTable tabela = new JTable(tabelaMusicas);
+
+        tabela.setVisible(false);
+        tabela.setDefaultEditor(Object.class, null);
+       // JScrollPane scrollPane = new JScrollPane(tabela);
+        // tabela.add(scrollPane, BorderLayout.CENTER);
+
+        minhasMusicasClientePainel.add(tabela,BorderLayout.CENTER);
+
+        pesquisarTodas.addActionListener(e -> {
+            tabela.setVisible(true);
+        });
 
 
         //ESPAÇO PARA COLOCAR O USERNAME NO LOGIN
@@ -162,8 +275,8 @@ public class InterfaceGrafica {
                     clienteTemporarioLogin.setUsername(usernameLogin.getText());
                     JLabel olaUsername = new JLabel();
                     olaUsername.setText("Olá, " + clienteTemporarioLogin.getUsername()+ "!");
-                    painelCliente.add(olaUsername);
-                    painelCliente.add(logout);
+                    painelCima.add(olaUsername);
+                    painelCima.add(logout);
                     painelCliente.setVisible(true);
                     jp.setLayout(new BorderLayout());
                     jp.add(painelCliente);

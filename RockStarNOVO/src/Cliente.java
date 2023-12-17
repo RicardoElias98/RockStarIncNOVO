@@ -6,10 +6,10 @@ import java.util.Scanner;
 public class Cliente extends Utilizador implements Serializable {
 
     private ArrayList<Playlist> playlist;
-    private ArrayList<Aquisicao> aquisicoes;
+    private ArrayList<Musica> aquisicoes;
     private ArrayList<Aquisicao> aquisicoesEmEsperaPorValidacao;
 
-    public Cliente(String username, String password, double saldo, ArrayList<Playlist> playlist, ArrayList<Aquisicao> aquisicoes, ArrayList<Aquisicao> aquisicoesEmEsperaPorValidacao) {
+    public Cliente(String username, String password, double saldo, ArrayList<Playlist> playlist, ArrayList<Musica> aquisicoes, ArrayList<Aquisicao> aquisicoesEmEsperaPorValidacao) {
         super(username, password, saldo);
         this.playlist = playlist;
         this.aquisicoes = aquisicoes;
@@ -92,5 +92,7 @@ public class Cliente extends Utilizador implements Serializable {
         } else return false;
     }
 
-
+    public ArrayList<Musica> getAquisicoes() {
+        return aquisicoes;
+    }
 }
