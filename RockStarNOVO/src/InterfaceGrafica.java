@@ -7,12 +7,23 @@ public class InterfaceGrafica {
 
     public InterfaceGrafica () {
 
+        //Inicio o PROGRAMA
         Programa programa = new Programa(new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>());  //PARA TESTE
+
+        //Crio a JANELA PRINCIPAL
         JanelaPrincipal jp = new JanelaPrincipal("RockStar. Inc");
+
+        //Crio o painel da JP com os botões login e registar
         PainelBotoesLoginRegistar pn = new PainelBotoesLoginRegistar();
+
+        //Crio o painel do LOGIN E DO REGISTO
         PainelLogin pL = new PainelLogin();
         PainelRegisto pR = new PainelRegisto();
+
+        //Crio o painel do CLIENTE APÓS FAZER LOGIN
         PainelCllienteAposLogin painelCliente = new PainelCllienteAposLogin();
+
+        //Crio, edito e adiciono os BOTÕES DO PAINEL DO CLIENTE APÓS LOGIN
         JButton minhasMusicasCliente = new JButton();
         minhasMusicasCliente.setText("Minhas Músicas");
         JButton minhasPlaylistsCliente = new JButton();
@@ -36,19 +47,24 @@ public class InterfaceGrafica {
         JButton logout = new JButton();
         logout.setText("Logout");
 
-
-
-
+        //Ao carregar no botão de uma das opções fica azul e os restantes ficam pretos (normais)
         minhasMusicasCliente.addActionListener(e -> minhasMusicasCliente.setForeground(Color.BLUE)); //meter sempre os outros a preto ao mesmo tempo para não ficar azul após carregar noutro
 
+        //adiciono TODOS OS PAINÉIS NA JP
         jp.add(pn);
         jp.add(pL);
         jp.add(pR);
         jp.add(painelCliente);
 
+        //botão LOGIN do 1º painel de todos
         JButton botaoLogin = new JButton();
         botaoLogin.setText("Login");
         pn.add(botaoLogin);
+
+        //botão REGISTAR do 1º painel de todos
+        JButton botaoRegistar = new JButton();
+        botaoRegistar.setText("Registar");
+        pn.add(botaoRegistar);
 
         //PARA TESTE
         Cliente clienteTemporarioParaTeste = new Cliente("Ricardo","123",0,new ArrayList<>(),new ArrayList<>(),new ArrayList<>());
@@ -57,21 +73,25 @@ public class InterfaceGrafica {
         programa.getArtistas().add(artistaTemporarioParaTeste);
         //PARA TESTE
 
+        //Criação de clientes e artistas temporários para login que serão adicionados ou não ao programa
         Cliente clienteTemporarioLogin = new Cliente("","",0,new ArrayList<>(),new ArrayList<>(),new ArrayList<>());
         Artista artistaTemporarioLogin = new Artista("","",0, -1,new ArrayList<>(),new ArrayList<>());
 
+        //Criação de clientes e artistas temporários para registo que serão adicionados ou não ao programa
         Cliente clienteTemporarioRegisto = new Cliente("","",0,new ArrayList<>(),new ArrayList<>(),new ArrayList<>());
         Artista artistaTemporarioRegisto = new Artista("", "", 0,-1,new ArrayList<>(),new ArrayList<>());
 
 
+        //ESPAÇO PARA COLOCAR O USERNAME NO LOGIN
         JTextField usernameLogin = new JTextField();
         usernameLogin.setToolTipText("exemplo: Joaquim243");
-
 
         JLabel usernameLoginTexto = new JLabel("Username");
         JLabel passwordLoginTexto = new JLabel("password");
 
         usernameLogin.setPreferredSize(new Dimension(100, 30));
+
+        //ESPAÇO PARA COLOCAR A PASSWORD NO LOGIN
         JPasswordField passwordLogin = new JPasswordField();
         passwordLogin.setToolTipText("Exemplo: AnimalDeEstimação + numero preferido");
 
@@ -82,12 +102,13 @@ public class InterfaceGrafica {
         pL.add(passwordLoginTexto);
         pL.add(passwordLogin);
 
+        //OPÇÃO DE SER MÚSICO NO LOGN
         JCheckBox artistaOpcaoLogin = new JCheckBox();
 
         artistaOpcaoLogin.setBounds(200, 430, 200, 25);
         artistaOpcaoLogin.setText("Sou Músico");
 
-
+        //PIN DO MÚSICO NO LOGIN
         JLabel pinTextoLogin = new JLabel("PIN");
         pinTextoLogin.setVisible(false);
 
@@ -104,6 +125,7 @@ public class InterfaceGrafica {
         pL.add(pinArtistaLogin);
 
 
+        //APARECE O PIN SE SELECIONAR A OPÇÃO DE MÚSICO E VICE-VERSA
         artistaOpcaoLogin.addItemListener(e -> {
             if (e.getStateChange() == ItemEvent.SELECTED) {
                 pinArtistaLogin.setVisible(true);
@@ -116,6 +138,7 @@ public class InterfaceGrafica {
             pL.repaint();
         });
 
+        //OPÇÃO DE VER A PASSOWORD
         verPasswordLogin.addActionListener(e -> {
             if (verPasswordLogin.isSelected()) {   //mete a password visível ou apenas em "*"
                 passwordLogin.setEchoChar('\u0000');
@@ -124,11 +147,12 @@ public class InterfaceGrafica {
             }
         });
 
+        //BOTÃO CONFIRMAR O LOGIN
         JButton botaoConfirmarLogin = new JButton();
         botaoConfirmarLogin.setText("Confirmar");
         pL.add(botaoConfirmarLogin);
 
-        //CONFIRMAÇÃO DE LOGIN
+        //MÉTODO CONFIRMAÇÃO DE LOGIN
         //confirmar o Login em caso de cliente
         botaoConfirmarLogin.addActionListener(e -> {
         if (!artistaOpcaoLogin.isSelected()) {
@@ -161,7 +185,7 @@ public class InterfaceGrafica {
 
 
 
-
+        //ESPAÇO PARA COLOCAR O USERNAME NO REGISTO
         JTextField username = new JTextField();
         username.setToolTipText("Exemplo: Joaquim354");
 
@@ -169,6 +193,8 @@ public class InterfaceGrafica {
         JLabel passwordTexto = new JLabel("password");
 
         username.setPreferredSize(new Dimension(100,30));
+
+        //ESPAÇO PARA COLOCAR A PASSWORD NO REGISTO
         JPasswordField password = new JPasswordField();
         password.setToolTipText("Exemplo: ClubePreferido + AnoDeNascimento");
         password.setEchoChar('*');
@@ -178,6 +204,7 @@ public class InterfaceGrafica {
         pR.add(passwordTexto);
         pR.add(password);
 
+        //OPÇÃO DE VER A PASSWORD
         JCheckBox verPassword = new JCheckBox();
         verPassword.setText("Ver password");
         pR.add(verPassword);
@@ -189,12 +216,15 @@ public class InterfaceGrafica {
         }
         });
 
+        //OPÇÃO DE SER MÚSICO
         JCheckBox artistaOpcao = new JCheckBox();
 
         artistaOpcao.setBounds(200, 430, 200, 25);
         artistaOpcao.setText("Sou Músico");
         pR.add(artistaOpcao);
 
+
+        //PIN DO MÚSICO
         JLabel pinTexto = new JLabel("PIN");
         pR.add(pinTexto);
         pinTexto.setVisible(false);
@@ -216,36 +246,37 @@ public class InterfaceGrafica {
             pR.repaint();
         });
 
-        JButton botaoRegistar = new JButton();
-        botaoRegistar.setText("Registar");
-        pn.add(botaoRegistar);
-
-
+        //Ao carregar em LOGIN aparece o painél respetivo
         botaoLogin.addActionListener(e -> pn.setVisible(false));
         botaoLogin.addActionListener(e -> pL.setVisible(true));
+
+        //Ao carregar em REGISTAR aparece o painél respetivo
         botaoRegistar.addActionListener(e -> pn.setVisible(false));
         botaoRegistar.addActionListener(e -> pR.setVisible(true));
 
-
+        //BOTÃO VOLTAR ATRÁS PARA DO LOGIN
         JButton botaoVoltarAtrasLogin = new JButton();
         botaoVoltarAtrasLogin.setText(("Regressar"));
         botaoVoltarAtrasLogin.setVisible(true);
 
         pL.add(botaoVoltarAtrasLogin);
 
+        //Ao carregar volta para o ecrã inicial
         botaoVoltarAtrasLogin.addActionListener(e -> pL.setVisible(false));
         botaoVoltarAtrasLogin.addActionListener(e -> pn.setVisible(true));
 
+        //BOTÃO VOLTAR ATRÁS PARA DO REGISTO
         JButton botaoVoltarAtrasRegisto = new JButton();
         botaoVoltarAtrasRegisto.setText(("Regressar"));
         botaoVoltarAtrasRegisto.setVisible(true);
 
+        //botão para CONFIRMAR O REGISTO
         JButton botaoConfirmar = new JButton();
         botaoConfirmar.setText("Confirmar");
         pR.add(botaoConfirmar);
         pR.add(botaoVoltarAtrasRegisto);
 
-
+        //Ao carregar volta para o ecrã inicial
         botaoVoltarAtrasRegisto.addActionListener(e -> pR.setVisible(false));
         botaoVoltarAtrasRegisto.addActionListener(e -> pn.setVisible(true));
 
