@@ -31,6 +31,15 @@ public class Musica {
     public String getTitulo() {
         return titulo;
     }
+
+    public LocalDate getData() {
+        return data;
+    }
+
+    public String getAlbum() {
+        return album;
+    }
+
     // private double mediaDoRating () {    //está comentado porque falta o return
 
 

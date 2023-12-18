@@ -38,15 +38,25 @@ public class InterfaceGrafica {
         pesquisarTodas.setText("Ver todas");
         minhasMusicasClientePainel.add(pesquisarTodas);
 
-        DefaultTableModel tabelaMusicas = new DefaultTableModel();
+
+        DefaultTableModel tabela = new DefaultTableModel();
+
+       // Adicione suas colunas ao modelo da tabela
+        tabela.addColumn("Artista");
+        tabela.addColumn("Música");
+        tabela.addColumn("Álbum");
+        tabela.addColumn("Ano");
+
+        JTable tabelaMusicas = new JTable(tabela);
 
 
-        tabelaMusicas.addColumn("Artista");
-        tabelaMusicas.addColumn("Música");
-        tabelaMusicas.addColumn("Álbum");
-        tabelaMusicas.addColumn("Ano");
+
+        int largura = 150; // Largura desejada para as colunas
 
 
+        for (int i = 0; i < tabelaMusicas.getColumnCount(); i++) {
+            tabelaMusicas.getColumnModel().getColumn(i).setPreferredWidth(largura);
+        }
 
 
 
@@ -141,57 +151,65 @@ public class InterfaceGrafica {
         clienteTemporarioParaTeste.getAquisicoes().add(musica1Teste);
         //PARA TESTE
 
-        tabelaMusicas.addRow(new Object[]{"Autor","Nome"});
-        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
-       /* tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
-        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
-        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
-        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
-        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
-        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
-        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
-        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
-        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
-        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
-        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
-        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
-        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
-        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
-        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
-        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
-        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
-        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
-        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
-        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
-        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
-        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
-        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
-        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
-        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
-        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
-        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
-        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
-        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
-        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
-        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
-        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
-        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
-        tabelaMusicas.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()}); */
+        tabela.addRow(new Object[]{"Artista","Nome","Álbum","Ano"});
+
+        tabela.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo(),musica1Teste.getAlbum(),musica1Teste.getData()});
+        tabela.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabela.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabela.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabela.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabela.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabela.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabela.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabela.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabela.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabela.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabela.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabela.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabela.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabela.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabela.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabela.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabela.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabela.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabela.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabela.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabela.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabela.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabela.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabela.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabela.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabela.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabela.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabela.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabela.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabela.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabela.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabela.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabela.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
+        tabela.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
 
 
 
 
-        JTable tabela = new JTable(tabelaMusicas);
 
-        tabela.setVisible(false);
-        tabela.setDefaultEditor(Object.class, null);
-       // JScrollPane scrollPane = new JScrollPane(tabela);
-        // tabela.add(scrollPane, BorderLayout.CENTER);
+       JScrollPane scrollPane = new JScrollPane(tabelaMusicas);
+        scrollPane.setPreferredSize(new Dimension(400, 300));
+       scrollPane.setVisible(false);
 
-        minhasMusicasClientePainel.add(tabela,BorderLayout.CENTER);
+       minhasMusicasClientePainel.add(scrollPane, BorderLayout.CENTER);
+
+
+
+
+        tabelaMusicas.setVisible(false);
+        tabelaMusicas.setDefaultEditor(Object.class, null);
 
         pesquisarTodas.addActionListener(e -> {
-            tabela.setVisible(true);
+            scrollPane.setVisible(true);
+            tabelaMusicas.setVisible(true);
+            minhasMusicasClientePainel.revalidate();
+            minhasMusicasClientePainel.repaint();
         });
 
 
