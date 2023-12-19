@@ -1,12 +1,14 @@
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.Comparator;
+
 
 public class InterfaceGrafica {
 
@@ -42,6 +44,8 @@ public class InterfaceGrafica {
         minhasMusicasClientePainel.add(pesquisarTodas);
 
 
+
+
         DefaultTableModel tabela = new DefaultTableModel();
 
        // Adicione suas colunas ao modelo da tabela
@@ -64,6 +68,11 @@ public class InterfaceGrafica {
         JComboBox<String> pesquisar = new JComboBox<>(opcoes);
         pesquisar.setVisible(true);
         minhasMusicasClientePainel.add(pesquisar);
+
+        String[] opcoesOrdenar = {"Ordenar por", "Nome da Música", "Norme do Artista"};
+        JComboBox<String> ordenar = new JComboBox<>(opcoesOrdenar);
+        ordenar.setVisible(false);
+        minhasMusicasClientePainel.add(ordenar);
 
 
        /* pesquisar.addActionListener(e -> {if (pesquisar.getSelectedItem().equals("Nome da Música")) {
@@ -149,11 +158,14 @@ public class InterfaceGrafica {
         //PARA TESTE
         Musica musica1Teste = new Musica("Olá","Roberto", LocalDate.of(2023,10,8),new ArrayList<>(),true,"Olá album",1,new ArrayList<>());
         clienteTemporarioParaTeste.getAquisicoes().add(musica1Teste);
+        Musica musica2Teste = new Musica("Alo","Roberto", LocalDate.of(2023,10,8),new ArrayList<>(),true,"Olá album",1,new ArrayList<>());
+        clienteTemporarioParaTeste.getAquisicoes().add(musica2Teste);
         //PARA TESTE
 
 
         //PARA TESTE//PARA TESTE//PARA TESTE
         tabela.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo(),musica1Teste.getAlbum(),musica1Teste.getData()});
+        tabela.addRow(new Object[]{musica2Teste.getAutor(),musica2Teste.getTitulo(),musica2Teste.getAlbum(),musica2Teste.getData()});
         tabela.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
         tabela.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
         tabela.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
@@ -204,9 +216,29 @@ public class InterfaceGrafica {
         pesquisarTodas.addActionListener(e -> {
             scrollPane.setVisible(true);
             tabelaMusicas.setVisible(true);
+            ordenar.setVisible(true);
             minhasMusicasClientePainel.revalidate();
             minhasMusicasClientePainel.repaint();
         });
+
+        //MÉTODO ORDENAR PELO NOME DA MÚSICA
+
+        ordenar.addActionListener(e -> {
+            String opcaoSelecionada = (String) ordenar.getSelectedItem();
+            if ("Nome da Música".equals(opcaoSelecionada)) {
+                TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(tabela); // modelo da tabela
+                tabelaMusicas.setRowSorter(sorter); // Associar o TableRowSorter à JTable
+                // Definir o comparador para a coluna "Nome da Música" (ordem alfabética)
+                sorter.setComparator(1, Comparator.<String>naturalOrder());
+                sorter.setSortable(0, false);
+                sorter.setSortable(2, false);
+                sorter.setSortable(3, false);
+                // Aplica a ordenação
+                sorter.sort();
+            }
+        });
+
+
 
         //PARA TESTE
         Playlist playlistTeste = new Playlist("Elias",new ArrayList<>(),true,"chill");
