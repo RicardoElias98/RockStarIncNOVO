@@ -23,6 +23,6 @@ public class Programa {
     }
 
     private void run () {   //como usar?
-
+        // invocar aqui a criação da JFRAME?
     }
 }

@@ -44,7 +44,7 @@ public class Artista extends Utilizador {
     }
 
 
-    public boolean loginArtista (String username, String password, int pin, Programa programa) {
+    public boolean loginArtista(String username, String password, int pin, Programa programa) {
         int contadorParaLogin = 0;
 
         String passEmString = new String(password);
@@ -66,7 +66,7 @@ public class Artista extends Utilizador {
         } else return false;
     }
 
-    public boolean registarArtista (String username, Programa programa) {
+    public boolean registarArtista(String username, Programa programa) {
         int contadorParaRegisto = 0;
 
         for (Cliente c : programa.getClientes()) {
@@ -80,9 +80,19 @@ public class Artista extends Utilizador {
     }
 
 
-
     public int getPin() {
         return pin;
+    }
+
+
+
+    // método para verificar se o pin é válido
+
+
+    public boolean verificaPin(int pin) {
+        if (pin == this.pin) {
+            return true;
+        } else return false;
     }
 }
 

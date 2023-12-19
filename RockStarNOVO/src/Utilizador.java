@@ -39,4 +39,11 @@ public abstract class Utilizador {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    // método para verificar se a password está correta
+
+    public boolean verificaPassword(String password) {
+        return password.equals(this.password);
+
+    }
 }
