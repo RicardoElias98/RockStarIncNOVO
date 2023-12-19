@@ -64,12 +64,12 @@ public class InterfaceGrafica {
 
 
 
-        String[] opcoes = {"Pesquisar por", "Nome da Música", "Norme do Artista"};
+        String[] opcoes = {"Pesquisar por", "Nome da Música", "Nome do Artista"};
         JComboBox<String> pesquisar = new JComboBox<>(opcoes);
         pesquisar.setVisible(true);
         minhasMusicasClientePainel.add(pesquisar);
 
-        String[] opcoesOrdenar = {"Ordenar por", "Nome da Música", "Norme do Artista"};
+        String[] opcoesOrdenar = {"Ordenar por", "Nome da Música", "Nome do Artista"};
         JComboBox<String> ordenar = new JComboBox<>(opcoesOrdenar);
         ordenar.setVisible(false);
         minhasMusicasClientePainel.add(ordenar);
@@ -158,7 +158,7 @@ public class InterfaceGrafica {
         //PARA TESTE
         Musica musica1Teste = new Musica("Olá","Roberto", LocalDate.of(2023,10,8),new ArrayList<>(),true,"Olá album",1,new ArrayList<>());
         clienteTemporarioParaTeste.getAquisicoes().add(musica1Teste);
-        Musica musica2Teste = new Musica("Alo","Roberto", LocalDate.of(2023,10,8),new ArrayList<>(),true,"Olá album",1,new ArrayList<>());
+        Musica musica2Teste = new Musica("Alo","Ana", LocalDate.of(2023,10,8),new ArrayList<>(),true,"Olá album",1,new ArrayList<>());
         clienteTemporarioParaTeste.getAquisicoes().add(musica2Teste);
         //PARA TESTE
 
@@ -231,6 +231,23 @@ public class InterfaceGrafica {
                 // Definir o comparador para a coluna "Nome da Música" (ordem alfabética)
                 sorter.setComparator(1, Comparator.<String>naturalOrder());
                 sorter.setSortable(0, false);
+                sorter.setSortable(2, false);
+                sorter.setSortable(3, false);
+                // Aplica a ordenação
+                sorter.sort();
+            }
+        });
+
+        //MÉTODO ORDENAR PELO NOME DO ARTISTA
+
+        ordenar.addActionListener(e -> {
+            String opcaoSelecionada = (String) ordenar.getSelectedItem();
+            if ("Nome do Artista".equals(opcaoSelecionada)) {
+                TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(tabela); // modelo da tabela
+                tabelaMusicas.setRowSorter(sorter); // Associar o TableRowSorter à JTable
+                // Definir o comparador para a coluna "Nome da Música" (ordem alfabética)
+                sorter.setComparator(0, Comparator.<String>naturalOrder());
+                sorter.setSortable(1, false);
                 sorter.setSortable(2, false);
                 sorter.setSortable(3, false);
                 // Aplica a ordenação
