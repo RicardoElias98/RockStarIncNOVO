@@ -2,6 +2,8 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ItemEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -151,8 +153,8 @@ public class InterfaceGrafica {
         clienteTemporarioParaTeste.getAquisicoes().add(musica1Teste);
         //PARA TESTE
 
-        tabela.addRow(new Object[]{"Artista","Nome","Álbum","Ano"});
 
+        //PARA TESTE//PARA TESTE//PARA TESTE
         tabela.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo(),musica1Teste.getAlbum(),musica1Teste.getData()});
         tabela.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
         tabela.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
@@ -188,17 +190,13 @@ public class InterfaceGrafica {
         tabela.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
         tabela.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
         tabela.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
-
-
-
-
+        //PARA TESTE//PARA TESTE//PARA TESTE
 
        JScrollPane scrollPane = new JScrollPane(tabelaMusicas);
         scrollPane.setPreferredSize(new Dimension(400, 300));
        scrollPane.setVisible(false);
 
        minhasMusicasClientePainel.add(scrollPane, BorderLayout.CENTER);
-
 
 
 
@@ -212,6 +210,54 @@ public class InterfaceGrafica {
             minhasMusicasClientePainel.repaint();
         });
 
+        //PARA TESTE
+        Playlist playlistTeste = new Playlist("Elias",new ArrayList<>(),true,"chill");
+        //PARA TESTE
+
+        JPopupMenu menuOpcoes = new JPopupMenu();
+        JMenuItem opcao1 = new JMenuItem("Adicionar a playlist");
+        JMenuItem opcao2 = new JMenuItem("Avaliar");
+        menuOpcoes.add(opcao1);
+        menuOpcoes.add(opcao2);
+        menuOpcoes.setVisible(false);
+
+        tabelaMusicas.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (SwingUtilities.isRightMouseButton(e)) {
+                    menuOpcoes.show(tabelaMusicas,e.getX(), e.getY());
+                    menuOpcoes.setVisible(true);
+                }
+            }
+        });
+
+        opcao1.addActionListener(e -> {
+            int linha = tabelaMusicas.getSelectedRow();
+            int coluna = tabelaMusicas.getSelectedColumn();
+
+
+            //Obter o objeto música de onde se clica
+            Object objetoNaLinha = tabelaMusicas.getValueAt(linha, coluna);
+            String objetoString = (String) objetoNaLinha;
+            //System.out.println(objetoString);
+
+            //Método para adicionar música à playlist
+            for (Musica musica : clienteTemporarioParaTeste.getAquisicoes()) {
+                Musica musicaAdicionada = null;
+                if (objetoString.equals(musica.getTitulo())) {
+                    musicaAdicionada = musica;
+                    playlistTeste.musicas.add(musicaAdicionada);
+                    System.out.println("Musica adiciona com sucesso: " + musicaAdicionada);
+                }
+
+            }
+
+
+
+
+             //NAO ESTOU A CONSEGUIR!!
+            // System.out.println(tabelaMusicas.get);
+        });
 
         //ESPAÇO PARA COLOCAR O USERNAME NO LOGIN
         JTextField usernameLogin = new JTextField();

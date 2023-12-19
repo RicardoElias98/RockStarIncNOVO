@@ -40,6 +40,20 @@ public class Musica {
         return album;
     }
 
+    @Override
+    public String toString() {
+        return "Musica{" +
+                "titulo='" + titulo + '\'' +
+                ", autor='" + autor + '\'' +
+                ", data=" + data +
+                ", registoDeValores=" + registoDeValores +
+                ", disponibilidade=" + disponibilidade +
+                ", album='" + album + '\'' +
+                ", idMuscia=" + idMuscia +
+                ", registodeRating=" + registodeRating +
+                '}';
+    }
+
     // private double mediaDoRating () {    //está comentado porque falta o return
 
 

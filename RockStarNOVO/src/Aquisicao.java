@@ -11,4 +11,8 @@ public class Aquisicao {
         this.precoDeAquisicao = precoDeAquisicao;
         this.dataDeAquisicao = dataDeAquisicao;
     }
+
+    public Musica getMusica() {
+        return musica;
+    }
 }
