@@ -6,6 +6,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class InterfaceGrafica {
 
@@ -51,10 +52,7 @@ public class InterfaceGrafica {
 
         JTable tabelaMusicas = new JTable(tabela);
 
-
-
         int largura = 150; // Largura desejada para as colunas
-
 
         for (int i = 0; i < tabelaMusicas.getColumnCount(); i++) {
             tabelaMusicas.getColumnModel().getColumn(i).setPreferredWidth(largura);
@@ -239,25 +237,78 @@ public class InterfaceGrafica {
             //Obter o objeto música de onde se clica
             Object objetoNaLinha = tabelaMusicas.getValueAt(linha, coluna);
             String objetoString = (String) objetoNaLinha;
-            //System.out.println(objetoString);
+
 
             //Método para adicionar música à playlist
             for (Musica musica : clienteTemporarioParaTeste.getAquisicoes()) {
-                Musica musicaAdicionada = null;
+                Musica musicaAdicionada;
                 if (objetoString.equals(musica.getTitulo())) {
                     musicaAdicionada = musica;
                     playlistTeste.musicas.add(musicaAdicionada);
                     System.out.println("Musica adiciona com sucesso: " + musicaAdicionada);
                 }
-
             }
-
-
-
-
-             //NAO ESTOU A CONSEGUIR!!
-            // System.out.println(tabelaMusicas.get);
         });
+
+
+        //MÉTODO PARA AVALIAR UMA MÚSICA -- ESTÁ A DAR ERRO, O VALOR REPETE
+        /*
+        JPopupMenu menuOpcoesAvaliar = new JPopupMenu();
+        JMenuItem avaliar1 = new JMenuItem("1");
+        JMenuItem avaliar2 = new JMenuItem("2");
+        JMenuItem avaliar3 = new JMenuItem("3");
+        JMenuItem avaliar4 = new JMenuItem("4");
+        JMenuItem avaliar5 = new JMenuItem("5");
+        JMenuItem avaliar6 = new JMenuItem("6");
+        JMenuItem avaliar7 = new JMenuItem("7");
+        JMenuItem avaliar8 = new JMenuItem("8");
+        JMenuItem avaliar9 = new JMenuItem("9");
+        JMenuItem avaliar10 = new JMenuItem("10");
+
+
+        menuOpcoesAvaliar.add(avaliar1);
+        menuOpcoesAvaliar.add(avaliar2);
+        menuOpcoesAvaliar.add(avaliar3);
+        menuOpcoesAvaliar.add(avaliar4);
+        menuOpcoesAvaliar.add(avaliar5);
+        menuOpcoesAvaliar.add(avaliar6);
+        menuOpcoesAvaliar.add(avaliar7);
+        menuOpcoesAvaliar.add(avaliar8);
+        menuOpcoesAvaliar.add(avaliar9);
+        menuOpcoesAvaliar.add(avaliar10);
+        menuOpcoesAvaliar.setVisible(false);
+
+        //Método para avaliar música
+            opcao2.addActionListener(e -> {
+            int linha = tabelaMusicas.getSelectedRow();
+            int coluna = tabelaMusicas.getSelectedColumn();
+            menuOpcoesAvaliar.show(tabelaMusicas,linha,coluna);
+            menuOpcoesAvaliar.setVisible(true);
+
+                Object objetoNaLinha = tabelaMusicas.getValueAt(linha, coluna);
+                String objetoString = (String) objetoNaLinha;
+
+                for (Musica musica : clienteTemporarioParaTeste.getAquisicoes()) {
+                    if (objetoString.equals(musica.getTitulo())) {
+                    avaliar1.addActionListener(e1-> musica.getRegistodeRating().add(1));
+                    avaliar2.addActionListener(e1 -> musica.getRegistodeRating().add(2));
+                    avaliar3.addActionListener(e1 -> musica.getRegistodeRating().add(3));
+                    avaliar4.addActionListener(e1 -> musica.getRegistodeRating().add(4));
+                    avaliar5.addActionListener(e1 -> musica.getRegistodeRating().add(5));
+                    avaliar6.addActionListener(e1 -> musica.getRegistodeRating().add(6));
+                    avaliar7.addActionListener(e1 -> musica.getRegistodeRating().add(7));
+                    avaliar8.addActionListener(e1 -> musica.getRegistodeRating().add(8));
+                    avaliar9.addActionListener(e1 -> musica.getRegistodeRating().add(9));
+                    avaliar10.addActionListener(e1 -> musica.getRegistodeRating().add(10));
+                }
+                }
+            });
+
+           JButton verRating = new JButton();
+            verRating.setVisible(true);
+            painelCliente.add(verRating);
+            verRating.addActionListener(e -> System.out.println(clienteTemporarioParaTeste.getAquisicoes())); */
+
 
         //ESPAÇO PARA COLOCAR O USERNAME NO LOGIN
         JTextField usernameLogin = new JTextField();

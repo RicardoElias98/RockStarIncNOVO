@@ -40,6 +40,14 @@ public class Musica {
         return album;
     }
 
+    public void setRegistodeRating(ArrayList<Integer> registodeRating) {
+        this.registodeRating = registodeRating;
+    }
+
+    public ArrayList<Integer> getRegistodeRating() {
+        return registodeRating;
+    }
+
     @Override
     public String toString() {
         return "Musica{" +
