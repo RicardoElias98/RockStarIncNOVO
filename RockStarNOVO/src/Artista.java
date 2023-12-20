@@ -51,17 +51,11 @@ public class Artista extends Utilizador {
 
 
         for (Artista a : programa.getArtistas()) {
-            if (username.equals(a.getUsername())) {
-                contadorParaLogin++;
-            }
-            if (passEmString.equals(a.getPassword())) {
-                contadorParaLogin++;
-            }
-            if (pin == a.getPin()) {
+            if (username.equals(a.getUsername()) & passEmString.equals(a.getPassword()) & pin == a.getPin()) {
                 contadorParaLogin++;
             }
         }
-        if (contadorParaLogin == 3) {
+        if (contadorParaLogin != 0) {
             return true;
         } else return false;
     }
@@ -84,10 +78,7 @@ public class Artista extends Utilizador {
         return pin;
     }
 
-
-
     // método para verificar se o pin é válido
-
 
     public boolean verificaPin(int pin) {
         if (pin == this.pin) {

@@ -2,9 +2,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import java.awt.*;
-import java.awt.event.ItemEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -43,9 +41,6 @@ public class InterfaceGrafica {
         pesquisarTodas.setText("Ver todas");
         minhasMusicasClientePainel.add(pesquisarTodas);
 
-
-
-
         DefaultTableModel tabela = new DefaultTableModel();
 
        // Adicione suas colunas ao modelo da tabela
@@ -64,23 +59,54 @@ public class InterfaceGrafica {
 
 
 
-        String[] opcoes = {"Pesquisar por", "Nome da Música", "Norme do Artista"};
+        String[] opcoes = {"Pesquisar por", "Nome da Música", "Nome do Artista"};
         JComboBox<String> pesquisar = new JComboBox<>(opcoes);
         pesquisar.setVisible(true);
         minhasMusicasClientePainel.add(pesquisar);
 
-        String[] opcoesOrdenar = {"Ordenar por", "Nome da Música", "Norme do Artista"};
+        JTextField nomeDaMusicaPesquisa = new JTextField();
+        nomeDaMusicaPesquisa.setPreferredSize(new Dimension(200, 20));
+        minhasMusicasClientePainel.add(nomeDaMusicaPesquisa);
+        nomeDaMusicaPesquisa.setVisible(false);
+
+        String[] opcoesOrdenar = {"Ordenar por", "Nome da Música", "Nome do Artista"};
         JComboBox<String> ordenar = new JComboBox<>(opcoesOrdenar);
         ordenar.setVisible(false);
         minhasMusicasClientePainel.add(ordenar);
 
 
-       /* pesquisar.addActionListener(e -> {if (pesquisar.getSelectedItem().equals("Nome da Música")) {
+        pesquisar.addActionListener(e -> {
+            String opcaoSelecionada = (String) pesquisar.getSelectedItem();
+            if ("Nome da Música".equalsIgnoreCase(opcaoSelecionada)) {
+                nomeDaMusicaPesquisa.setVisible(true);
+                minhasMusicasClientePainel.revalidate();
+                minhasMusicasClientePainel.repaint();
+            }
+        });
 
-        }} ); */
+        //APOS CARREGAR NO ENTER
+        nomeDaMusicaPesquisa.addKeyListener(new KeyListener() {
+                                                @Override
+                                                public void keyTyped(KeyEvent e) {
+                                                    // Este método é chamado quando uma tecla é pressionada e libera
+                                                }
 
+                                                @Override
 
+                                                public void keyPressed(KeyEvent e) {
+                                                    // Este método é chamado quando uma tecla é pressionada
+                                                    if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                                                        // Ação a ser realizada quando Enter for pressionado
+                                                        String textoDigitado = nomeDaMusicaPesquisa.getText();
+                                                        System.out.println("Texto digitado: " + textoDigitado);
+                                                    }
+                                                }
 
+            @Override
+            public void keyReleased(KeyEvent e) {
+// Este método é chamado quando uma tecla é liberada
+            }
+        });
 
 
 
@@ -125,9 +151,70 @@ public class InterfaceGrafica {
         //Ao carregar no botão de uma das opções fica azul e os restantes ficam pretos (normais) //meter sempre os outros a preto ao mesmo tempo para não ficar azul após carregar noutro
         minhasMusicasCliente.addActionListener(e -> {
                     minhasMusicasCliente.setForeground(Color.BLUE);
+                    minhasPlaylistsCliente.setForeground(Color.BLACK);
+                    pesquisarMusicas.setForeground(Color.BLACK);
+                    pesquisarPlaylist.setForeground(Color.BLACK);
+                    saldo.setForeground(Color.BLACK);
+                    cestoDeCompras.setForeground(Color.BLACK);
                     minhasMusicasClientePainel.setVisible(true);
                 }
         );
+
+        minhasPlaylistsCliente.addActionListener(e -> {
+                    minhasMusicasCliente.setForeground(Color.BLACK);
+                    minhasPlaylistsCliente.setForeground(Color.BLUE);
+                    pesquisarMusicas.setForeground(Color.BLACK);
+                    pesquisarPlaylist.setForeground(Color.BLACK);
+                    saldo.setForeground(Color.BLACK);
+                    cestoDeCompras.setForeground(Color.BLACK);
+                    minhasMusicasClientePainel.setVisible(false);
+                }
+        );
+
+        pesquisarMusicas.addActionListener(e -> {
+                    minhasMusicasCliente.setForeground(Color.BLACK);
+                    minhasPlaylistsCliente.setForeground(Color.BLACK);
+                    pesquisarMusicas.setForeground(Color.BLUE);
+                    pesquisarPlaylist.setForeground(Color.BLACK);
+                    saldo.setForeground(Color.BLACK);
+                    cestoDeCompras.setForeground(Color.BLACK);
+                    minhasMusicasClientePainel.setVisible(false);
+                }
+        );
+
+        pesquisarPlaylist.addActionListener(e -> {
+                    minhasMusicasCliente.setForeground(Color.BLACK);
+                    minhasPlaylistsCliente.setForeground(Color.BLACK);
+                    pesquisarMusicas.setForeground(Color.BLACK);
+                    pesquisarPlaylist.setForeground(Color.BLUE);
+                    saldo.setForeground(Color.BLACK);
+                    cestoDeCompras.setForeground(Color.BLACK);
+                    minhasMusicasClientePainel.setVisible(false);
+                }
+        );
+
+        saldo.addActionListener(e -> {
+                    minhasMusicasCliente.setForeground(Color.BLACK);
+                    minhasPlaylistsCliente.setForeground(Color.BLACK);
+                    pesquisarMusicas.setForeground(Color.BLACK);
+                    pesquisarPlaylist.setForeground(Color.BLACK);
+                    saldo.setForeground(Color.BLUE);
+                    cestoDeCompras.setForeground(Color.BLACK);
+            minhasMusicasClientePainel.setVisible(false);
+                }
+        );
+
+        cestoDeCompras.addActionListener(e -> {
+                    minhasMusicasCliente.setForeground(Color.BLACK);
+                    minhasPlaylistsCliente.setForeground(Color.BLACK);
+                    pesquisarMusicas.setForeground(Color.BLACK);
+                    pesquisarPlaylist.setForeground(Color.BLACK);
+                    saldo.setForeground(Color.BLACK);
+                    cestoDeCompras.setForeground(Color.BLUE);
+            minhasMusicasClientePainel.setVisible(false);
+                }
+        );
+
 
 
         //botão LOGIN do 1º painel de todos
@@ -158,7 +245,7 @@ public class InterfaceGrafica {
         //PARA TESTE
         Musica musica1Teste = new Musica("Olá","Roberto", LocalDate.of(2023,10,8),new ArrayList<>(),true,"Olá album",1,new ArrayList<>());
         clienteTemporarioParaTeste.getAquisicoes().add(musica1Teste);
-        Musica musica2Teste = new Musica("Alo","Roberto", LocalDate.of(2023,10,8),new ArrayList<>(),true,"Olá album",1,new ArrayList<>());
+        Musica musica2Teste = new Musica("Alo","Ana", LocalDate.of(2023,10,8),new ArrayList<>(),true,"Olá album",1,new ArrayList<>());
         clienteTemporarioParaTeste.getAquisicoes().add(musica2Teste);
         //PARA TESTE
 
@@ -238,6 +325,23 @@ public class InterfaceGrafica {
             }
         });
 
+        //MÉTODO ORDENAR PELO NOME DO ARTISTA
+
+        ordenar.addActionListener(e -> {
+            String opcaoSelecionada = (String) ordenar.getSelectedItem();
+            if ("Nome do Artista".equals(opcaoSelecionada)) {
+                TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(tabela); // modelo da tabela
+                tabelaMusicas.setRowSorter(sorter); // Associar o TableRowSorter à JTable
+                // Definir o comparador para a coluna "Nome da Música" (ordem alfabética)
+                sorter.setComparator(0, Comparator.<String>naturalOrder());
+                sorter.setSortable(1, false);
+                sorter.setSortable(2, false);
+                sorter.setSortable(3, false);
+                // Aplica a ordenação
+                sorter.sort();
+            }
+        });
+
 
 
         //PARA TESTE
@@ -284,7 +388,8 @@ public class InterfaceGrafica {
 
 
         //MÉTODO PARA AVALIAR UMA MÚSICA -- ESTÁ A DAR ERRO, O VALOR REPETE
-        /*
+
+
         JPopupMenu menuOpcoesAvaliar = new JPopupMenu();
         JMenuItem avaliar1 = new JMenuItem("1");
         JMenuItem avaliar2 = new JMenuItem("2");
@@ -311,6 +416,7 @@ public class InterfaceGrafica {
         menuOpcoesAvaliar.setVisible(false);
 
         //Método para avaliar música
+        /*
             opcao2.addActionListener(e -> {
             int linha = tabelaMusicas.getSelectedRow();
             int coluna = tabelaMusicas.getSelectedColumn();
@@ -340,7 +446,6 @@ public class InterfaceGrafica {
             verRating.setVisible(true);
             painelCliente.add(verRating);
             verRating.addActionListener(e -> System.out.println(clienteTemporarioParaTeste.getAquisicoes())); */
-
 
         //ESPAÇO PARA COLOCAR O USERNAME NO LOGIN
         JTextField usernameLogin = new JTextField();

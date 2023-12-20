@@ -11,7 +11,7 @@ public class Musica {
     private String album;
 
     private int idMuscia;
-    private ArrayList <Integer> registodeRating;
+    private ArrayList <Integer> registodeRating; //HASMAP
 
     public Musica(String titulo, String autor, LocalDate data, ArrayList<Integer> registoDeValores, boolean disponibilidade, String album, int idMuscia, ArrayList<Integer> registodeRating) {
         this.titulo = titulo;
