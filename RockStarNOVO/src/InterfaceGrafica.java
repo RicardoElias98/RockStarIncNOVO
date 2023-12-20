@@ -546,6 +546,7 @@ public class InterfaceGrafica {
                     PainelArtistaAposLogin painelArtista = new PainelArtistaAposLogin(artistaTemporarioLogin);
                     jp.add(painelArtista);
                     painelArtista.setVisible(true);
+
                 } else {
                     JOptionPane.showMessageDialog(null, "Username/Password não encontrado/encontrada", "Ups", JOptionPane.WARNING_MESSAGE);
                 }
