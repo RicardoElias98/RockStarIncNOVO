@@ -437,7 +437,10 @@ public class InterfaceGrafica {
                 if ((artistaTemporarioLogin.loginArtista(usernameLogin.getText(),new String(passwordLogin.getPassword()), Integer.parseInt(new String (pinArtistaLogin.getPassword())),programa))) {
                     JOptionPane.showMessageDialog(null, "Bem-vindo " + usernameLogin.getText() + "\nFique durante muito tempo", "Bem-vindo", JOptionPane.INFORMATION_MESSAGE);
                     pL.setVisible(false);
-                    painelCliente.setVisible(true);
+                    painelCliente.setVisible(false);
+                    PainelArtistaAposLogin painelArtista = new PainelArtistaAposLogin(artistaTemporarioLogin);
+                    jp.add(painelArtista);
+                    painelArtista.setVisible(true);
                 } else {
                     JOptionPane.showMessageDialog(null, "Username/Password não encontrado/encontrada", "Ups", JOptionPane.WARNING_MESSAGE);
                 }
