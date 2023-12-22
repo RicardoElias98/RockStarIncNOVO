@@ -1,3 +1,8 @@
+package Visual;
+
+import Modelo.Artista;
+import Visual.FLOWlayoutDefault;
+
 import javax.swing.*;
 import java.awt.*;
 

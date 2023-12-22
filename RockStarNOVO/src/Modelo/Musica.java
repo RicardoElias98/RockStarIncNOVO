@@ -1,3 +1,5 @@
+package Modelo;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -50,7 +52,7 @@ public class Musica {
 
     @Override
     public String toString() {
-        return "Musica{" +
+        return "Modelo.Musica{" +
                 "titulo='" + titulo + '\'' +
                 ", autor='" + autor + '\'' +
                 ", data=" + data +

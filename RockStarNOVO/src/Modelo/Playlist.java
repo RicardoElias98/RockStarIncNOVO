@@ -1,3 +1,8 @@
+package Modelo;
+
+import Modelo.ConjuntoDeMusicas;
+import Modelo.Musica;
+
 import java.util.ArrayList;
 
 public class Playlist extends ConjuntoDeMusicas {

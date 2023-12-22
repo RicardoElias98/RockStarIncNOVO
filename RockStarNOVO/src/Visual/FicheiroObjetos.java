@@ -1,3 +1,5 @@
+package Visual;
+
 import java.io.*;
 
 public class FicheiroObjetos {

@@ -1,3 +1,5 @@
+package Modelo;
+
 public abstract class Utilizador {
     protected String username;
     protected String password;

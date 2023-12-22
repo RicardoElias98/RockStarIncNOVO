@@ -1,3 +1,8 @@
+package Visual;
+
+import Modelo.*;
+import Visual.FLOWlayoutDefault;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
@@ -37,6 +42,13 @@ public class InterfaceGrafica {
         //painelFlowLayoutMinhasMusicas
         PainelMinhasMusicas minhasMusicasClientePainel = new PainelMinhasMusicas();
 
+        //PARA TESTE
+        Cliente clienteTemporarioParaTeste = new Cliente("Ricardo","123",0,new ArrayList<Playlist>(),new ArrayList<>(),new ArrayList<>());
+        programa.getClientes().add(clienteTemporarioParaTeste);
+        Artista artistaTemporarioParaTeste = new Artista("Ricardo","1234",0, 123,new ArrayList<>(),new ArrayList<>());
+        programa.getArtistas().add(artistaTemporarioParaTeste);
+        //PARA TESTE
+
         JButton pesquisarTodas = new JButton();
         pesquisarTodas.setText("Ver todas");
         minhasMusicasClientePainel.add(pesquisarTodas);
@@ -44,7 +56,7 @@ public class InterfaceGrafica {
         DefaultTableModel tabela = new DefaultTableModel();
 
        // Adicione suas colunas ao modelo da tabela
-        tabela.addColumn("Artista");
+        tabela.addColumn("Modelo.Artista");
         tabela.addColumn("Música");
         tabela.addColumn("Álbum");
         tabela.addColumn("Ano");
@@ -56,7 +68,6 @@ public class InterfaceGrafica {
         for (int i = 0; i < tabelaMusicas.getColumnCount(); i++) {
             tabelaMusicas.getColumnModel().getColumn(i).setPreferredWidth(largura);
         }
-
 
 
         String[] opcoes = {"Pesquisar por", "Nome da Música", "Nome do Artista"};
@@ -84,31 +95,49 @@ public class InterfaceGrafica {
             }
         });
 
+        JScrollPane scrollPane2 = new JScrollPane(tabelaMusicas);
+        scrollPane2.setPreferredSize(new Dimension(400, 300));
+        scrollPane2.setVisible(false);
+
+        minhasMusicasClientePainel.add(scrollPane2, BorderLayout.CENTER);
+
         //APOS CARREGAR NO ENTER
         nomeDaMusicaPesquisa.addKeyListener(new KeyListener() {
-                                                @Override
-                                                public void keyTyped(KeyEvent e) {
-                                                    // Este método é chamado quando uma tecla é pressionada e libera
-                                                }
+            @Override
+            public void keyTyped(KeyEvent e) {
+                // Este método é chamado quando uma tecla é pressionada
+             }
 
-                                                @Override
+             @Override
 
-                                                public void keyPressed(KeyEvent e) {
-                                                    // Este método é chamado quando uma tecla é pressionada
-                                                    if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                                                        // Ação a ser realizada quando Enter for pressionado
-                                                        String textoDigitado = nomeDaMusicaPesquisa.getText();
-                                                        System.out.println("Texto digitado: " + textoDigitado);
-                                                    }
-                                                }
+             public void keyPressed(KeyEvent e) {
+                 // Este método é chamado quando uma tecla é pressionada
+                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                     // Ação a ser realizada quando Enter for pressionado
+                     String textoDigitado = nomeDaMusicaPesquisa.getText();
+                     scrollPane2.setVisible(false);
+                     //Método verificar a musica
+                     for (Musica musicas : clienteTemporarioParaTeste.getAquisicoes()) {
+                         if (textoDigitado.equals(musicas.getTitulo())) {
+                             JTextField caixaDeTexto = new JTextField();
+                             caixaDeTexto.setText(String.valueOf(musicas));
+                             caixaDeTexto.setEditable(false);
+                             minhasMusicasClientePainel.add(caixaDeTexto,FlowLayout.TRAILING);
+                             minhasMusicasClientePainel.revalidate();
+                             minhasMusicasClientePainel.repaint();
+
+
+
+                         }
+                     }
+                 }
+             }
 
             @Override
             public void keyReleased(KeyEvent e) {
-// Este método é chamado quando uma tecla é liberada
+            // Este método é chamado quando uma tecla é libertada
             }
         });
-
-
 
 
         //Crio, edito e adiciono os BOTÕES DO PAINEL DO CLIENTE APÓS LOGIN
@@ -227,12 +256,6 @@ public class InterfaceGrafica {
         botaoRegistar.setText("Registar");
         pn.add(botaoRegistar);
 
-        //PARA TESTE
-        Cliente clienteTemporarioParaTeste = new Cliente("Ricardo","123",0,new ArrayList<>(),new ArrayList<>(),new ArrayList<>());
-        programa.getClientes().add(clienteTemporarioParaTeste);
-        Artista artistaTemporarioParaTeste = new Artista("Ricardo","1234",0, 123,new ArrayList<>(),new ArrayList<>());
-        programa.getArtistas().add(artistaTemporarioParaTeste);
-        //PARA TESTE
 
         //Criação de clientes e artistas temporários para login que serão adicionados ou não ao programa
         Cliente clienteTemporarioLogin = new Cliente("","",0,new ArrayList<>(),new ArrayList<>(),new ArrayList<>());
@@ -289,19 +312,12 @@ public class InterfaceGrafica {
         tabela.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo()});
         //PARA TESTE//PARA TESTE//PARA TESTE
 
-       JScrollPane scrollPane = new JScrollPane(tabelaMusicas);
-        scrollPane.setPreferredSize(new Dimension(400, 300));
-       scrollPane.setVisible(false);
-
-       minhasMusicasClientePainel.add(scrollPane, BorderLayout.CENTER);
-
-
 
         tabelaMusicas.setVisible(false);
         tabelaMusicas.setDefaultEditor(Object.class, null);
 
         pesquisarTodas.addActionListener(e -> {
-            scrollPane.setVisible(true);
+            scrollPane2.setVisible(true);
             tabelaMusicas.setVisible(true);
             ordenar.setVisible(true);
             minhasMusicasClientePainel.revalidate();
@@ -329,7 +345,7 @@ public class InterfaceGrafica {
 
         ordenar.addActionListener(e -> {
             String opcaoSelecionada = (String) ordenar.getSelectedItem();
-            if ("Nome do Artista".equals(opcaoSelecionada)) {
+            if ("Nome do Modelo.Artista".equals(opcaoSelecionada)) {
                 TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(tabela); // modelo da tabela
                 tabelaMusicas.setRowSorter(sorter); // Associar o TableRowSorter à JTable
                 // Definir o comparador para a coluna "Nome da Música" (ordem alfabética)
@@ -381,7 +397,7 @@ public class InterfaceGrafica {
                 if (objetoString.equals(musica.getTitulo())) {
                     musicaAdicionada = musica;
                     playlistTeste.musicas.add(musicaAdicionada);
-                    System.out.println("Musica adiciona com sucesso: " + musicaAdicionada);
+                    System.out.println("Modelo.Musica adiciona com sucesso: " + musicaAdicionada);
                 }
             }
         });
@@ -416,7 +432,7 @@ public class InterfaceGrafica {
         menuOpcoesAvaliar.setVisible(false);
 
         //Método para avaliar música
-        /*
+
             opcao2.addActionListener(e -> {
             int linha = tabelaMusicas.getSelectedRow();
             int coluna = tabelaMusicas.getSelectedColumn();
@@ -428,24 +444,24 @@ public class InterfaceGrafica {
 
                 for (Musica musica : clienteTemporarioParaTeste.getAquisicoes()) {
                     if (objetoString.equals(musica.getTitulo())) {
-                    avaliar1.addActionListener(e1-> musica.getRegistodeRating().add(1));
-                    avaliar2.addActionListener(e1 -> musica.getRegistodeRating().add(2));
-                    avaliar3.addActionListener(e1 -> musica.getRegistodeRating().add(3));
-                    avaliar4.addActionListener(e1 -> musica.getRegistodeRating().add(4));
-                    avaliar5.addActionListener(e1 -> musica.getRegistodeRating().add(5));
-                    avaliar6.addActionListener(e1 -> musica.getRegistodeRating().add(6));
-                    avaliar7.addActionListener(e1 -> musica.getRegistodeRating().add(7));
-                    avaliar8.addActionListener(e1 -> musica.getRegistodeRating().add(8));
-                    avaliar9.addActionListener(e1 -> musica.getRegistodeRating().add(9));
-                    avaliar10.addActionListener(e1 -> musica.getRegistodeRating().add(10));
+                    avaliar1.addActionListener(e1-> clienteTemporarioParaTeste.adicionarRating(musica,1));
+                    avaliar2.addActionListener(e1-> clienteTemporarioParaTeste.adicionarRating(musica,2));
+                    avaliar3.addActionListener(e1-> clienteTemporarioParaTeste.adicionarRating(musica,3));
+                    avaliar4.addActionListener(e1-> clienteTemporarioParaTeste.adicionarRating(musica,4));
+                    avaliar5.addActionListener(e1-> clienteTemporarioParaTeste.adicionarRating(musica,5));
+                    avaliar6.addActionListener(e1-> clienteTemporarioParaTeste.adicionarRating(musica,6));
+                    avaliar7.addActionListener(e1-> clienteTemporarioParaTeste.adicionarRating(musica,7));
+                    avaliar8.addActionListener(e1-> clienteTemporarioParaTeste.adicionarRating(musica,8));
+                    avaliar9.addActionListener(e1-> clienteTemporarioParaTeste.adicionarRating(musica,9));
+                    avaliar10.addActionListener(e1-> clienteTemporarioParaTeste.adicionarRating(musica,10));
                 }
                 }
             });
 
-           JButton verRating = new JButton();
+            JButton verRating = new JButton();
             verRating.setVisible(true);
             painelCliente.add(verRating);
-            verRating.addActionListener(e -> System.out.println(clienteTemporarioParaTeste.getAquisicoes())); */
+            verRating.addActionListener(e -> System.out.println(clienteTemporarioParaTeste.getAquisicoes()));
 
         //ESPAÇO PARA COLOCAR O USERNAME NO LOGIN
         JTextField usernameLogin = new JTextField();

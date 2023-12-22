@@ -1,15 +1,18 @@
+package Visual;
+
 import javax.swing.*;
 import java.awt.*;
 
-public class PainelMinhasMusicas extends JPanel {
+public class PainelCllienteAposLogin extends JPanel {
 
-    public PainelMinhasMusicas() {
+    public PainelCllienteAposLogin() {
         initComponents();
     }
 
     private void initComponents() {
-        setLayout(new FlowLayout());
+        setLayout(new BorderLayout());
         setBackground(Color.ORANGE);
         setVisible(false);
     }
 }
+

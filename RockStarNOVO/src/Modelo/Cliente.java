@@ -1,7 +1,7 @@
+package Modelo;
+
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
 
 public class Cliente extends Utilizador implements Serializable {
 
@@ -14,6 +14,9 @@ public class Cliente extends Utilizador implements Serializable {
         this.playlist = playlist;
         this.aquisicoes = aquisicoes;
         this.aquisicoesEmEsperaPorValidacao = aquisicoesEmEsperaPorValidacao;
+    }
+    public ArrayList<Musica> getAquisicoes() {
+        return aquisicoes;
     }
 
     private void adicionarMusicaAplaylist(Musica musica, Playlist playlist) {
@@ -28,7 +31,7 @@ public class Cliente extends Utilizador implements Serializable {
 
     }
 
-   /*  private Playlist verPlaylist () { //está comentado porque falta o return
+   /*  private Modelo.Playlist verPlaylist () { //está comentado porque falta o return
 
 
     } */
@@ -41,8 +44,8 @@ public class Cliente extends Utilizador implements Serializable {
 
     }
 
-    private void adicionarRating(int pontuacao) {
-
+    public void adicionarRating(Musica musica, int pontuacao) {
+        musica.getRegistodeRating().add(pontuacao);
     }
 
     private void adicionarMusicasAoCarrinho(Musica musica) {
@@ -58,7 +61,6 @@ public class Cliente extends Utilizador implements Serializable {
     }
 
     private void alterarSaldo() {
-
     }
 
     public boolean login(String username, String password, Programa programa) {
@@ -90,9 +92,5 @@ public class Cliente extends Utilizador implements Serializable {
         if (contadorParaRegisto == 0) {
             return true;
         } else return false;
-    }
-
-    public ArrayList<Musica> getAquisicoes() {
-        return aquisicoes;
     }
 }
