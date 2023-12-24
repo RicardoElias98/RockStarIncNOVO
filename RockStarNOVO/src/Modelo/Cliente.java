@@ -1,5 +1,6 @@
 package Modelo;
 
+import javax.swing.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -19,8 +20,26 @@ public class Cliente extends Utilizador implements Serializable {
         return aquisicoes;
     }
 
-    private void adicionarMusicaAplaylist(Musica musica, Playlist playlist) {
+    public void adicionarMusicaAplaylist(Playlist playlist1, JTable tabelaMusicas,JTable tabelaPlaylists, int linha, int coluna) {
+        //Obter o objeto música de onde se clica
+        Object objetoNaLinha = tabelaMusicas.getValueAt(linha, coluna);
+        String objetoString = (String) objetoNaLinha;
 
+        //Método para adicionar música à playlist
+        for (Musica m : this.getAquisicoes()) {
+            if (objetoString.equals(m.getTitulo())) {
+                playlist1.musicas.add(m);
+                for (int linhaTabela = 0; linhaTabela < tabelaPlaylists.getRowCount(); linhaTabela++) {
+                    for (int colunaTabela = 0; colunaTabela < tabelaPlaylists.getColumnCount(); colunaTabela++) {
+                        Object valor = tabelaPlaylists.getValueAt(linhaTabela, colunaTabela);
+                        if (valor.equals(playlist1.getNome())) {
+                            tabelaPlaylists.setValueAt(contarNumMusicas(playlist1), linhaTabela, colunaTabela+1);
+                        }
+                    }
+
+                }
+            }
+        }
     }
 
     private void criarPlaylist(String genero, int numMusicas) {
@@ -99,5 +118,15 @@ public class Cliente extends Utilizador implements Serializable {
 
     public ArrayList<Playlist> getPlaylist() {
         return playlist;
+    }
+
+    public static int contarNumMusicas (Playlist playlist) {
+        int contador = 0;
+        for (Musica m : playlist.getMusicas()) {
+            if (!m.getTitulo().equals("")) {
+                contador++;
+            }
+        }
+        return contador;
     }
 }

@@ -566,22 +566,8 @@ public class InterfaceGrafica {
         opcao1.addActionListener(e -> {
             int linha = tabelaMusicas.getSelectedRow();
             int coluna = tabelaMusicas.getSelectedColumn();
-
-
-            //Obter o objeto música de onde se clica
-            Object objetoNaLinha = tabelaMusicas.getValueAt(linha, coluna);
-            String objetoString = (String) objetoNaLinha;
-
-
-            //Método para adicionar música à playlist
-            for (Musica musica : clienteTemporarioParaTeste.getAquisicoes()) {
-                Musica musicaAdicionada;
-                if (objetoString.equals(musica.getTitulo())) {
-                    musicaAdicionada = musica;
-                    playlistTeste.musicas.add(musicaAdicionada);
-                    System.out.println("Modelo.Musica adiciona com sucesso: " + musicaAdicionada);
-                }
-            }
+            
+            clienteTemporarioParaTeste.adicionarMusicaAplaylist(playlist1,tabelaMusicas,tabelaPlaylists,linha,coluna);
         });
 
 
@@ -878,7 +864,7 @@ public class InterfaceGrafica {
         jp.setLocationRelativeTo(null);
     }
 
-    public int contarNumMusicas (Playlist playlist) {
+    public static int contarNumMusicas (Playlist playlist) {
         int contador = 0;
         for (Musica m : playlist.getMusicas()) {
             if (!m.getTitulo().equals("")) {
