@@ -27,11 +27,12 @@ public class Cliente extends Utilizador implements Serializable {
 
     }
 
-    private void criarPlaylist() {
-
+    public Playlist criarPlaylist() {
+        Playlist pl = new Playlist("",new ArrayList<>(),true,"");
+        return pl;
     }
 
-   /*  private Modelo.Playlist verPlaylist () { //está comentado porque falta o return
+   /*  private Playlist verPlaylist () { //está comentado porque falta o return
 
 
     } */
@@ -40,8 +41,10 @@ public class Cliente extends Utilizador implements Serializable {
 
     }
 
-    private void mudarVisibilidade() {
-
+    public void mudarVisibilidade(boolean visibilidade, Playlist pl) {
+        if (visibilidade) {
+            pl.setVisibilidade(false);
+        } else pl.setVisibilidade(true);
     }
 
     public void adicionarRating(Musica musica, int pontuacao) {
@@ -92,5 +95,9 @@ public class Cliente extends Utilizador implements Serializable {
         if (contadorParaRegisto == 0) {
             return true;
         } else return false;
+    }
+
+    public ArrayList<Playlist> getPlaylist() {
+        return playlist;
     }
 }

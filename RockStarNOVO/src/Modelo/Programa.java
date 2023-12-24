@@ -1,9 +1,5 @@
 package Modelo;
 
-import Modelo.Artista;
-import Modelo.Cliente;
-import Modelo.Musica;
-import Modelo.Playlist;
 
 import java.util.ArrayList;
 

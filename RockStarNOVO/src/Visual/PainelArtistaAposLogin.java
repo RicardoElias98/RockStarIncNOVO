@@ -24,7 +24,7 @@ public class PainelArtistaAposLogin extends JPanel {
         FLOWlayoutDefault painelCima = new FLOWlayoutDefault();
 
 
-// erro get nome artista
+        // erro get nome artista
         JLabel olaUsername = new JLabel();
        olaUsername.setText("Olá, " +  "artista.getUsername()" + "!");
         JButton logout = new JButton();
@@ -38,8 +38,6 @@ public class PainelArtistaAposLogin extends JPanel {
         adicionarMusicas.setText("Adicionar Músicas");
         JButton estatisticas = new JButton();
         estatisticas.setText("Estatísticas");
-
-
         painelCima.add(minhasMusicasArtista);
         painelCima.add(adicionarMusicas);
         painelCima.add(estatisticas);

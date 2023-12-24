@@ -1,8 +1,5 @@
 package Modelo;
 
-import Modelo.ConjuntoDeMusicas;
-import Modelo.Musica;
-
 import java.util.ArrayList;
 
 public class Playlist extends ConjuntoDeMusicas {
@@ -14,4 +11,34 @@ public class Playlist extends ConjuntoDeMusicas {
         this.visibilidade = visibilidade;
         this.descricao = descricao;
     }
+
+    public boolean isVisibilidade() {
+        return visibilidade;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    @Override
+    public String toString() {
+        return "Playlist{" +
+                "nome='" + nome + '\'' +
+                '}';
+    }
+
+    public boolean atribuirVisibilidade(String visibilidade) {
+        if (visibilidade.equals("Sim")) {
+            return true;
+        } else return false;
+    }
+
+    public void setVisibilidade(boolean visibilidade) {
+        this.visibilidade = visibilidade;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
 }
+

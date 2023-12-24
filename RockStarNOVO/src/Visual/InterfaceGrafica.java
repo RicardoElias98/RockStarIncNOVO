@@ -11,14 +11,29 @@ import java.awt.event.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Iterator;
 
 
 public class InterfaceGrafica {
 
     public InterfaceGrafica () {
+        initComponents();
+    }
+
+    public void initComponents() {
+
+
 
         //Inicio o PROGRAMA
-        Programa programa = new Programa(new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>());  //PARA TESTE
+        Programa programa = new Programa(new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>());
+        //PARA TESTE
+
+        //PARA TESTE
+        Cliente clienteTemporarioParaTeste = new Cliente("Ricardo","123",0,new ArrayList<Playlist>(),new ArrayList<>(),new ArrayList<>());
+        programa.getClientes().add(clienteTemporarioParaTeste);
+        Artista artistaTemporarioParaTeste = new Artista("Ricardo","1234",0, 123,new ArrayList<>(),new ArrayList<>());
+        programa.getArtistas().add(artistaTemporarioParaTeste);
+        //PARA TESTE
 
         //JANELA PRINCIPAL
         JanelaPrincipal jp = new JanelaPrincipal("RockStar. Inc");
@@ -42,12 +57,176 @@ public class InterfaceGrafica {
         //painelFlowLayoutMinhasMusicas
         PainelMinhasMusicas minhasMusicasClientePainel = new PainelMinhasMusicas();
 
+        //painelFlowLayout Playlists
+        PainelMinhasPlaylists minhasPlaylistsClientePainel = new PainelMinhasPlaylists();
+
+        JButton criarPlaylist = new JButton();
+        criarPlaylist.setText("Criar playlist");
+        minhasPlaylistsClientePainel.add(criarPlaylist);
+
+        minhasPlaylistsClientePainel.revalidate();
+        minhasPlaylistsClientePainel.repaint();
+        JButton criarPlaylistRandom = new JButton();
+        criarPlaylistRandom.setText("Criar playlist aleatória");
+        minhasPlaylistsClientePainel.add(criarPlaylistRandom);
+
+        painelCliente.add(minhasPlaylistsClientePainel);
+
+        DefaultTableModel tabelaPlaylist = new DefaultTableModel();
+
+        // Adicione suas colunas ao modelo da tabela
+        tabelaPlaylist.addColumn("Nome");
+        tabelaPlaylist.addColumn("Numero de musicas");
+        tabelaPlaylist.addColumn("Visibilidade");
+        tabelaPlaylist.addColumn("Descrição");
+
+        JTable tabelaPlaylists = new JTable(tabelaPlaylist);
+        tabelaPlaylists.setDefaultEditor(Object.class, null);
+
+        JScrollPane scrollPane = new JScrollPane(tabelaPlaylists);
+        scrollPane.setPreferredSize(new Dimension(800, 300));
+        scrollPane.setVisible(true);
+        minhasPlaylistsClientePainel.add(scrollPane, BorderLayout.CENTER);
+
+        JPopupMenu menuOpcoesPlaylist = new JPopupMenu();
+        JMenuItem opcao01 = new JMenuItem("Remover");
+        JMenuItem opcao02 = new JMenuItem("Alterar visibilidade");
+        menuOpcoesPlaylist.add(opcao01);
+        menuOpcoesPlaylist.add(opcao02);
+        menuOpcoesPlaylist.setVisible(false);
+
+        PainelMinhasPlaylists painelPlaylistVazia = new PainelMinhasPlaylists();
+        Playlist playlistNova = clienteTemporarioParaTeste.criarPlaylist();
+        JTextField nome = new JTextField();
+        nome.setText("Nome");
+        nome.setPreferredSize(new Dimension(200, 30));
+        JTextField visibilidade = new JTextField();
+        visibilidade.setText("Sim/Não");
+        JTextField descricao = new JTextField();
+        descricao.setText("Descrição");
+        JButton confirmarplNova = new JButton();
+        confirmarplNova.setText("Confirmar");
+        painelPlaylistVazia.setLayout(new BoxLayout(painelPlaylistVazia, BoxLayout.Y_AXIS));
+        painelPlaylistVazia.add(nome);
+        painelPlaylistVazia.add(visibilidade);
+        painelPlaylistVazia.add(descricao);
+        painelPlaylistVazia.add(confirmarplNova);
+        minhasPlaylistsClientePainel.add(painelPlaylistVazia);
+
+        criarPlaylist.addActionListener(e -> {
+            scrollPane.setVisible(false);
+            painelPlaylistVazia.setVisible(true);
+            confirmarplNova.addActionListener(e1 -> {
+                playlistNova.setNome(nome.getText());
+                playlistNova.atribuirVisibilidade(visibilidade.getText());
+                playlistNova.setDescricao(descricao.getText());
+                clienteTemporarioParaTeste.getPlaylist().add(playlistNova);
+                tabelaPlaylist.addRow(new Object[]{playlistNova.getNome(),contarNumMusicas(playlistNova),playlistNova.isVisibilidade(),playlistNova.getDescricao()});
+            });
+        });
+
+
+
+        criarPlaylistRandom.addActionListener(e -> {scrollPane.setVisible(false);});
+
         //PARA TESTE
-        Cliente clienteTemporarioParaTeste = new Cliente("Ricardo","123",0,new ArrayList<Playlist>(),new ArrayList<>(),new ArrayList<>());
-        programa.getClientes().add(clienteTemporarioParaTeste);
-        Artista artistaTemporarioParaTeste = new Artista("Ricardo","1234",0, 123,new ArrayList<>(),new ArrayList<>());
-        programa.getArtistas().add(artistaTemporarioParaTeste);
+        Playlist playlistTeste = new Playlist("Study time",new ArrayList<Musica>(),false,"Para estudar de noite");
+        Playlist playlist1 = new Playlist("Chill Vibes", new ArrayList<Musica>(), false, "Relaxing tunes");
+        Playlist playlist2 = new Playlist("Workout Beats", new ArrayList<Musica>(), false, "Energizing music for workouts");
+        Playlist playlist3 = new Playlist("Road Trip Jams", new ArrayList<Musica>(), false, "Perfect for long drives");
+        Playlist playlist4 = new Playlist("Throwback Hits", new ArrayList<Musica>(), false, "Nostalgic songs from the past");
         //PARA TESTE
+
+        //PARA TESTE
+        Musica musica1 = new Musica("Música 1", "Autor 1", LocalDate.now(), new ArrayList<>(), true, "Álbum 1", 1, new ArrayList<>());
+        Musica musica2 = new Musica("Música 2", "Autor 2", LocalDate.now(), new ArrayList<>(), true, "Álbum 2", 2, new ArrayList<>());
+        Musica musica3 = new Musica("Música 3", "Autor 3", LocalDate.now(), new ArrayList<>(), true, "Álbum 3", 3, new ArrayList<>());
+        Musica musica4 = new Musica("Música 4", "Autor 4", LocalDate.now(), new ArrayList<>(), true, "Álbum 4", 4, new ArrayList<>());
+        playlistTeste.musicas.add(musica1);
+        playlistTeste.musicas.add(musica2);
+        playlistTeste.musicas.add(musica3);
+        playlistTeste.musicas.add(musica4);
+        Musica musicaa1 = new Musica("Música 1", "Autor 1", LocalDate.now(), new ArrayList<>(), true, "Álbum 1", 1, new ArrayList<>());
+        Musica musicaa2 = new Musica("Música 2", "Autor 2", LocalDate.now(), new ArrayList<>(), true, "Álbum 2", 2, new ArrayList<>());
+        Musica musicaa3 = new Musica("Música 3", "Autor 3", LocalDate.now(), new ArrayList<>(), true, "Álbum 3", 3, new ArrayList<>());
+        Musica musicaa4 = new Musica("Música 4", "Autor 4", LocalDate.now(), new ArrayList<>(), true, "Álbum 4", 4, new ArrayList<>());
+
+// Adição das músicas às playlists
+        playlist1.musicas.add(musicaa1);
+        playlist1.musicas.add(musicaa2);
+        playlist2.musicas.add(musicaa2);
+        playlist2.musicas.add(musicaa3);
+        playlist3.musicas.add(musicaa3);
+        playlist3.musicas.add(musicaa4);
+        playlist4.musicas.add(musicaa1);
+        playlist4.musicas.add(musicaa4);
+
+        clienteTemporarioParaTeste.getPlaylist().add(playlistTeste);
+        clienteTemporarioParaTeste.getPlaylist().add(playlist1);
+        clienteTemporarioParaTeste.getPlaylist().add(playlist2);
+        clienteTemporarioParaTeste.getPlaylist().add(playlist3);
+        clienteTemporarioParaTeste.getPlaylist().add(playlist4);
+
+        for (Playlist pl : clienteTemporarioParaTeste.getPlaylist()) {
+            tabelaPlaylist.addRow(new Object[]{pl.getNome(),contarNumMusicas(pl),pl.isVisibilidade(),pl.getDescricao()});
+        }
+
+        //PARA TESTE
+
+        tabelaPlaylists.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (SwingUtilities.isRightMouseButton(e)) {
+                    menuOpcoesPlaylist.show(tabelaPlaylists,e.getX(), e.getY());
+                    menuOpcoesPlaylist.setVisible(true);
+                }
+            }
+        });
+
+        opcao01.addActionListener(e -> {
+            int linha = tabelaPlaylists.getSelectedRow();
+            int coluna = tabelaPlaylists.getSelectedColumn();
+
+            //Obter o objeto música de onde se clica
+            Object objetoNaLinha = tabelaPlaylists.getValueAt(linha, coluna);
+            String objetoString = (String) objetoNaLinha;
+
+            //Método para adicionar música à playlist
+            Iterator<Playlist> iterator = clienteTemporarioParaTeste.getPlaylist().iterator();
+            while (iterator.hasNext()) {
+                Playlist playlist = iterator.next();
+                if (objetoString.equals(playlist.getNome())) {
+                    iterator.remove(); // Use o iterador para remover o elemento de forma segura
+                    clienteTemporarioParaTeste.getPlaylist().remove(playlist);
+                    tabelaPlaylist.removeRow(linha);
+                    System.out.println(playlist + "removida com sucesso");
+                    minhasPlaylistsClientePainel.revalidate();
+                    minhasPlaylistsClientePainel.repaint();
+                }
+            }
+        });
+
+        opcao02.addActionListener(e -> {
+            int linha = tabelaPlaylists.getSelectedRow();
+            int coluna = tabelaPlaylists.getSelectedColumn();
+
+            //Obter o objeto música de onde se clica
+            Object objetoNaLinha = tabelaPlaylists.getValueAt(linha, coluna);
+            String objetoString = (String) objetoNaLinha;
+
+            for (Playlist pl : clienteTemporarioParaTeste.getPlaylist()) {
+                if (objetoString.equals(pl.getNome())) {
+                    System.out.println(pl.isVisibilidade());
+                    clienteTemporarioParaTeste.mudarVisibilidade(pl.isVisibilidade(),pl);
+                    System.out.println(pl.isVisibilidade());
+                    tabelaPlaylists.getModel().setValueAt(pl.isVisibilidade(), linha, 2);
+                }
+            }
+        });
+
+
+
+
 
         JButton pesquisarTodas = new JButton();
         pesquisarTodas.setText("Ver todas");
@@ -56,17 +235,17 @@ public class InterfaceGrafica {
         DefaultTableModel tabela = new DefaultTableModel();
 
        // Adicione suas colunas ao modelo da tabela
-        tabela.addColumn("Modelo.Artista");
+        tabela.addColumn("Artista");
         tabela.addColumn("Música");
         tabela.addColumn("Álbum");
         tabela.addColumn("Ano");
 
         JTable tabelaMusicas = new JTable(tabela);
 
-        int largura = 150; // Largura desejada para as colunas
+        int largura2 = 150; // Largura desejada para as colunas
 
         for (int i = 0; i < tabelaMusicas.getColumnCount(); i++) {
-            tabelaMusicas.getColumnModel().getColumn(i).setPreferredWidth(largura);
+            tabelaMusicas.getColumnModel().getColumn(i).setPreferredWidth(largura2);
         }
 
 
@@ -125,9 +304,6 @@ public class InterfaceGrafica {
                              minhasMusicasClientePainel.add(caixaDeTexto,FlowLayout.TRAILING);
                              minhasMusicasClientePainel.revalidate();
                              minhasMusicasClientePainel.repaint();
-
-
-
                          }
                      }
                  }
@@ -186,6 +362,7 @@ public class InterfaceGrafica {
                     saldo.setForeground(Color.BLACK);
                     cestoDeCompras.setForeground(Color.BLACK);
                     minhasMusicasClientePainel.setVisible(true);
+                    minhasPlaylistsClientePainel.setVisible(false);
                 }
         );
 
@@ -197,6 +374,9 @@ public class InterfaceGrafica {
                     saldo.setForeground(Color.BLACK);
                     cestoDeCompras.setForeground(Color.BLACK);
                     minhasMusicasClientePainel.setVisible(false);
+                    minhasPlaylistsClientePainel.setVisible(true);
+                    scrollPane.setVisible(true);
+                    painelPlaylistVazia.setVisible(false);
                 }
         );
 
@@ -208,6 +388,7 @@ public class InterfaceGrafica {
                     saldo.setForeground(Color.BLACK);
                     cestoDeCompras.setForeground(Color.BLACK);
                     minhasMusicasClientePainel.setVisible(false);
+            minhasPlaylistsClientePainel.setVisible(false);
                 }
         );
 
@@ -219,6 +400,7 @@ public class InterfaceGrafica {
                     saldo.setForeground(Color.BLACK);
                     cestoDeCompras.setForeground(Color.BLACK);
                     minhasMusicasClientePainel.setVisible(false);
+            minhasPlaylistsClientePainel.setVisible(false);
                 }
         );
 
@@ -230,6 +412,7 @@ public class InterfaceGrafica {
                     saldo.setForeground(Color.BLUE);
                     cestoDeCompras.setForeground(Color.BLACK);
             minhasMusicasClientePainel.setVisible(false);
+            minhasPlaylistsClientePainel.setVisible(false);
                 }
         );
 
@@ -241,6 +424,7 @@ public class InterfaceGrafica {
                     saldo.setForeground(Color.BLACK);
                     cestoDeCompras.setForeground(Color.BLUE);
             minhasMusicasClientePainel.setVisible(false);
+            minhasPlaylistsClientePainel.setVisible(false);
                 }
         );
 
@@ -345,7 +529,7 @@ public class InterfaceGrafica {
 
         ordenar.addActionListener(e -> {
             String opcaoSelecionada = (String) ordenar.getSelectedItem();
-            if ("Nome do Modelo.Artista".equals(opcaoSelecionada)) {
+            if ("Nome do Artista".equals(opcaoSelecionada)) {
                 TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(tabela); // modelo da tabela
                 tabelaMusicas.setRowSorter(sorter); // Associar o TableRowSorter à JTable
                 // Definir o comparador para a coluna "Nome da Música" (ordem alfabética)
@@ -360,9 +544,7 @@ public class InterfaceGrafica {
 
 
 
-        //PARA TESTE
-        Playlist playlistTeste = new Playlist("Elias",new ArrayList<>(),true,"chill");
-        //PARA TESTE
+
 
         JPopupMenu menuOpcoes = new JPopupMenu();
         JMenuItem opcao1 = new JMenuItem("Adicionar a playlist");
@@ -458,10 +640,10 @@ public class InterfaceGrafica {
                 }
             });
 
-            JButton verRating = new JButton();
+            /*JButton verRating = new JButton();
             verRating.setVisible(true);
             painelCliente.add(verRating);
-            verRating.addActionListener(e -> System.out.println(clienteTemporarioParaTeste.getAquisicoes()));
+            verRating.addActionListener(e -> System.out.println(clienteTemporarioParaTeste.getAquisicoes()));*/
 
         //ESPAÇO PARA COLOCAR O USERNAME NO LOGIN
         JTextField usernameLogin = new JTextField();
@@ -692,23 +874,17 @@ public class InterfaceGrafica {
         });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         jp.pack();
         jp.setLocationRelativeTo(null);
     }
 
-
+    public int contarNumMusicas (Playlist playlist) {
+        int contador = 0;
+        for (Musica m : playlist.getMusicas()) {
+            if (!m.getTitulo().equals("")) {
+                contador++;
+            }
+        }
+        return contador;
+    }
 }

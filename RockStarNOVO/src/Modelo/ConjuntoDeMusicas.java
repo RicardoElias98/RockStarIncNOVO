@@ -10,4 +10,16 @@ public abstract class ConjuntoDeMusicas {
         this.nome = nome;
         this.musicas = musicas;
     }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public ArrayList<Musica> getMusicas() {
+        return musicas;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 }
