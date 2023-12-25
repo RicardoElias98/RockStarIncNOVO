@@ -187,23 +187,7 @@ public class InterfaceGrafica {
             int linha = tabelaPlaylists.getSelectedRow();
             int coluna = tabelaPlaylists.getSelectedColumn();
 
-            //Obter o objeto música de onde se clica
-            Object objetoNaLinha = tabelaPlaylists.getValueAt(linha, coluna);
-            String objetoString = (String) objetoNaLinha;
-
-            //Método para adicionar música à playlist
-            Iterator<Playlist> iterator = clienteTemporarioParaTeste.getPlaylist().iterator();
-            while (iterator.hasNext()) {
-                Playlist playlist = iterator.next();
-                if (objetoString.equals(playlist.getNome())) {
-                    iterator.remove(); // Use o iterador para remover o elemento de forma segura
-                    clienteTemporarioParaTeste.getPlaylist().remove(playlist);
-                    tabelaPlaylist.removeRow(linha);
-                    System.out.println(playlist + "removida com sucesso");
-                    minhasPlaylistsClientePainel.revalidate();
-                    minhasPlaylistsClientePainel.repaint();
-                }
-            }
+            clienteTemporarioParaTeste.removerPlaylist(playlist1,linha, coluna,tabelaPlaylists,tabelaPlaylist,minhasPlaylistsClientePainel);
         });
 
         opcao02.addActionListener(e -> {
@@ -223,10 +207,6 @@ public class InterfaceGrafica {
                 }
             }
         });
-
-
-
-
 
         JButton pesquisarTodas = new JButton();
         pesquisarTodas.setText("Ver todas");
@@ -281,6 +261,10 @@ public class InterfaceGrafica {
         minhasMusicasClientePainel.add(scrollPane2, BorderLayout.CENTER);
 
         //APOS CARREGAR NO ENTER
+
+        JTextField caixaDeTexto = new JTextField();
+        caixaDeTexto.setEditable(false);
+        caixaDeTexto.setVisible(false);
         nomeDaMusicaPesquisa.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -298,9 +282,8 @@ public class InterfaceGrafica {
                      //Método verificar a musica
                      for (Musica musicas : clienteTemporarioParaTeste.getAquisicoes()) {
                          if (textoDigitado.equals(musicas.getTitulo())) {
-                             JTextField caixaDeTexto = new JTextField();
                              caixaDeTexto.setText(String.valueOf(musicas));
-                             caixaDeTexto.setEditable(false);
+                             caixaDeTexto.setVisible(true);
                              minhasMusicasClientePainel.add(caixaDeTexto,FlowLayout.TRAILING);
                              minhasMusicasClientePainel.revalidate();
                              minhasMusicasClientePainel.repaint();
@@ -322,10 +305,6 @@ public class InterfaceGrafica {
         //minhasMusicasCliente.setBounds(50, 50, 100, 30);
         JButton minhasPlaylistsCliente = new JButton();
         minhasPlaylistsCliente.setText("Minhas Playlists");
-        JButton pesquisarMusicas = new JButton();
-        pesquisarMusicas.setText("Pesquisar Músicas");
-        JButton pesquisarPlaylist = new JButton();
-        pesquisarPlaylist.setText("Pesquisar Playlists");
         JButton saldo = new JButton();
         saldo.setText("Saldo");
         JButton cestoDeCompras = new JButton();
@@ -333,8 +312,6 @@ public class InterfaceGrafica {
 
         painelCima.add(minhasMusicasCliente);
         painelCima.add(minhasPlaylistsCliente);
-        painelCima.add(pesquisarMusicas);
-        painelCima.add(pesquisarPlaylist);
         painelCima.add(saldo);
         painelCima.add(cestoDeCompras);
 
@@ -357,8 +334,6 @@ public class InterfaceGrafica {
         minhasMusicasCliente.addActionListener(e -> {
                     minhasMusicasCliente.setForeground(Color.BLUE);
                     minhasPlaylistsCliente.setForeground(Color.BLACK);
-                    pesquisarMusicas.setForeground(Color.BLACK);
-                    pesquisarPlaylist.setForeground(Color.BLACK);
                     saldo.setForeground(Color.BLACK);
                     cestoDeCompras.setForeground(Color.BLACK);
                     minhasMusicasClientePainel.setVisible(true);
@@ -369,8 +344,6 @@ public class InterfaceGrafica {
         minhasPlaylistsCliente.addActionListener(e -> {
                     minhasMusicasCliente.setForeground(Color.BLACK);
                     minhasPlaylistsCliente.setForeground(Color.BLUE);
-                    pesquisarMusicas.setForeground(Color.BLACK);
-                    pesquisarPlaylist.setForeground(Color.BLACK);
                     saldo.setForeground(Color.BLACK);
                     cestoDeCompras.setForeground(Color.BLACK);
                     minhasMusicasClientePainel.setVisible(false);
@@ -380,35 +353,9 @@ public class InterfaceGrafica {
                 }
         );
 
-        pesquisarMusicas.addActionListener(e -> {
-                    minhasMusicasCliente.setForeground(Color.BLACK);
-                    minhasPlaylistsCliente.setForeground(Color.BLACK);
-                    pesquisarMusicas.setForeground(Color.BLUE);
-                    pesquisarPlaylist.setForeground(Color.BLACK);
-                    saldo.setForeground(Color.BLACK);
-                    cestoDeCompras.setForeground(Color.BLACK);
-                    minhasMusicasClientePainel.setVisible(false);
-            minhasPlaylistsClientePainel.setVisible(false);
-                }
-        );
-
-        pesquisarPlaylist.addActionListener(e -> {
-                    minhasMusicasCliente.setForeground(Color.BLACK);
-                    minhasPlaylistsCliente.setForeground(Color.BLACK);
-                    pesquisarMusicas.setForeground(Color.BLACK);
-                    pesquisarPlaylist.setForeground(Color.BLUE);
-                    saldo.setForeground(Color.BLACK);
-                    cestoDeCompras.setForeground(Color.BLACK);
-                    minhasMusicasClientePainel.setVisible(false);
-            minhasPlaylistsClientePainel.setVisible(false);
-                }
-        );
-
         saldo.addActionListener(e -> {
                     minhasMusicasCliente.setForeground(Color.BLACK);
                     minhasPlaylistsCliente.setForeground(Color.BLACK);
-                    pesquisarMusicas.setForeground(Color.BLACK);
-                    pesquisarPlaylist.setForeground(Color.BLACK);
                     saldo.setForeground(Color.BLUE);
                     cestoDeCompras.setForeground(Color.BLACK);
             minhasMusicasClientePainel.setVisible(false);
@@ -419,8 +366,6 @@ public class InterfaceGrafica {
         cestoDeCompras.addActionListener(e -> {
                     minhasMusicasCliente.setForeground(Color.BLACK);
                     minhasPlaylistsCliente.setForeground(Color.BLACK);
-                    pesquisarMusicas.setForeground(Color.BLACK);
-                    pesquisarPlaylist.setForeground(Color.BLACK);
                     saldo.setForeground(Color.BLACK);
                     cestoDeCompras.setForeground(Color.BLUE);
             minhasMusicasClientePainel.setVisible(false);
@@ -504,8 +449,11 @@ public class InterfaceGrafica {
             scrollPane2.setVisible(true);
             tabelaMusicas.setVisible(true);
             ordenar.setVisible(true);
+            nomeDaMusicaPesquisa.setVisible(false);
+            caixaDeTexto.setVisible(false);
             minhasMusicasClientePainel.revalidate();
             minhasMusicasClientePainel.repaint();
+
         });
 
         //MÉTODO ORDENAR PELO NOME DA MÚSICA
@@ -542,10 +490,6 @@ public class InterfaceGrafica {
             }
         });
 
-
-
-
-
         JPopupMenu menuOpcoes = new JPopupMenu();
         JMenuItem opcao1 = new JMenuItem("Adicionar a playlist");
         JMenuItem opcao2 = new JMenuItem("Avaliar");
@@ -564,10 +508,26 @@ public class InterfaceGrafica {
         });
 
         opcao1.addActionListener(e -> {
+
             int linha = tabelaMusicas.getSelectedRow();
             int coluna = tabelaMusicas.getSelectedColumn();
-            
-            clienteTemporarioParaTeste.adicionarMusicaAplaylist(playlist1,tabelaMusicas,tabelaPlaylists,linha,coluna);
+
+            JPopupMenu menuOpcoesPlaylistssss = new JPopupMenu();
+
+            for (Playlist pl : clienteTemporarioParaTeste.getPlaylist()){
+                JMenuItem nomeParaAopcao = new JMenuItem(pl.getNome());
+                menuOpcoesPlaylistssss.add(nomeParaAopcao);
+
+                nomeParaAopcao.addActionListener(e1 -> {
+                    clienteTemporarioParaTeste.adicionarMusicaAplaylist(pl, tabelaMusicas, tabelaPlaylists, linha, coluna);
+                    System.out.println("Música adicionada com sucesso à playlist"  + pl);
+                });
+            }
+            menuOpcoesPlaylistssss.setVisible(true);
+
+
+
+
         });
 
 

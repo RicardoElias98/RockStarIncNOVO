@@ -1,8 +1,10 @@
 package Modelo;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Cliente extends Utilizador implements Serializable {
 
@@ -56,9 +58,19 @@ public class Cliente extends Utilizador implements Serializable {
 
     } */
 
-    private void removerPlaylist(Playlist nomePlaylist) {
+    public void removerPlaylist(Playlist nomePlaylist, int linha, int coluna, JTable tabelaPlaylists, DefaultTableModel tabelaPlaylist, JPanel minhasPlaylistsClientePainel) {
+        Object objetoNaLinha = tabelaPlaylists.getValueAt(linha, coluna);
+        String objetoString = (String) objetoNaLinha;
 
-    }
+            if (objetoString.equals(nomePlaylist.getNome())) {
+                this.getPlaylist().remove(nomePlaylist);
+                tabelaPlaylist.removeRow(linha);
+                System.out.println(nomePlaylist + "removida com sucesso");
+                minhasPlaylistsClientePainel.revalidate();
+                minhasPlaylistsClientePainel.repaint();
+            }
+        }
+
 
     public void mudarVisibilidade(boolean visibilidade, Playlist pl) {
         if (visibilidade) {
