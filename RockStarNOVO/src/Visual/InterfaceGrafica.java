@@ -197,7 +197,15 @@ public class InterfaceGrafica {
             int linha = tabelaPlaylists.getSelectedRow();
             int coluna = tabelaPlaylists.getSelectedColumn();
 
-            clienteTemporarioParaTeste.removerPlaylist(playlist1,linha, coluna,tabelaPlaylists,tabelaPlaylist,minhasPlaylistsClientePainel);
+            //Obter o objeto música de onde se clica
+            Object objetoNaLinha = tabelaPlaylists.getValueAt(linha, coluna);
+            String objetoString = (String) objetoNaLinha;
+
+            for (Playlist pl : clienteTemporarioParaTeste.getPlaylist()){
+                if (objetoString.equals(pl.getNome())){
+                    clienteTemporarioParaTeste.removerPlaylist(pl,linha, coluna,tabelaPlaylists,tabelaPlaylist,minhasPlaylistsClientePainel);
+                }
+            }
         });
 
         opcao02.addActionListener(e -> {
