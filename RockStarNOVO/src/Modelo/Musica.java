@@ -15,7 +15,9 @@ public class Musica {
     private int idMuscia;
     private ArrayList <Integer> registodeRating; //HASMAP
 
-    public Musica(String titulo, String autor, LocalDate data, ArrayList<Integer> registoDeValores, boolean disponibilidade, String album, int idMuscia, ArrayList<Integer> registodeRating) {
+    private String genero; //USAR ENUM
+
+    public Musica(String titulo, String autor, LocalDate data, ArrayList<Integer> registoDeValores, boolean disponibilidade, String album, int idMuscia, ArrayList<Integer> registodeRating, String genero) {
         this.titulo = titulo;
         this.autor = autor;
         this.data = data;
@@ -24,6 +26,7 @@ public class Musica {
         this.album = album;
         this.idMuscia = idMuscia;
         this.registodeRating = registodeRating;
+        this.genero = genero;
     }
 
     public String getAutor() {
@@ -62,6 +65,10 @@ public class Musica {
                 ", idMuscia=" + idMuscia +
                 ", registodeRating=" + registodeRating +
                 '}';
+    }
+
+    public String getGenero() {
+        return genero;
     }
 
     // private double mediaDoRating () {    //está comentado porque falta o return

@@ -4,7 +4,6 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class Cliente extends Utilizador implements Serializable {
 
@@ -44,8 +43,31 @@ public class Cliente extends Utilizador implements Serializable {
         }
     }
 
-    private void criarPlaylist(String genero, int numMusicas) {
-
+    public Playlist criarPlaylist(String genero, int numMusicas, Programa programa, String nome, String descricao) {
+        Playlist playlistCriada = new Playlist(nome,new ArrayList<>(),true,descricao);
+        ArrayList <Musica> arrayListDoGenero = new ArrayList<>();
+        ArrayList <Musica> musicasJaAdicionadas = new ArrayList<>();
+        int contador = 0;
+        int contadorTamanho = 0;
+        for (Musica pro : programa.getMusicasTotais()) {
+            if (pro.getGenero().equals(genero)){
+                arrayListDoGenero.add(pro);
+            }
+        }
+        while (contador < numMusicas && contadorTamanho < arrayListDoGenero.size()) {
+            for (Musica m : arrayListDoGenero) {
+                {
+                    int aleatorio = numeroAleatorio(arrayListDoGenero);
+                    if (arrayListDoGenero.indexOf(m) == aleatorio && !musicasJaAdicionadas.contains(m)) {
+                        playlistCriada.musicas.add(m);
+                        musicasJaAdicionadas.add(m);
+                        contador++;
+                    }
+                    contadorTamanho++;
+                }
+            }
+        }
+        return playlistCriada;
     }
 
     public Playlist criarPlaylist() {
@@ -132,7 +154,7 @@ public class Cliente extends Utilizador implements Serializable {
         return playlist;
     }
 
-    public static int contarNumMusicas (Playlist playlist) {
+    public int contarNumMusicas (Playlist playlist) {
         int contador = 0;
         for (Musica m : playlist.getMusicas()) {
             if (!m.getTitulo().equals("")) {
@@ -140,5 +162,11 @@ public class Cliente extends Utilizador implements Serializable {
             }
         }
         return contador;
+    }
+
+    private int numeroAleatorio (ArrayList arrayList) {
+        double numeroGerado = Math.random();
+        int numeroGeradoFinal = (int) (numeroGerado*(arrayList.size()));
+        return numeroGeradoFinal;
     }
 }

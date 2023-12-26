@@ -1,7 +1,7 @@
 package Visual;
 
 import Modelo.*;
-import Visual.FLOWlayoutDefault;
+
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -11,8 +11,6 @@ import java.awt.event.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Iterator;
-
 
 public class InterfaceGrafica {
 
@@ -25,7 +23,7 @@ public class InterfaceGrafica {
 
 
         //Inicio o PROGRAMA
-        Programa programa = new Programa(new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>());
+        Programa programa = new Programa();
         //PARA TESTE
 
         //PARA TESTE
@@ -64,17 +62,20 @@ public class InterfaceGrafica {
         criarPlaylist.setText("Criar playlist");
         minhasPlaylistsClientePainel.add(criarPlaylist);
 
-        minhasPlaylistsClientePainel.revalidate();
-        minhasPlaylistsClientePainel.repaint();
         JButton criarPlaylistRandom = new JButton();
         criarPlaylistRandom.setText("Criar playlist aleatória");
         minhasPlaylistsClientePainel.add(criarPlaylistRandom);
+
+
+        minhasPlaylistsClientePainel.revalidate();
+        minhasPlaylistsClientePainel.repaint();
+
 
         painelCliente.add(minhasPlaylistsClientePainel);
 
         DefaultTableModel tabelaPlaylist = new DefaultTableModel();
 
-        // Adicione suas colunas ao modelo da tabela
+        // Adicionar colunas ao modelo da tabela
         tabelaPlaylist.addColumn("Nome");
         tabelaPlaylist.addColumn("Numero de musicas");
         tabelaPlaylist.addColumn("Visibilidade");
@@ -127,7 +128,7 @@ public class InterfaceGrafica {
 
 
 
-        criarPlaylistRandom.addActionListener(e -> {scrollPane.setVisible(false);});
+
 
         //PARA TESTE
         Playlist playlistTeste = new Playlist("Study time",new ArrayList<Musica>(),false,"Para estudar de noite");
@@ -138,18 +139,27 @@ public class InterfaceGrafica {
         //PARA TESTE
 
         //PARA TESTE
-        Musica musica1 = new Musica("Música 1", "Autor 1", LocalDate.now(), new ArrayList<>(), true, "Álbum 1", 1, new ArrayList<>());
-        Musica musica2 = new Musica("Música 2", "Autor 2", LocalDate.now(), new ArrayList<>(), true, "Álbum 2", 2, new ArrayList<>());
-        Musica musica3 = new Musica("Música 3", "Autor 3", LocalDate.now(), new ArrayList<>(), true, "Álbum 3", 3, new ArrayList<>());
-        Musica musica4 = new Musica("Música 4", "Autor 4", LocalDate.now(), new ArrayList<>(), true, "Álbum 4", 4, new ArrayList<>());
+        Musica musica1 = new Musica("Música 1", "Autor 1", LocalDate.now(), new ArrayList<>(), true, "Álbum 1", 1, new ArrayList<>(),"Rock");
+        Musica musica2 = new Musica("Música 2", "Autor 2", LocalDate.now(), new ArrayList<>(), true, "Álbum 2", 2, new ArrayList<>(), "Jazz");
+        Musica musica3 = new Musica("Música 3", "Autor 3", LocalDate.now(), new ArrayList<>(), true, "Álbum 3", 3, new ArrayList<>(),"Chill");
+        Musica musica4 = new Musica("Música 4", "Autor 4", LocalDate.now(), new ArrayList<>(), true, "Álbum 4", 4, new ArrayList<>(),"Metal");
         playlistTeste.musicas.add(musica1);
         playlistTeste.musicas.add(musica2);
         playlistTeste.musicas.add(musica3);
         playlistTeste.musicas.add(musica4);
-        Musica musicaa1 = new Musica("Música 1", "Autor 1", LocalDate.now(), new ArrayList<>(), true, "Álbum 1", 1, new ArrayList<>());
-        Musica musicaa2 = new Musica("Música 2", "Autor 2", LocalDate.now(), new ArrayList<>(), true, "Álbum 2", 2, new ArrayList<>());
-        Musica musicaa3 = new Musica("Música 3", "Autor 3", LocalDate.now(), new ArrayList<>(), true, "Álbum 3", 3, new ArrayList<>());
-        Musica musicaa4 = new Musica("Música 4", "Autor 4", LocalDate.now(), new ArrayList<>(), true, "Álbum 4", 4, new ArrayList<>());
+        Musica musicaa1 = new Musica("Música 1", "Autor 1", LocalDate.now(), new ArrayList<>(), true, "Álbum 1", 1, new ArrayList<>(),"Rock");
+        Musica musicaa2 = new Musica("Música 2", "Autor 2", LocalDate.now(), new ArrayList<>(), true, "Álbum 2", 2, new ArrayList<>(),"Jazz");
+        Musica musicaa3 = new Musica("Música 3", "Autor 3", LocalDate.now(), new ArrayList<>(), true, "Álbum 3", 3, new ArrayList<>(),"Chill");
+        Musica musicaa4 = new Musica("Música 4", "Autor 4", LocalDate.now(), new ArrayList<>(), true, "Álbum 4", 4, new ArrayList<>(),"Metal");
+
+        programa.getMusicasTotais().add(musica1);
+        programa.getMusicasTotais().add(musica2);
+        programa.getMusicasTotais().add(musica3);
+        programa.getMusicasTotais().add(musica4);
+        programa.getMusicasTotais().add(musicaa1);
+        programa.getMusicasTotais().add(musicaa2);
+        programa.getMusicasTotais().add(musicaa3);
+        programa.getMusicasTotais().add(musicaa4);
 
 // Adição das músicas às playlists
         playlist1.musicas.add(musicaa1);
@@ -206,6 +216,53 @@ public class InterfaceGrafica {
                     tabelaPlaylists.getModel().setValueAt(pl.isVisibilidade(), linha, 2);
                 }
             }
+        });
+
+        PainelMinhasPlaylists painelPlaylistRandom = new PainelMinhasPlaylists();
+
+        JTextField generoPlaylist = new JTextField();
+        generoPlaylist.setText("Género");
+        generoPlaylist.setVisible(true);
+
+
+        JTextField numeroMusicas = new JTextField();
+        numeroMusicas.setText("Número de músicas");
+        numeroMusicas.setVisible(true);
+
+
+        JTextField nomePlaylistRandom = new JTextField();
+        nomePlaylistRandom.setText("Nome da playlist");
+        nomePlaylistRandom.setVisible(true);
+
+        JTextField descricaoPlaylistRandom = new JTextField();
+        descricaoPlaylistRandom.setText("Descrição da playlist");
+        descricaoPlaylistRandom.setVisible(true);
+
+        JButton confirmarPlaylistRandom = new JButton();
+        confirmarPlaylistRandom.setText("Criar");
+        confirmarPlaylistRandom.setVisible(true);
+
+        painelPlaylistRandom.setLayout(new BoxLayout(painelPlaylistRandom, BoxLayout.Y_AXIS));
+        painelPlaylistRandom.add(generoPlaylist);
+        painelPlaylistRandom.add(numeroMusicas);
+        painelPlaylistRandom.add(nomePlaylistRandom);
+        painelPlaylistRandom.add(descricaoPlaylistRandom);
+        painelPlaylistRandom.add(confirmarPlaylistRandom);
+        minhasPlaylistsClientePainel.add(painelPlaylistRandom);
+
+
+        criarPlaylistRandom.addActionListener(e -> {
+            scrollPane.setVisible(false);
+            painelPlaylistRandom.setVisible(true);
+        });
+
+        confirmarPlaylistRandom.addActionListener(e -> {
+            Playlist nova = clienteTemporarioParaTeste.criarPlaylist(generoPlaylist.getText(), Integer.parseInt(numeroMusicas.getText()),programa,nomePlaylistRandom.getText(),descricaoPlaylistRandom.getText());
+            clienteTemporarioParaTeste.getPlaylist().add(nova);
+            tabelaPlaylist.addRow(new Object[]{nova.getNome(),contarNumMusicas(nova),nova.isVisibilidade(),nova.getDescricao()});
+            System.out.println("Playlis criada" + nova);
+            scrollPane.setVisible(true);
+            painelPlaylistRandom.setVisible(false);
         });
 
         JButton pesquisarTodas = new JButton();
@@ -395,9 +452,9 @@ public class InterfaceGrafica {
         Artista artistaTemporarioRegisto = new Artista("", "", 0,-1,new ArrayList<>(),new ArrayList<>());
 
         //PARA TESTE
-        Musica musica1Teste = new Musica("Olá","Roberto", LocalDate.of(2023,10,8),new ArrayList<>(),true,"Olá album",1,new ArrayList<>());
+        Musica musica1Teste = new Musica("Olá","Roberto", LocalDate.of(2023,10,8),new ArrayList<>(),true,"Olá album",1,new ArrayList<>(), "Rock");
         clienteTemporarioParaTeste.getAquisicoes().add(musica1Teste);
-        Musica musica2Teste = new Musica("Alo","Ana", LocalDate.of(2023,10,8),new ArrayList<>(),true,"Olá album",1,new ArrayList<>());
+        Musica musica2Teste = new Musica("Alo","Ana", LocalDate.of(2023,10,8),new ArrayList<>(),true,"Olá album",1,new ArrayList<>(),"Rock");
         clienteTemporarioParaTeste.getAquisicoes().add(musica2Teste);
         //PARA TESTE
 
@@ -480,7 +537,7 @@ public class InterfaceGrafica {
             if ("Nome do Artista".equals(opcaoSelecionada)) {
                 TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(tabela); // modelo da tabela
                 tabelaMusicas.setRowSorter(sorter); // Associar o TableRowSorter à JTable
-                // Definir o comparador para a coluna "Nome da Música" (ordem alfabética)
+                // Definir o comparador para a coluna "Nome do Artista" (ordem alfabética)
                 sorter.setComparator(0, Comparator.<String>naturalOrder());
                 sorter.setSortable(1, false);
                 sorter.setSortable(2, false);
@@ -524,10 +581,6 @@ public class InterfaceGrafica {
                 });
             }
             menuOpcoesPlaylistssss.setVisible(true);
-
-
-
-
         });
 
 

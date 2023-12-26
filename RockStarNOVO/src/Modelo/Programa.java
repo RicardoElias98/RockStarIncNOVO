@@ -10,11 +10,11 @@ public class Programa {
     private ArrayList<Musica> musicasTotais;
     private ArrayList<Playlist> playlistsTotais;
 
-    public Programa(ArrayList<Cliente> clientes, ArrayList<Artista> artistas, ArrayList<Musica> musicasTotais, ArrayList<Playlist> playlistsTotais) {
-        this.clientes = clientes;
-        this.artistas = artistas;
-        this.musicasTotais = musicasTotais;
-        this.playlistsTotais = playlistsTotais;
+    public Programa() {
+        this.clientes = new ArrayList<>();
+        this.artistas = new ArrayList<>();
+        this.musicasTotais = new ArrayList<>();
+        this.playlistsTotais = new ArrayList<>();
     }
 
     public ArrayList<Cliente> getClientes() {
@@ -23,6 +23,10 @@ public class Programa {
 
     public ArrayList<Artista> getArtistas() {
         return artistas;
+    }
+
+    public ArrayList<Musica> getMusicasTotais() {
+        return musicasTotais;
     }
 
     private void run () {   //como usar?
