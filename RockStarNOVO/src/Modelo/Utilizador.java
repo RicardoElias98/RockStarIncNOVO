@@ -48,4 +48,12 @@ public abstract class Utilizador {
         return password.equals(this.password);
 
     }
+
+    public void setSaldo(double saldo) {
+        this.saldo = saldo;
+    }
+
+    public double getSaldo() {
+        return saldo;
+    }
 }

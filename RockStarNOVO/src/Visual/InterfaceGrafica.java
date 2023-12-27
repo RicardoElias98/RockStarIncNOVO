@@ -365,6 +365,8 @@ public class InterfaceGrafica {
 
 
         //Crio, edito e adiciono os BOTÕES DO PAINEL DO CLIENTE APÓS LOGIN
+        JButton musicasDoSistema = new JButton();
+        musicasDoSistema.setText("Músicas do sistema");
         JButton minhasMusicasCliente = new JButton();
         minhasMusicasCliente.setText("Minhas Músicas");
         //minhasMusicasCliente.setBounds(50, 50, 100, 30);
@@ -375,6 +377,7 @@ public class InterfaceGrafica {
         JButton cestoDeCompras = new JButton();
         cestoDeCompras.setText("Compras pendentes");
 
+        painelCima.add(musicasDoSistema);
         painelCima.add(minhasMusicasCliente);
         painelCima.add(minhasPlaylistsCliente);
         painelCima.add(saldo);
@@ -393,20 +396,50 @@ public class InterfaceGrafica {
         jp.add(pR);
         jp.add(painelCliente);
 
-
+        PainelMinhasPlaylists painelSaldo = new PainelMinhasPlaylists();
+        JTextField saldoAtual = new JTextField();
+        saldoAtual.setPreferredSize(new Dimension(100, 30));
+        saldoAtual.setText(String.valueOf(clienteTemporarioParaTeste.getSaldo()));
+        saldoAtual.setEditable(false);
+        saldoAtual.setVisible(true);
+        painelSaldo.add(saldoAtual);
+        JButton adicionarSaldo = new JButton();
+        adicionarSaldo.setText("Adicionar saldo");
+        painelSaldo.add(adicionarSaldo);
+        painelSaldo.setVisible(false);
+        JTextField valorDeposito = new JTextField();
+        valorDeposito.setText("Valor");
+        valorDeposito.setPreferredSize(new Dimension(100, 30));
+        valorDeposito.setVisible(true);
+        painelSaldo.add(valorDeposito);
+        painelCliente.add(painelSaldo);
 
         //Ao carregar no botão de uma das opções fica azul e os restantes ficam pretos (normais) //meter sempre os outros a preto ao mesmo tempo para não ficar azul após carregar noutro
+        musicasDoSistema.addActionListener(e -> {
+            musicasDoSistema.setForeground(Color.BLUE);
+            minhasMusicasCliente.setForeground(Color.BLACK);
+            minhasPlaylistsCliente.setForeground(Color.BLACK);
+            saldo.setForeground(Color.BLACK);
+            cestoDeCompras.setForeground(Color.BLACK);
+            minhasMusicasClientePainel.setVisible(false);
+            minhasPlaylistsClientePainel.setVisible(false);
+            painelSaldo.setVisible(false);
+        });
+
         minhasMusicasCliente.addActionListener(e -> {
+            musicasDoSistema.setForeground(Color.BLACK);
                     minhasMusicasCliente.setForeground(Color.BLUE);
                     minhasPlaylistsCliente.setForeground(Color.BLACK);
                     saldo.setForeground(Color.BLACK);
                     cestoDeCompras.setForeground(Color.BLACK);
                     minhasMusicasClientePainel.setVisible(true);
                     minhasPlaylistsClientePainel.setVisible(false);
+            painelSaldo.setVisible(false);
                 }
         );
 
         minhasPlaylistsCliente.addActionListener(e -> {
+            musicasDoSistema.setForeground(Color.BLACK);
                     minhasMusicasCliente.setForeground(Color.BLACK);
                     minhasPlaylistsCliente.setForeground(Color.BLUE);
                     saldo.setForeground(Color.BLACK);
@@ -415,28 +448,42 @@ public class InterfaceGrafica {
                     minhasPlaylistsClientePainel.setVisible(true);
                     scrollPane.setVisible(true);
                     painelPlaylistVazia.setVisible(false);
+            painelSaldo.setVisible(false);
                 }
         );
 
         saldo.addActionListener(e -> {
-                    minhasMusicasCliente.setForeground(Color.BLACK);
-                    minhasPlaylistsCliente.setForeground(Color.BLACK);
-                    saldo.setForeground(Color.BLUE);
-                    cestoDeCompras.setForeground(Color.BLACK);
+            musicasDoSistema.setForeground(Color.BLACK);
+            minhasMusicasCliente.setForeground(Color.BLACK);
+            minhasPlaylistsCliente.setForeground(Color.BLACK);
+            saldo.setForeground(Color.BLUE);
+            cestoDeCompras.setForeground(Color.BLACK);
             minhasMusicasClientePainel.setVisible(false);
             minhasPlaylistsClientePainel.setVisible(false);
+            painelSaldo.setVisible(true);
                 }
         );
 
         cestoDeCompras.addActionListener(e -> {
+            musicasDoSistema.setForeground(Color.BLACK);
                     minhasMusicasCliente.setForeground(Color.BLACK);
                     minhasPlaylistsCliente.setForeground(Color.BLACK);
                     saldo.setForeground(Color.BLACK);
                     cestoDeCompras.setForeground(Color.BLUE);
             minhasMusicasClientePainel.setVisible(false);
             minhasPlaylistsClientePainel.setVisible(false);
+            painelSaldo.setVisible(false);
                 }
         );
+
+        adicionarSaldo.addActionListener(e -> {
+            clienteTemporarioParaTeste.setSaldo(clienteTemporarioParaTeste.alterarSaldo(Double.parseDouble(valorDeposito.getText()),clienteTemporarioParaTeste.getSaldo()));
+            System.out.println("Novo saldo: " + clienteTemporarioParaTeste.getSaldo());
+            saldoAtual.setText(String.valueOf(clienteTemporarioParaTeste.getSaldo()));
+        });
+
+
+
 
 
 

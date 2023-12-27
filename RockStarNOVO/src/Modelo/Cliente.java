@@ -116,7 +116,8 @@ public class Cliente extends Utilizador implements Serializable {
 
     }
 
-    private void alterarSaldo() {
+    public double alterarSaldo(double valorAdepostiar, double saldoAtual) {
+        return valorAdepostiar+saldoAtual;
     }
 
     public boolean login(String username, String password, Programa programa) {
@@ -169,4 +170,6 @@ public class Cliente extends Utilizador implements Serializable {
         int numeroGeradoFinal = (int) (numeroGerado*(arrayList.size()));
         return numeroGeradoFinal;
     }
+
+
 }
