@@ -43,8 +43,6 @@ public class InterfaceGrafica {
         PainelLogin pL = new PainelLogin();
         PainelRegisto pR = new PainelRegisto();
 
-        //painel das "Minhas Músicas"
-        PainelMinhasMusicas minhasMusicas = new PainelMinhasMusicas();
 
         //painel do CLIENTE APÓS FAZER LOGIN
         PainelCllienteAposLogin painelCliente = new PainelCllienteAposLogin();
@@ -363,6 +361,24 @@ public class InterfaceGrafica {
             }
         });
 
+        PainelSaldo  painelSaldo = new PainelSaldo();
+        JTextField saldoAtual = new JTextField();
+        saldoAtual.setPreferredSize(new Dimension(100, 30));
+        saldoAtual.setText(String.valueOf(clienteTemporarioParaTeste.getSaldo()));
+        saldoAtual.setEditable(false);
+        saldoAtual.setVisible(true);
+        painelSaldo.add(saldoAtual);
+        JButton adicionarSaldo = new JButton();
+        adicionarSaldo.setText("Adicionar saldo");
+        painelSaldo.add(adicionarSaldo);
+        painelSaldo.setVisible(false);
+        JTextField valorDeposito = new JTextField();
+        valorDeposito.setText("Valor");
+        valorDeposito.setPreferredSize(new Dimension(100, 30));
+        valorDeposito.setVisible(true);
+        painelSaldo.add(valorDeposito);
+        painelCliente.add(painelSaldo,BorderLayout.SOUTH);  //SÓ DÁ COM ESTA LOCALIZAÇÃO
+
 
         //Crio, edito e adiciono os BOTÕES DO PAINEL DO CLIENTE APÓS LOGIN
         JButton musicasDoSistema = new JButton();
@@ -396,23 +412,7 @@ public class InterfaceGrafica {
         jp.add(pR);
         jp.add(painelCliente);
 
-        PainelMinhasPlaylists painelSaldo = new PainelMinhasPlaylists();
-        JTextField saldoAtual = new JTextField();
-        saldoAtual.setPreferredSize(new Dimension(100, 30));
-        saldoAtual.setText(String.valueOf(clienteTemporarioParaTeste.getSaldo()));
-        saldoAtual.setEditable(false);
-        saldoAtual.setVisible(true);
-        painelSaldo.add(saldoAtual);
-        JButton adicionarSaldo = new JButton();
-        adicionarSaldo.setText("Adicionar saldo");
-        painelSaldo.add(adicionarSaldo);
-        painelSaldo.setVisible(false);
-        JTextField valorDeposito = new JTextField();
-        valorDeposito.setText("Valor");
-        valorDeposito.setPreferredSize(new Dimension(100, 30));
-        valorDeposito.setVisible(true);
-        painelSaldo.add(valorDeposito);
-        painelCliente.add(painelSaldo);
+
 
         //Ao carregar no botão de uma das opções fica azul e os restantes ficam pretos (normais) //meter sempre os outros a preto ao mesmo tempo para não ficar azul após carregar noutro
         musicasDoSistema.addActionListener(e -> {
@@ -440,14 +440,14 @@ public class InterfaceGrafica {
 
         minhasPlaylistsCliente.addActionListener(e -> {
             musicasDoSistema.setForeground(Color.BLACK);
-                    minhasMusicasCliente.setForeground(Color.BLACK);
-                    minhasPlaylistsCliente.setForeground(Color.BLUE);
-                    saldo.setForeground(Color.BLACK);
-                    cestoDeCompras.setForeground(Color.BLACK);
-                    minhasMusicasClientePainel.setVisible(false);
-                    minhasPlaylistsClientePainel.setVisible(true);
-                    scrollPane.setVisible(true);
-                    painelPlaylistVazia.setVisible(false);
+            minhasMusicasCliente.setForeground(Color.BLACK);
+            minhasPlaylistsCliente.setForeground(Color.BLUE);
+            saldo.setForeground(Color.BLACK);
+            cestoDeCompras.setForeground(Color.BLACK);
+            minhasMusicasClientePainel.setVisible(false);
+            minhasPlaylistsClientePainel.setVisible(true);
+            scrollPane.setVisible(true);
+            painelPlaylistVazia.setVisible(false);
             painelSaldo.setVisible(false);
                 }
         );
