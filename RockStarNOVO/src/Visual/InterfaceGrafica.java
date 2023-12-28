@@ -362,12 +362,6 @@ public class InterfaceGrafica {
         });
 
         PainelSaldo  painelSaldo = new PainelSaldo();
-        JTextField saldoAtual = new JTextField();
-        saldoAtual.setPreferredSize(new Dimension(100, 30));
-        saldoAtual.setText(String.valueOf(clienteTemporarioParaTeste.getSaldo()));
-        saldoAtual.setEditable(false);
-        saldoAtual.setVisible(true);
-        painelSaldo.add(saldoAtual);
         JButton adicionarSaldo = new JButton();
         adicionarSaldo.setText("Adicionar saldo");
         painelSaldo.add(adicionarSaldo);
@@ -392,11 +386,18 @@ public class InterfaceGrafica {
         saldo.setText("Saldo");
         JButton cestoDeCompras = new JButton();
         cestoDeCompras.setText("Compras pendentes");
+        JTextField saldoAtual = new JTextField();
+        saldoAtual.setPreferredSize(new Dimension(100, 30));
+        saldoAtual.setText(String.valueOf(clienteTemporarioParaTeste.getSaldo()));
+        saldoAtual.setEditable(false);
+        saldoAtual.setVisible(true);
+        painelSaldo.add(saldoAtual);
 
         painelCima.add(musicasDoSistema);
         painelCima.add(minhasMusicasCliente);
         painelCima.add(minhasPlaylistsCliente);
         painelCima.add(saldo);
+        painelCima.add(saldoAtual);
         painelCima.add(cestoDeCompras);
 
         painelCliente.add(painelCima,BorderLayout.NORTH);
