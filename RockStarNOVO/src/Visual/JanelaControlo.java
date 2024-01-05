@@ -1,4 +1,7 @@
-import Visual.*;
+package Visual;
+
+
+import Modelo.*;
 
 import javax.swing.*;
 import java.awt.*;

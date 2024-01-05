@@ -1,4 +1,5 @@
 package Visual;
+import Modelo.*;
 
 import javax.swing.*;
 

@@ -1,4 +1,5 @@
-import Modelo.*;
+package Modelo;
+
 
 import java.io.FileOutputStream;
 import java.io.IOException;

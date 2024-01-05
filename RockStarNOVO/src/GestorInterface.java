@@ -1,5 +1,6 @@
 import Modelo.*;
-import javax.swing.*;
+import Visual.*;
+
 import java.io.*;
 
 public class GestorInterface {

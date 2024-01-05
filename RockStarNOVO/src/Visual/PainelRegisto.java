@@ -1,5 +1,7 @@
 package Visual;
 
+import Modelo.*;
+
 import javax.swing.*;
 
 public class PainelRegisto extends JPanel {
