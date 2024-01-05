@@ -78,6 +78,22 @@ public class Musica {
         return preco;
     }
 
+    public int getIdMuscia() {
+        return idMuscia;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public void setPreco(double preco) {
+        this.preco = preco;
+    }
+
+    public void setDisponibilidade(boolean disponibilidade) {
+        this.disponibilidade = disponibilidade;
+    }
+
     // private double mediaDoRating () {    //está comentado porque falta o return
 
 

@@ -77,8 +77,6 @@ public class Cliente extends Utilizador implements Serializable {
     }
 
    /*  private Playlist verPlaylist () { //está comentado porque falta o return
-
-
     } */
 
     public void removerPlaylist(Playlist nomePlaylist, int linha, int coluna, JTable tabelaPlaylists, DefaultTableModel tabelaPlaylist, JPanel minhasPlaylistsClientePainel) {
@@ -94,7 +92,6 @@ public class Cliente extends Utilizador implements Serializable {
             }
         }
 
-
     public void mudarVisibilidade(boolean visibilidade, Playlist pl) {
         if (visibilidade) {
             pl.setVisibilidade(false);
@@ -106,19 +103,36 @@ public class Cliente extends Utilizador implements Serializable {
     }
 
     private void adicionarMusicasAoCarrinho(Musica musica) {
-
+        if (!aquisicoesEmEsperaPorValidacao.contains(musica) && !aquisicoes.contains(musica)){
+        aquisicoesEmEsperaPorValidacao.add(musica);}
     }
 
-    private void finalizarCarrinho() {
-
+    private void finalizarCarrinho(Programa programa) {
+        for (Musica mus : aquisicoesEmEsperaPorValidacao){
+            this.retirarSaldo(mus.getPreco());
+            Artista artistaVendedor =null;
+            for (Artista art : programa.getArtistas()){
+                if (mus.getAutor().equals(art.getUsername())){
+                    artistaVendedor = art;
+                }
+            }
+            artistaVendedor.adicionarSaldo(mus.getPreco());
+            aquisicoes.add(mus);
+        }
     }
 
     private void cancelarCarrinho() {
-
+        for (Musica mus : aquisicoesEmEsperaPorValidacao){
+            aquisicoesEmEsperaPorValidacao.remove(mus);
+        }
     }
 
-    public double alterarSaldo(double valorAdepostiar, double saldoAtual) {
-        return valorAdepostiar+saldoAtual;
+    public double alterarSaldo(double valorAdepostiar) {
+        return valorAdepostiar+saldo;
+    }
+
+    public double retirarSaldo(double valorARetirar) {
+        return saldo-valorARetirar;
     }
 
     public boolean login(String username, String password, Programa programa) {
@@ -175,4 +189,5 @@ public class Cliente extends Utilizador implements Serializable {
     public ArrayList<Musica> getAquisicoesEmEsperaPorValidacao() {
         return aquisicoesEmEsperaPorValidacao;
     }
+
 }

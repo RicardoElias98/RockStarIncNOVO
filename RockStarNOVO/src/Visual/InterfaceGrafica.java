@@ -100,7 +100,6 @@ public class InterfaceGrafica {
         JTable tabelaMusicasSistema = new JTable(tabela2);
         tabelaMusicasSistema.setDefaultEditor(Object.class, null);
 
-
         int largura3 = 150; // Largura desejada para as colunas
 
         for (int i = 0; i < tabelaMusicasSistema.getColumnCount(); i++) {
@@ -147,8 +146,9 @@ public class InterfaceGrafica {
         scrollPaneCesto.setVisible(true);
         carrinho.add(scrollPaneCesto, BorderLayout.CENTER);
 
-        painelCliente.add(minhasPlaylistsClientePainel,BorderLayout.CENTER);
         painelCliente.add(carrinho,BorderLayout.CENTER); //O útlimo CENTER É O QUE APARECE
+        painelCliente.add(minhasPlaylistsClientePainel,BorderLayout.CENTER);
+
 
         opcao001.addActionListener(e -> {
             int linha = tabelaMusicasSistema.getSelectedRow();
@@ -176,9 +176,6 @@ public class InterfaceGrafica {
         tabelaPlaylist.addColumn("Numero de musicas");
         tabelaPlaylist.addColumn("Visibilidade");
         tabelaPlaylist.addColumn("Descrição");
-
-
-
 
         JTable tabelaPlaylists = new JTable(tabelaPlaylist);
         tabelaPlaylists.setDefaultEditor(Object.class, null);
@@ -590,7 +587,7 @@ public class InterfaceGrafica {
         );
 
         adicionarSaldo.addActionListener(e -> {
-            clienteTemporarioParaTeste.setSaldo(clienteTemporarioParaTeste.alterarSaldo(Double.parseDouble(valorDeposito.getText()),clienteTemporarioParaTeste.getSaldo()));
+            clienteTemporarioParaTeste.setSaldo(clienteTemporarioParaTeste.alterarSaldo(Double.parseDouble(valorDeposito.getText())));
             System.out.println("Novo saldo: " + clienteTemporarioParaTeste.getSaldo());
             saldoAtual.setText(String.valueOf(clienteTemporarioParaTeste.getSaldo()));
         });

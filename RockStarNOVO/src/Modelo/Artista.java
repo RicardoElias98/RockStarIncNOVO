@@ -15,24 +15,43 @@ public class Artista extends Utilizador {
         this.albuns = albuns;
     }
 
-    private void adicionarMusica() {
-
+    private void adicionarMusica(Musica musica, Programa programa) {
+        this.musicas.add(musica);
+        programa.getMusicasTotais().add(musica);
     }
 
-    private void corrigirTitulo(int idDaMusica) {
-
+    private void corrigirTitulo(int idDaMusica, Programa programa, String novoTitulo) {
+        for (Musica mus : programa.getMusicasTotais()){
+            if (mus.getIdMuscia() == idDaMusica) {
+                mus.setTitulo(novoTitulo);
+            }
+        }
     }
 
-    private void alterarPreco(int idDaMusica) {
-
+    private void alterarPreco(int idDaMusica, Programa programa, double novoPreco) {
+        for (Musica mus : programa.getMusicasTotais()){
+            if (mus.getIdMuscia() == idDaMusica) {
+                mus.setPreco(novoPreco);
+            }
+        }
     }
 
-    private void alterarVisibilidade(int idDaMusica) {
-
+    private void alterarDisponiblidade(int idDaMusica, Programa programa, boolean visibilidade ) {
+        for (Musica mus : programa.getMusicasTotais()){
+            if (mus.getIdMuscia() == idDaMusica) {
+                mus.setDisponibilidade(visibilidade);
+            }
+        }
     }
 
     private void verEstatistias() {
+        System.out.println("Total de músicas: " + this.contarMusicas() + "Valor total das músicas: " + this.valorTotalMusicas() + "");
 
+//FALTAM ESTES --> Ver estatísticas: total de utilizadores,valor total das vendas, total de álbuns por género musical. Para além destes valores, apresente mais dois valores à sua escolha, que considere úteis num sistema deste tipo.
+    }
+
+    public double adicionarSaldo(double valorAadicionar) {
+        return saldo+valorAadicionar;
     }
 
     @Override
@@ -75,6 +94,9 @@ public class Artista extends Utilizador {
         } else return false;
     }
 
+    public ArrayList<Musica> getMusicas() {
+        return musicas;
+    }
 
     public int getPin() {
         return pin;
@@ -86,6 +108,26 @@ public class Artista extends Utilizador {
         if (pin == this.pin) {
             return true;
         } else return false;
+    }
+
+    private int contarMusicas () {
+        int contador= 0;
+        for (Musica mus : this.getMusicas()) {
+            if (mus != null) {
+                contador++;
+            }
+        }
+        return contador;
+    }
+
+    private double valorTotalMusicas () {
+        double valor = 0;
+        for (Musica mus : this.getMusicas()) {
+            if (mus!=null) {
+                valor = valor + mus.getPreco();
+            }
+        }
+        return valor;
     }
 }
 
