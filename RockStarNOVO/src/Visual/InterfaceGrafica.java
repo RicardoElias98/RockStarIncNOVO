@@ -36,13 +36,20 @@ public class InterfaceGrafica {
         //JANELA PRINCIPAL
         JanelaPrincipal jp = new JanelaPrincipal("RockStar. Inc");
 
+        //Painel compras pendentes
+        PainelCarrinho carrinho = new PainelCarrinho();
+
+        JButton confirmarCompra = new JButton();
+        confirmarCompra.setText("Comprar");
+        confirmarCompra.setVisible(true);
+        carrinho.add(confirmarCompra);
+
         //painel da JP com os botões login e registar
         PainelBotoesLoginRegistar pn = new PainelBotoesLoginRegistar();
 
         //painel do LOGIN E DO REGISTO
         PainelLogin pL = new PainelLogin();
         PainelRegisto pR = new PainelRegisto();
-
 
         //painel do CLIENTE APÓS FAZER LOGIN
         PainelCllienteAposLogin painelCliente = new PainelCllienteAposLogin();
@@ -56,6 +63,9 @@ public class InterfaceGrafica {
         //painelFlowLayout Playlists
         PainelMinhasPlaylists minhasPlaylistsClientePainel = new PainelMinhasPlaylists();
 
+        //painel Musicas Sistema
+        PainelMusicaSistema musicaSistema = new PainelMusicaSistema();
+
         JButton criarPlaylist = new JButton();
         criarPlaylist.setText("Criar playlist");
         minhasPlaylistsClientePainel.add(criarPlaylist);
@@ -68,8 +78,96 @@ public class InterfaceGrafica {
         minhasPlaylistsClientePainel.revalidate();
         minhasPlaylistsClientePainel.repaint();
 
+        //PARA TESTE
+        Musica musica1Teste = new Musica("Olá","Roberto", LocalDate.of(2023,10,8),new ArrayList<>(),true,"Olá album",1,new ArrayList<>(), "Rock",2.0);
+        Musica musica2Teste = new Musica("Alo","Ana", LocalDate.of(2023,10,8),new ArrayList<>(),true,"Olá album",1,new ArrayList<>(),"Rock",13);
+        //PARA TESTE
 
-        painelCliente.add(minhasPlaylistsClientePainel);
+        //PARA TESTE
+        programa.getMusicasTotais().add(musica1Teste);
+        programa.getMusicasTotais().add(musica2Teste);
+
+        DefaultTableModel tabela2 = new DefaultTableModel();
+
+
+        // Adicione suas colunas ao modelo da tabela
+        tabela2.addColumn("Artista");
+        tabela2.addColumn("Música");
+        tabela2.addColumn("Álbum");
+        tabela2.addColumn("Ano");
+        tabela2.addColumn("Preço");
+
+        JTable tabelaMusicasSistema = new JTable(tabela2);
+        tabelaMusicasSistema.setDefaultEditor(Object.class, null);
+
+
+        int largura3 = 150; // Largura desejada para as colunas
+
+        for (int i = 0; i < tabelaMusicasSistema.getColumnCount(); i++) {
+            tabelaMusicasSistema.getColumnModel().getColumn(i).setPreferredWidth(largura3);
+        }
+
+        tabela2.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo(),musica1Teste.getAlbum(),musica1Teste.getData(),musica1Teste.getPreco()});
+
+        JScrollPane scrollPane3 = new JScrollPane(tabelaMusicasSistema);
+        scrollPane3.setPreferredSize(new Dimension(400, 300));
+        scrollPane3.setVisible(false);
+
+        musicaSistema.add(scrollPane3, BorderLayout.CENTER);
+
+        JPopupMenu menuOpcoesSistema = new JPopupMenu();
+        JMenuItem opcao001 = new JMenuItem("Adicionar ao carrinho");
+        menuOpcoesSistema.add(opcao001);
+        menuOpcoesSistema.setVisible(false);
+
+        tabelaMusicasSistema.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (SwingUtilities.isRightMouseButton(e)) {
+                    menuOpcoesSistema.show(tabelaMusicasSistema,e.getX(), e.getY());
+                    menuOpcoesSistema.setVisible(true);
+                }
+            }
+        });
+
+
+        //PARA TESTE
+
+        DefaultTableModel tabelaCesto = new DefaultTableModel();
+
+        // Adicionar colunas ao modelo da tabela
+        tabelaCesto.addColumn("Nome");
+        tabelaCesto.addColumn("Preço");
+
+        JTable tabelaCestoCompras = new JTable(tabelaCesto);
+        tabelaCestoCompras.setDefaultEditor(Object.class, null);
+
+        JScrollPane scrollPaneCesto = new JScrollPane(tabelaCestoCompras);
+        scrollPaneCesto.setPreferredSize(new Dimension(800, 300));
+        scrollPaneCesto.setVisible(true);
+        carrinho.add(scrollPaneCesto, BorderLayout.CENTER);
+
+        painelCliente.add(minhasPlaylistsClientePainel,BorderLayout.CENTER);
+        painelCliente.add(carrinho,BorderLayout.CENTER); //O útlimo CENTER É O QUE APARECE
+
+        opcao001.addActionListener(e -> {
+            int linha = tabelaMusicasSistema.getSelectedRow();
+            int coluna = tabelaMusicasSistema.getSelectedColumn();
+
+            //Obter o objeto música de onde se clica
+            Object objetoNaLinha = tabelaMusicasSistema.getValueAt(linha, coluna);
+            String objetoString = (String) objetoNaLinha;
+
+            for (Musica musc : programa.getMusicasTotais()){
+                if (objetoString.equals(musc.getTitulo())) {
+                    clienteTemporarioParaTeste.getAquisicoesEmEsperaPorValidacao().add(musc);
+                    tabelaCesto.addRow(new Object[]{musc.getTitulo(),musc.getPreco()});
+                    painelCliente.revalidate();
+                    painelCliente.repaint();
+                    System.out.println("Música adiconada ao carrinho com sucesso" + musc);
+                }
+            }
+        });
 
         DefaultTableModel tabelaPlaylist = new DefaultTableModel();
 
@@ -78,6 +176,9 @@ public class InterfaceGrafica {
         tabelaPlaylist.addColumn("Numero de musicas");
         tabelaPlaylist.addColumn("Visibilidade");
         tabelaPlaylist.addColumn("Descrição");
+
+
+
 
         JTable tabelaPlaylists = new JTable(tabelaPlaylist);
         tabelaPlaylists.setDefaultEditor(Object.class, null);
@@ -137,18 +238,18 @@ public class InterfaceGrafica {
         //PARA TESTE
 
         //PARA TESTE
-        Musica musica1 = new Musica("Música 1", "Autor 1", LocalDate.now(), new ArrayList<>(), true, "Álbum 1", 1, new ArrayList<>(),"Rock");
-        Musica musica2 = new Musica("Música 2", "Autor 2", LocalDate.now(), new ArrayList<>(), true, "Álbum 2", 2, new ArrayList<>(), "Jazz");
-        Musica musica3 = new Musica("Música 3", "Autor 3", LocalDate.now(), new ArrayList<>(), true, "Álbum 3", 3, new ArrayList<>(),"Chill");
-        Musica musica4 = new Musica("Música 4", "Autor 4", LocalDate.now(), new ArrayList<>(), true, "Álbum 4", 4, new ArrayList<>(),"Metal");
+        Musica musica1 = new Musica("Música 1", "Autor 1", LocalDate.now(), new ArrayList<>(), true, "Álbum 1", 1, new ArrayList<>(),"Rock",2.0);
+        Musica musica2 = new Musica("Música 2", "Autor 2", LocalDate.now(), new ArrayList<>(), true, "Álbum 2", 2, new ArrayList<>(), "Jazz",2.0);
+        Musica musica3 = new Musica("Música 3", "Autor 3", LocalDate.now(), new ArrayList<>(), true, "Álbum 3", 3, new ArrayList<>(),"Chill",2.0);
+        Musica musica4 = new Musica("Música 4", "Autor 4", LocalDate.now(), new ArrayList<>(), true, "Álbum 4", 4, new ArrayList<>(),"Metal",2.0);
         playlistTeste.musicas.add(musica1);
         playlistTeste.musicas.add(musica2);
         playlistTeste.musicas.add(musica3);
         playlistTeste.musicas.add(musica4);
-        Musica musicaa1 = new Musica("Música 1", "Autor 1", LocalDate.now(), new ArrayList<>(), true, "Álbum 1", 1, new ArrayList<>(),"Rock");
-        Musica musicaa2 = new Musica("Música 2", "Autor 2", LocalDate.now(), new ArrayList<>(), true, "Álbum 2", 2, new ArrayList<>(),"Jazz");
-        Musica musicaa3 = new Musica("Música 3", "Autor 3", LocalDate.now(), new ArrayList<>(), true, "Álbum 3", 3, new ArrayList<>(),"Chill");
-        Musica musicaa4 = new Musica("Música 4", "Autor 4", LocalDate.now(), new ArrayList<>(), true, "Álbum 4", 4, new ArrayList<>(),"Metal");
+        Musica musicaa1 = new Musica("Música 1", "Autor 1", LocalDate.now(), new ArrayList<>(), true, "Álbum 1", 1, new ArrayList<>(),"Rock",2.0);
+        Musica musicaa2 = new Musica("Música 2", "Autor 2", LocalDate.now(), new ArrayList<>(), true, "Álbum 2", 2, new ArrayList<>(),"Jazz",2.0);
+        Musica musicaa3 = new Musica("Música 3", "Autor 3", LocalDate.now(), new ArrayList<>(), true, "Álbum 3", 3, new ArrayList<>(),"Chill",2.0);
+        Musica musicaa4 = new Musica("Música 4", "Autor 4", LocalDate.now(), new ArrayList<>(), true, "Álbum 4", 4, new ArrayList<>(),"Metal",2.0);
 
         programa.getMusicasTotais().add(musica1);
         programa.getMusicasTotais().add(musica2);
@@ -402,6 +503,7 @@ public class InterfaceGrafica {
 
         painelCliente.add(painelCima,BorderLayout.NORTH);
         painelCliente.add(minhasMusicasClientePainel, BorderLayout.WEST);
+        painelCliente.add(musicaSistema, BorderLayout.EAST);
 
 
         JButton logout = new JButton();
@@ -414,7 +516,6 @@ public class InterfaceGrafica {
         jp.add(painelCliente);
 
 
-
         //Ao carregar no botão de uma das opções fica azul e os restantes ficam pretos (normais) //meter sempre os outros a preto ao mesmo tempo para não ficar azul após carregar noutro
         musicasDoSistema.addActionListener(e -> {
             musicasDoSistema.setForeground(Color.BLUE);
@@ -425,6 +526,9 @@ public class InterfaceGrafica {
             minhasMusicasClientePainel.setVisible(false);
             minhasPlaylistsClientePainel.setVisible(false);
             painelSaldo.setVisible(false);
+            musicaSistema.setVisible(true);
+            scrollPane3.setVisible(true);
+            carrinho.setVisible(false);
         });
 
         minhasMusicasCliente.addActionListener(e -> {
@@ -436,6 +540,8 @@ public class InterfaceGrafica {
                     minhasMusicasClientePainel.setVisible(true);
                     minhasPlaylistsClientePainel.setVisible(false);
             painelSaldo.setVisible(false);
+            scrollPane3.setVisible(false);
+            carrinho.setVisible(false);
                 }
         );
 
@@ -450,6 +556,8 @@ public class InterfaceGrafica {
             scrollPane.setVisible(true);
             painelPlaylistVazia.setVisible(false);
             painelSaldo.setVisible(false);
+            scrollPane3.setVisible(false);
+            carrinho.setVisible(false);
                 }
         );
 
@@ -462,6 +570,8 @@ public class InterfaceGrafica {
             minhasMusicasClientePainel.setVisible(false);
             minhasPlaylistsClientePainel.setVisible(false);
             painelSaldo.setVisible(true);
+            scrollPane3.setVisible(false);
+            carrinho.setVisible(false);
                 }
         );
 
@@ -474,6 +584,8 @@ public class InterfaceGrafica {
             minhasMusicasClientePainel.setVisible(false);
             minhasPlaylistsClientePainel.setVisible(false);
             painelSaldo.setVisible(false);
+            scrollPane3.setVisible(false);
+            carrinho.setVisible(true);
                 }
         );
 
@@ -508,12 +620,9 @@ public class InterfaceGrafica {
         Artista artistaTemporarioRegisto = new Artista("", "", 0,-1,new ArrayList<>(),new ArrayList<>());
 
         //PARA TESTE
-        Musica musica1Teste = new Musica("Olá","Roberto", LocalDate.of(2023,10,8),new ArrayList<>(),true,"Olá album",1,new ArrayList<>(), "Rock");
         clienteTemporarioParaTeste.getAquisicoes().add(musica1Teste);
-        Musica musica2Teste = new Musica("Alo","Ana", LocalDate.of(2023,10,8),new ArrayList<>(),true,"Olá album",1,new ArrayList<>(),"Rock");
         clienteTemporarioParaTeste.getAquisicoes().add(musica2Teste);
         //PARA TESTE
-
 
         //PARA TESTE//PARA TESTE//PARA TESTE
         tabela.addRow(new Object[]{musica1Teste.getAutor(),musica1Teste.getTitulo(),musica1Teste.getAlbum(),musica1Teste.getData()});

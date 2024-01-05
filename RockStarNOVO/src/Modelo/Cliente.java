@@ -9,14 +9,15 @@ public class Cliente extends Utilizador implements Serializable {
 
     private ArrayList<Playlist> playlist;
     private ArrayList<Musica> aquisicoes;
-    private ArrayList<Aquisicao> aquisicoesEmEsperaPorValidacao;
+    private ArrayList<Musica> aquisicoesEmEsperaPorValidacao;
 
-    public Cliente(String username, String password, double saldo, ArrayList<Playlist> playlist, ArrayList<Musica> aquisicoes, ArrayList<Aquisicao> aquisicoesEmEsperaPorValidacao) {
+    public Cliente(String username, String password, double saldo, ArrayList<Playlist> playlist, ArrayList<Musica> aquisicoes, ArrayList<Musica> aquisicoesEmEsperaPorValidacao) {
         super(username, password, saldo);
         this.playlist = playlist;
         this.aquisicoes = aquisicoes;
         this.aquisicoesEmEsperaPorValidacao = aquisicoesEmEsperaPorValidacao;
     }
+
     public ArrayList<Musica> getAquisicoes() {
         return aquisicoes;
     }
@@ -171,5 +172,7 @@ public class Cliente extends Utilizador implements Serializable {
         return numeroGeradoFinal;
     }
 
-
+    public ArrayList<Musica> getAquisicoesEmEsperaPorValidacao() {
+        return aquisicoesEmEsperaPorValidacao;
+    }
 }

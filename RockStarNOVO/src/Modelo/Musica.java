@@ -17,7 +17,9 @@ public class Musica {
 
     private String genero; //USAR ENUM
 
-    public Musica(String titulo, String autor, LocalDate data, ArrayList<Integer> registoDeValores, boolean disponibilidade, String album, int idMuscia, ArrayList<Integer> registodeRating, String genero) {
+    private double preco;
+
+    public Musica(String titulo, String autor, LocalDate data, ArrayList<Integer> registoDeValores, boolean disponibilidade, String album, int idMuscia, ArrayList<Integer> registodeRating, String genero, double preco) {
         this.titulo = titulo;
         this.autor = autor;
         this.data = data;
@@ -27,6 +29,7 @@ public class Musica {
         this.idMuscia = idMuscia;
         this.registodeRating = registodeRating;
         this.genero = genero;
+        this.preco = preco;
     }
 
     public String getAutor() {
@@ -69,6 +72,10 @@ public class Musica {
 
     public String getGenero() {
         return genero;
+    }
+
+    public double getPreco() {
+        return preco;
     }
 
     // private double mediaDoRating () {    //está comentado porque falta o return
