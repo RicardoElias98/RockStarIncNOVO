@@ -1,8 +1,12 @@
-import Visual.InterfaceGrafica;
-
 public class Main {
+
     public static void main(String[] args) {
-        InterfaceGrafica GUI = new InterfaceGrafica();
+      GestorInterface rockstar = new GestorInterface();
+      rockstar.iniciar();
+
+
+        /////// TESTE DE OUTRA COISA; CLASSE ROCKSTAR APP PRA VER IDEIAS DE COISAS E ORGANIZAÇÃO GRAFICA
+        //RockstarApp oi = new RockstarApp();
 
     }
 }
