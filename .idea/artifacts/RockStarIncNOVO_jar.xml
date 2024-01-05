@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact name="RockStarIncNOVO:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/RockStarIncNOVO_jar</output-path>
+    <root id="root">
+      <element id="archive" name="RockStarIncNOVO.jar">
+        <element id="module-output" name="RockStarIncNOVO" />
+      </element>
+    </root>
+  </artifact>
+</component>

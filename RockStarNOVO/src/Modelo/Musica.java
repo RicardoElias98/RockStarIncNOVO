@@ -12,7 +12,7 @@ public class Musica {
     private boolean disponibilidade;
     private String album;
 
-    private int idMuscia;
+    private int idMusica;
     private ArrayList <Integer> registodeRating; //HASMAP
 
     private String genero; //USAR ENUM
@@ -26,7 +26,7 @@ public class Musica {
         this.registoDeValores = registoDeValores;
         this.disponibilidade = disponibilidade;
         this.album = album;
-        this.idMuscia = idMuscia;
+        this.idMusica = idMusica;
         this.registodeRating = registodeRating;
         this.genero = genero;
         this.preco = preco;
@@ -65,7 +65,7 @@ public class Musica {
                 ", registoDeValores=" + registoDeValores +
                 ", disponibilidade=" + disponibilidade +
                 ", album='" + album + '\'' +
-                ", idMuscia=" + idMuscia +
+                ", idMuscia=" + idMusica +
                 ", registodeRating=" + registodeRating +
                 '}';
     }
@@ -79,7 +79,7 @@ public class Musica {
     }
 
     public int getIdMuscia() {
-        return idMuscia;
+        return idMusica;
     }
 
     public void setTitulo(String titulo) {
