@@ -43,14 +43,14 @@ public class JanelaControlo extends JFrame {
         // Adicionar painéis ao CardLayout
         add(visaoInicial, "Inicial");
         add(visaoRegisto, "Registo");
-        //add(visaoLogin, "Login");
+        add(visaoLogin, "Login");
         //add(visaoCliente, "Cliente");
-       // add(visaoArtista, "Artista");
+        //add(visaoArtista, "Artista");
 
         // Configurações da janela
         setResizable(false);
         // caso queira definir tamanho
-      // setSize(1100, 600);
+        // setSize(1100, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //adicionar listener para salvar ficheiro programa quando fecha a janela
         addWindowListener(new WindowAdapter() {
@@ -62,7 +62,7 @@ public class JanelaControlo extends JFrame {
 
         getContentPane().setBackground(Color.ORANGE);
         setVisible(true);
-      this.pack();
+        this.pack();
         this.setLocationRelativeTo(null);
 
 

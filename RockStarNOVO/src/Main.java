@@ -2,8 +2,11 @@
 public class Main {
 
     public static void main(String[] args) {
-      GestorInterface rockstar = new GestorInterface();
-      rockstar.iniciar();
+
+        //como só criamos uma instância, executa-se só o construtor sem atribuição de variável
+        new GestorInterface();
+
+        // rockstar.iniciar();
 
 
         /////// TESTE DE OUTRA COISA; CLASSE ROCKSTAR APP PRA VER IDEIAS DE COISAS E ORGANIZAÇÃO GRAFICA

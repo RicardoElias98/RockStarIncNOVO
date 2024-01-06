@@ -1,6 +1,5 @@
 import Modelo.*;
 import Visual.*;
-
 import java.io.*;
 
 public class GestorInterface {
@@ -42,46 +41,4 @@ public class GestorInterface {
         }
         return programa;
     }
-
-
-
-    // este método apenas pode ser usado na classe.
-    // para ser usado fora, tornar metodo publico e arranjar forma de aceder a rockstar
-    // resolver situação de que se for acedido por fora, tem de já existir o ficheiro DAT
-
-   // rever
-
-
-    public void iniciar() {
-        janelaPrincipal.setVisible(true);
-
     }
-    // métodos internos da classe
-
-    // métodos para iniciar as estruturas de dados
-
-    // tudo o que esta pra baixo, rever
-/*
-
-    public void abrirLogin() {
-        Visual.PainelLogin painelLogin = new Visual.PainelLogin(this);
-        janelaPrincipal.trocarPainel(painelLogin);
-    }
-
-    public void abrirRegistro() {
-        PainelRegistro painelRegistro = new PainelRegistro(this);
-        janelaPrincipal.trocarPainel(painelRegistro);
-    }
-
-    public void loginRealizado(Utilizador utilizador) {
-        if (utilizador instanceof Cliente) {
-            Visual.PainelCliente painelCliente = new Visual.PainelCliente((Cliente) utilizador);
-            janelaPrincipal.trocarPainel(painelCliente);
-        } else if (utilizador instanceof Artista) {
-            Visual.PainelArtista painelArtista = new Visual.PainelArtista((Artista) utilizador);
-            janelaPrincipal.trocarPainel(painelArtista);
-        }
-    }
-
- */
-}

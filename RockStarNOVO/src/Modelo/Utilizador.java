@@ -1,30 +1,29 @@
 package Modelo;
 
-public abstract class Utilizador {
+import java.io.Serializable;
+
+public abstract class Utilizador implements Serializable {
     protected String username;
     protected String password;
     protected double saldo;
 
-    public Utilizador(String username, String password, double saldo) {
+    public Utilizador(String username, String password) {
         this.username = username;
         this.password = password;
-        this.saldo = saldo;
+        this.saldo = 0.00;
     }
 
-    protected void listarMusicas () {
 
-    }
 
-    protected void pesquisarMusicas () {
+    protected abstract void listarMusicas();
 
-    }
+    protected abstract void pesquisarMusicas();
 
-    protected void login (String username, String password) {
-    }
+    protected abstract void verificaLogin();
 
-    protected void logout () {
-
-    }
+    // LOGOUT PODERÁ NAO Ser necessario. a não ser tornar o user temporario da FRAME = null, para novo login
+    ///protected void logout() {
+    ///////
 
     public String getUsername() {
         return username;
@@ -34,26 +33,8 @@ public abstract class Utilizador {
         return password;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    // método para verificar se a password está correta
-
-    public boolean verificaPassword(String password) {
-        return password.equals(this.password);
-
-    }
-
-    public void setSaldo(double saldo) {
-        this.saldo = saldo;
-    }
-
     public double getSaldo() {
         return saldo;
     }
+
 }

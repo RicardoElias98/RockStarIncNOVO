@@ -20,8 +20,8 @@ public class PainelInicial extends JPanel {
 
         // elementos do painel
         // botão login
-        botaoLogin = new JButton();
-        botaoLogin.setText("Login");
+        botaoLogin = new JButton("Login");
+
         botaoLogin.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 ((JanelaControlo) SwingUtilities.getWindowAncestor(botaoLogin)).mostrarPainel("Login");
@@ -30,8 +30,8 @@ public class PainelInicial extends JPanel {
         this.add(botaoLogin);
 
         // botão registo
-        botaoRegistar = new JButton();
-        botaoRegistar.setText("Registar");
+        botaoRegistar = new JButton("Registar");
+
         botaoRegistar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             ((JanelaControlo) SwingUtilities.getWindowAncestor(botaoRegistar)).mostrarPainel("Registo");
@@ -40,12 +40,10 @@ public class PainelInicial extends JPanel {
         this.add(botaoRegistar);
 
         // boas vindas & imagem
-        labelLoginOuRegistar = new JLabel();
-        labelLoginOuRegistar.setText("Bem-vindo à Rockstar Inc.");
+        labelLoginOuRegistar = new JLabel("Bem-vindo à Rockstar Inc.");
         ImageIcon image = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Extras/Fones.png")));
         labelLoginOuRegistar.setIcon(image);
         labelLoginOuRegistar.setFont(new Font("Arial", Font.BOLD, 30)); //adicionar fonte de texto
         add(labelLoginOuRegistar);
-
     }
 }

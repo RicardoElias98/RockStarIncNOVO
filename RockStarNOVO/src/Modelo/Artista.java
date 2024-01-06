@@ -9,7 +9,7 @@ public class Artista extends Utilizador {
     private ArrayList<Album> albuns;
 
     public Artista(String username, String password, double saldo, int pin, ArrayList<Musica> musicas, ArrayList<Album> albuns) {
-        super(username, password, saldo);
+        super(username, password);
         this.pin = pin;
         this.musicas = musicas;
         this.albuns = albuns;
@@ -56,15 +56,19 @@ public class Artista extends Utilizador {
 
     @Override
     protected void listarMusicas() {
-        super.listarMusicas();
+
     }
 
     @Override
     protected void pesquisarMusicas() {
-        super.pesquisarMusicas();
     }
 
+    @Override
+    protected void verificaLogin() {
 
+    }
+
+// esta expressao passa para verifica login
     public boolean loginArtista(String username, String password, int pin, Programa programa) {
         int contadorParaLogin = 0;
 

@@ -29,11 +29,11 @@ public class PainelRegisto extends JPanel {
 
         usuarioTextField = new JTextField(20);
         senhaPasswordField = new JPasswordField(20);
-        artistaCheckBox = new JCheckBox("Registrar como Artista");
+        artistaCheckBox = new JCheckBox("Registar como Artista");
         pinTextField = new JTextField(20);
-        registrarButton = new JButton("Registrar");
+        registrarButton = new JButton("Registar");
 
-        add(new JLabel("Usuário:"));
+        add(new JLabel("User:"));
         add(usuarioTextField);
         add(new JLabel("Senha:"));
         add(senhaPasswordField);

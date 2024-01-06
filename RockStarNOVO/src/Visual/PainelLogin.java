@@ -10,67 +10,8 @@ import java.awt.event.ItemEvent;
 // VARIOS PAINEIS QUE ESTAO NO CENTRO; TRABALHAR A PARTIR DAQUI
 
 public class PainelLogin extends JPanel {
-    private JTextField utilizadorTextField;
-    private JPasswordField passwordField;
-    private JCheckBox artistaCheckBox;
-    private JTextField pinTextField;
-    private JButton loginButton;
     private Programa rockstar;
 
-
-
-    /*  public Visual.PainelLogin() {
-          // características do painel
-          setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-          setBackground(Color.ORANGE);
-          setVisible(false);
-
-          // Painel para o título
-          JPanel tituloPanel = new JPanel();
-          tituloPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
-          JLabel loginTitulo = new JLabel("LOGIN");
-          loginTitulo.setFont(new Font(loginTitulo.getFont().getName(), Font.PLAIN, 20));
-          tituloPanel.add(loginTitulo);
-          add(tituloPanel);
-
-          // Painel para o campo de username
-          JPanel usernamePanel = new JPanel();
-          usernamePanel.setLayout(new FlowLayout(FlowLayout.CENTER));
-          utilizadorTextField = new JTextField(20); // Tamanho do campo
-          usernamePanel.add(utilizadorTextField);
-          add(usernamePanel);
-
-          // Painel para o campo de password
-          JPanel passwordPanel = new JPanel();
-          passwordPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
-          passwordField = new JPasswordField(20); // Tamanho do campo
-          passwordPanel.add(passwordField);
-          add(passwordPanel);
-
-          // Painel para o checkbox de artista
-          JPanel artistaPanel = new JPanel();
-          artistaPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
-          artistaCheckBox = new JCheckBox("Artista");
-          artistaPanel.add(artistaCheckBox);
-          add(artistaPanel);
-
-          // Painel para o campo de PIN
-          JPanel pinPanel = new JPanel();
-          pinPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
-          pinTextField = new JTextField(20); // Tamanho do campo
-          pinPanel.add(pinTextField);
-          add(pinPanel);
-
-          // Painel para o botão de login
-          JPanel loginButtonPanel = new JPanel();
-          loginButtonPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
-          loginButton = new JButton("Login");
-          loginButtonPanel.add(loginButton);
-          add(loginButtonPanel);
-      }
-  }
-
-*/
     public PainelLogin(Programa rockstar) {
 
         this.rockstar = rockstar;
@@ -79,10 +20,11 @@ public class PainelLogin extends JPanel {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setBackground(Color.ORANGE);
         setVisible(true);
-        this.add(Box.createVerticalStrut(150));
 
-        JLabel loginTitulo = new JLabel();
-        loginTitulo.setText("        LOGIN");   //NÃO APARECE CENTRADO SEM SER ASSIM -- IMPORTANTE!!!!!!
+        add(Box.createVerticalStrut(150));
+
+
+        JLabel loginTitulo = new JLabel("Login");
         Font fonte = new Font(loginTitulo.getFont().getName(), Font.PLAIN, 20);
         loginTitulo.setFont(fonte);
         loginTitulo.setVisible(true);
@@ -96,24 +38,23 @@ public class PainelLogin extends JPanel {
         JLabel usernameLoginTexto = new JLabel("Username");
         JLabel passwordLoginTexto = new JLabel("password");
 
-        usernameLogin.setPreferredSize(new Dimension(100, 30));
+        usernameLogin.setMaximumSize(new Dimension(100, 30));
 
         //ESPAÇO PARA COLOCAR A PASSWORD NO LOGIN
         JPasswordField passwordLogin = new JPasswordField();
         passwordLogin.setToolTipText("Exemplo: AnimalDeEstimação + numero preferido");
 
         passwordLogin.setEchoChar('*');
-        passwordLogin.setPreferredSize(new Dimension(100, 30));
+        passwordLogin.setMaximumSize(new Dimension(100, 30));
         add(usernameLoginTexto);
         add(usernameLogin);
         add(passwordLoginTexto);
         add(passwordLogin);
 
         //OPÇÃO DE SER MÚSICO NO LOGN
-        JCheckBox artistaOpcaoLogin = new JCheckBox();
+        JCheckBox artistaOpcaoLogin = new JCheckBox("Sou Músico");
 
         artistaOpcaoLogin.setBounds(200, 430, 200, 25);
-        artistaOpcaoLogin.setText("Sou Músico");
 
         //PIN DO MÚSICO NO LOGIN
         JLabel pinTextoLogin = new JLabel("PIN");
@@ -121,10 +62,10 @@ public class PainelLogin extends JPanel {
 
 
         JPasswordField pinArtistaLogin = new JPasswordField();
-        pinArtistaLogin.setPreferredSize(new Dimension(100, 30));
+        pinArtistaLogin.setMaximumSize(new Dimension(100, 30));
         pinArtistaLogin.setVisible(false);
 
-        JCheckBox verPasswordLogin = new JCheckBox();
+        JCheckBox verPasswordLogin = new JCheckBox("Ver Password");
         verPasswordLogin.setText("Ver password");
         add(verPasswordLogin);
         add(artistaOpcaoLogin);
@@ -155,15 +96,12 @@ public class PainelLogin extends JPanel {
         });
 
         //BOTÃO CONFIRMAR O LOGIN
-        JButton botaoConfirmarLogin = new JButton();
-        botaoConfirmarLogin.setText("Confirmar");
+        JButton botaoConfirmarLogin = new JButton("Confirmar");
         add(botaoConfirmarLogin);
 
         //BOTÃO VOLTAR ATRÁS PARA DO LOGIN
-        JButton botaoVoltarAtrasLogin = new JButton();
-        botaoVoltarAtrasLogin.setText(("Regressar"));
+        JButton botaoVoltarAtrasLogin = new JButton("Regressar");
         botaoVoltarAtrasLogin.setVisible(true);
-
         add(botaoVoltarAtrasLogin);
         botaoVoltarAtrasLogin.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {

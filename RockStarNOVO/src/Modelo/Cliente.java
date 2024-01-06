@@ -11,11 +11,26 @@ public class Cliente extends Utilizador implements Serializable {
     private ArrayList<Musica> aquisicoes;
     private ArrayList<Musica> aquisicoesEmEsperaPorValidacao;
 
-    public Cliente(String username, String password, double saldo, ArrayList<Playlist> playlist, ArrayList<Musica> aquisicoes, ArrayList<Musica> aquisicoesEmEsperaPorValidacao) {
-        super(username, password, saldo);
-        this.playlist = playlist;
-        this.aquisicoes = aquisicoes;
-        this.aquisicoesEmEsperaPorValidacao = aquisicoesEmEsperaPorValidacao;
+    public Cliente(String username, String password) {
+        super(username, password);
+       playlist = new ArrayList<>();
+      aquisicoes = aquisicoes;
+        aquisicoesEmEsperaPorValidacao = aquisicoesEmEsperaPorValidacao;
+    }
+
+    @Override
+    protected void listarMusicas() {
+
+    }
+
+    @Override
+    protected void pesquisarMusicas() {
+
+    }
+
+    @Override
+    protected void verificaLogin() {
+
     }
 
     public ArrayList<Musica> getAquisicoes() {
