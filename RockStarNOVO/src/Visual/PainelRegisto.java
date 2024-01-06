@@ -3,6 +3,8 @@ package Visual;
 import Modelo.*;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class PainelRegisto extends JPanel {
     ////////////////////
@@ -19,11 +21,10 @@ public class PainelRegisto extends JPanel {
     private JTextField pinTextField;
     private JButton registrarButton;
 
-    private Programa rockstar;
 
     public PainelRegisto(Programa rockstar) {
 
-        this.rockstar = rockstar;
+      //  this.rockstar = rockstar;
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
@@ -44,7 +45,15 @@ public class PainelRegisto extends JPanel {
 
         pinTextField.setVisible(false);
         artistaCheckBox.addActionListener(e -> pinTextField.setVisible(artistaCheckBox.isSelected()));
-
+//BOTÃO VOLTAR ATRÁS PARA DO LOGIN
+        JButton botaoVoltarAtrasLogin = new JButton("Regressar");
+        botaoVoltarAtrasLogin.setVisible(true);
+        add(botaoVoltarAtrasLogin);
+        botaoVoltarAtrasLogin.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                ((JanelaControlo) SwingUtilities.getWindowAncestor(botaoVoltarAtrasLogin)).mostrarPainel("Inicial");
+            }
+        });
         // Adicionar lógica do botão de registro
     }
 }

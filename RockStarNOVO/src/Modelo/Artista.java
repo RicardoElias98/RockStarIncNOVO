@@ -10,9 +10,9 @@ public class Artista extends Utilizador {
     private ArrayList<Musica> musicas;
     private ArrayList<Album> albuns;
 
-    public Artista(String username, String password) {
+    public Artista(String username, String password, int pin) {
         super(username, password);
-        pin = 123;
+        this.pin = pin;
         musicas = new ArrayList<>();
         albuns = new ArrayList<>();
     }

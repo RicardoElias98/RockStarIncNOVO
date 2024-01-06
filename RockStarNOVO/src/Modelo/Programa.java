@@ -48,6 +48,27 @@ public class Programa implements Serializable {
     }
 
 
+// login cliente
+    public boolean login(String username, String password) {
+        // Verificar se o cliente existe e a password está correta
+        for (Cliente cliente : clientes) {
+            if (cliente.getUsername().equals(username) && cliente.getPassword().equals(password)) {
+                return true;
+            }
+        }
+    return false;}
+
+
+    public boolean login(String username, String password, int pin) {
+        // Verificar se o artista existe, se a password e o pin estão corretos
+        for (Artista artista : artistas) {
+            if (artista.getUsername().equals(username) && artista.getPassword().equals(password)&&artista.getPin()==pin) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
 
 

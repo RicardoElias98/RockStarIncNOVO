@@ -18,9 +18,9 @@ public class JanelaControlo extends JFrame {
     private PainelCliente visaoCliente;
     private PainelArtista visaoArtista;
     private CardLayout cardLayout;
+
+
     // ACESSO aos dados e lógica através da passagem da classe Programa como parâmetro
-
-
 
 
     public JanelaControlo(String title, Programa rockstar) throws HeadlessException {
@@ -29,20 +29,14 @@ public class JanelaControlo extends JFrame {
         visaoInicial = new PainelInicial();
         visaoRegisto = new PainelRegisto(rockstar);
         visaoLogin = new PainelLogin(rockstar);
-        // estes rever se crio vazios ou a mandar já um cliente
-
         Cliente C = new Cliente("","");
-        Artista A = new Artista("","");
-
-        visaoCliente = new Visual.PainelCliente(rockstar, C);
-        visaoArtista = new Visual.PainelArtista(rockstar, A);
-
-
+        Artista A = new Artista("","", 123);
+        visaoCliente = new PainelCliente(rockstar, C);
+        visaoArtista = new PainelArtista(rockstar, A);
 
         // Configuração do CardLayout
         cardLayout = new CardLayout();
         getContentPane().setLayout(cardLayout);
-
 
         // Adicionar painéis ao CardLayout
         add(visaoInicial, "Inicial");
