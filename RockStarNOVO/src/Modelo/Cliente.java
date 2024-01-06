@@ -14,7 +14,7 @@ public class Cliente extends Utilizador  {
     public Cliente(String username, String password) {
         super(username, password);
        playlist = new ArrayList<>();
-      aquisicoes = aquisicoes;
+       aquisicoes = new ArrayList<>();
         aquisicoesEmEsperaPorValidacao = aquisicoesEmEsperaPorValidacao;
     }
 
@@ -204,5 +204,6 @@ public class Cliente extends Utilizador  {
     public ArrayList<Musica> getAquisicoesEmEsperaPorValidacao() {
         return aquisicoesEmEsperaPorValidacao;
     }
+
 
 }

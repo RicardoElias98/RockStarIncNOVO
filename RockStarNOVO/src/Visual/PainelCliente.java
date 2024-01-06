@@ -7,86 +7,198 @@ import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.sql.ClientInfoStatus;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Comparator;
 
 public class PainelCliente extends JPanel {
-    private Cliente cliente;
+
     private Programa programa;
     private JButton musicasDoSistema;
     private JButton minhasMusicas;
     private JButton minhasPlaylists;
     private JButton saldo;
-
     private JButton comprasPendentes;
-
     private JButton logout;
-
     private JPanel painelDeCimaFixo;
-
     private JPanel painelMinhasMusicas;
-
     private JButton pesquisarTodas;
-
     private JComboBox pesquisar;
-
     private JComboBox ordenar;
-
     private JTextField nomeDaMusicaPesquisa;
-
     private JScrollPane scrollPane2;
-
     private DefaultTableModel tabela;
-
     private JTable tabelaMusicas;
-
     private JPanel painelPlayList;
-
     private JButton criarPlaylist;
-
     private JButton criarPlaylistRandom;
-
     private  JButton verMinhasPL;
+    private JPanel painelCarrinho;
+    private JPanel painelMusicasSistema;
+
+    private JPanel painelSaldo;
+
+
 
 
 
     public PainelCliente(Programa rockstar, Cliente cliente) {
-        this.cliente = cliente;
+        cliente = new Cliente("Jo","jo");
         this.programa = rockstar;
+
+        Musica minhaMusica = new Musica("Título da Música", "Autor da Música", LocalDate.now(), new ArrayList<>(), true, "Álbum da Música", 1, new ArrayList<>(), "Gênero da Música", 9.99);
+        Playlist minhaPlaylist = new Playlist("Nome da Playlist", new ArrayList<>(), true, "Descrição da Playlist");
+        cliente.getAquisicoes().add(minhaMusica);
+        cliente.getPlaylist().add(minhaPlaylist);
 
         setLayout(new FlowLayout());
         setBackground(Color.ORANGE);
         setVisible(true);
 
         painelDeCimaFixo = new JPanel();
+        iniciarPainelDeCima(cliente);
         add(painelDeCimaFixo);
-        iniciarPainelDeCima();
 
         painelMinhasMusicas = new JPanel();
+        iniciarPainelMinhasMusicas(cliente);
         add(painelMinhasMusicas);
-        iniciarPainelMinhasMusicas();
-
-        minhasMusicas.addActionListener(e -> {
-            painelMinhasMusicas.setVisible(true);
-            painelPlayList.setVisible(false);
-        });
 
         painelPlayList = new JPanel();
+        inicarPainelPlaylist(cliente);
         add(painelPlayList);
-        inicarPainelPlaylist();
+
+        painelCarrinho = new JPanel();
+        iniciarPainelCarrinho();
+        add(painelCarrinho);
+
+        painelMusicasSistema = new JPanel();
+        iniciarPainelMusicasSistema(cliente);
+        add(painelMusicasSistema);
+
+        painelSaldo = new JPanel();
+        inicarPainelSaldo(cliente);
+        add(painelSaldo);
 
         minhasPlaylists.addActionListener(e -> {
             painelPlayList.setVisible(true);
             painelMinhasMusicas.setVisible(false);
+            painelCarrinho.setVisible(false);
+            painelMusicasSistema.setVisible(false);
+            painelSaldo.setVisible(false);
+        });
+
+        minhasMusicas.addActionListener(e -> {
+            painelMinhasMusicas.setVisible(true);
+            painelPlayList.setVisible(false);
+            painelCarrinho.setVisible(false);
+            painelMusicasSistema.setVisible(false);
+            painelSaldo.setVisible(false);
+        });
+
+        comprasPendentes.addActionListener(e -> {
+            painelCarrinho.setVisible(true);
+            painelMinhasMusicas.setVisible(false);
+            painelPlayList.setVisible(false);
+            painelMusicasSistema.setVisible(false);
+            painelSaldo.setVisible(false);
+        });
+
+        musicasDoSistema.addActionListener(e -> {
+            painelMusicasSistema.setVisible(true);
+            painelCarrinho.setVisible(false);
+            painelMinhasMusicas.setVisible(false);
+            painelPlayList.setVisible(false);
+            painelSaldo.setVisible(false);
+        });
+
+        saldo.addActionListener(e -> {
+            painelSaldo.setVisible(true);
+            painelMusicasSistema.setVisible(false);
+            painelCarrinho.setVisible(false);
+            painelMinhasMusicas.setVisible(false);
+            painelPlayList.setVisible(false);
         });
 
     }
 
+    private void inicarPainelSaldo(Cliente cliente) {
+        painelSaldo.setLayout(new FlowLayout());
+        painelSaldo.setBackground(Color.ORANGE);
+        painelSaldo.setVisible(false);
+
+        JTextField valorAadicionar = new JTextField();
+        valorAadicionar.setText("valor");
+        painelSaldo.add(valorAadicionar);
+
+        JButton inserirValor = new JButton();
+        inserirValor.setText("Confirmar");
+        painelSaldo.add(inserirValor);
+
+        inserirValor.addActionListener(e -> {
+            double valor = Double.parseDouble(valorAadicionar.getText());
+            if (valor >= 0) { cliente.setSaldo(cliente.getSaldo() + valor);
+                saldo.setText("Saldo: " + cliente.getSaldo() + "€");
+            }
+        });
+    }
+    private void iniciarPainelMusicasSistema(Cliente cliente){
+        painelMusicasSistema.setLayout(new FlowLayout());
+        painelMusicasSistema.setBackground(Color.ORANGE);
+        painelMusicasSistema.setVisible(false);
+
+        DefaultTableModel tabela2 = new DefaultTableModel();
+
+        // Adicione suas colunas ao modelo da tabela
+        tabela2.addColumn("Artista");
+        tabela2.addColumn("Música");
+        tabela2.addColumn("Álbum");
+        tabela2.addColumn("Ano");
+        tabela2.addColumn("Preço");
 
 
+        JTable tabelaMusicasSistema = new JTable(tabela2);
+        tabelaMusicasSistema.setDefaultEditor(Object.class, null);
+
+        int largura3 = 150; // Largura desejada para as colunas
+
+        for (int i = 0; i < tabelaMusicasSistema.getColumnCount(); i++) {
+            tabelaMusicasSistema.getColumnModel().getColumn(i).setPreferredWidth(largura3);
+        }
+
+        JScrollPane scrollPane3 = new JScrollPane(tabelaMusicasSistema);
+        scrollPane3.setPreferredSize(new Dimension(400, 300));
+        scrollPane3.setVisible(true);
+
+        painelMusicasSistema.add(scrollPane3, BorderLayout.CENTER);
+    }
+
+    private void iniciarPainelCarrinho() {
+        painelCarrinho.setLayout(new FlowLayout());
+        painelCarrinho.setBackground(Color.ORANGE);
+        painelCarrinho.setVisible(false);
+
+        DefaultTableModel tabelaCesto = new DefaultTableModel();
+
+        // Adicionar colunas ao modelo da tabela
+        tabelaCesto.addColumn("Nome");
+        tabelaCesto.addColumn("Preço");
+
+        JTable tabelaCestoCompras = new JTable(tabelaCesto);
+        tabelaCestoCompras.setDefaultEditor(Object.class, null);
+
+        JScrollPane scrollPaneCesto = new JScrollPane(tabelaCestoCompras);
+        scrollPaneCesto.setPreferredSize(new Dimension(800, 300));
+        scrollPaneCesto.setVisible(true);
+        painelCarrinho.add(scrollPaneCesto);
+
+        JButton confirmarCompra = new JButton();
+        confirmarCompra.setText("Comprar");
+        painelCarrinho.add(confirmarCompra);
+    }
 
 
-
-    private void inicarPainelPlaylist () {
+    private void inicarPainelPlaylist (Cliente cliente) {
         painelPlayList.setLayout(new FlowLayout());
         painelPlayList.setBackground(Color.ORANGE);
         painelPlayList.setVisible(false);
@@ -151,7 +263,7 @@ public class PainelCliente extends JPanel {
         });
     }
 
-    private void iniciarPainelMinhasMusicas () {
+    private void iniciarPainelMinhasMusicas (Cliente cliente) {
         painelMinhasMusicas.setLayout(new FlowLayout());
         painelMinhasMusicas.setBackground(Color.ORANGE);
         painelMinhasMusicas.setVisible(false);
@@ -178,11 +290,19 @@ public class PainelCliente extends JPanel {
         tabela.addColumn("Ano");
 
         tabelaMusicas = new JTable(tabela);
+        tabelaMusicas.setDefaultEditor(Object.class, null);
 
         int largura2 = 150; // Largura desejada para as colunas
 
         for (int i = 0; i < tabelaMusicas.getColumnCount(); i++) {
             tabelaMusicas.getColumnModel().getColumn(i).setPreferredWidth(largura2);
+        }
+
+        for (Musica mus : cliente.getAquisicoes()) {
+            if (mus!=null) {
+                tabela.addRow(new Object[]{mus.getAutor(),mus.getTitulo(),mus.getAlbum(),mus.getData().getYear()});
+            }
+
         }
 
 
@@ -209,8 +329,6 @@ public class PainelCliente extends JPanel {
         pesquisarTodas.addActionListener(e -> {
             tabelaMusicas.setVisible(true);
             scrollPane2.setVisible(true);
-            painelMinhasMusicas.repaint();
-            painelMinhasMusicas.revalidate();
         });
 
         //APOS CARREGAR NO ENTER
@@ -288,7 +406,7 @@ public class PainelCliente extends JPanel {
     }
 
 
-    private void iniciarPainelDeCima () {
+    private void iniciarPainelDeCima (Cliente cliente) {
         painelDeCimaFixo.setLayout(new FlowLayout());
         painelDeCimaFixo.setBackground(Color.ORANGE);
         setVisible(true);
@@ -306,7 +424,7 @@ public class PainelCliente extends JPanel {
         painelDeCimaFixo.add(minhasPlaylists);
 
         saldo = new JButton();
-        saldo.setText("Saldo");
+        saldo.setText("Saldo: " + cliente.getSaldo() + "€");
         painelDeCimaFixo.add(saldo);
 
         comprasPendentes = new JButton();

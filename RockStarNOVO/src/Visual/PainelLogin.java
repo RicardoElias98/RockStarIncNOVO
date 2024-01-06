@@ -59,6 +59,7 @@ public class PainelLogin extends JPanel {
 
         //OPÇÃO DE SER MÚSICO NO LOGN
         artistaOpcaoLogin = new JCheckBox();
+        artistaOpcaoLogin.setText("Sou músico");
 
         artistaOpcaoLogin.setBounds(200, 430, 200, 25);
 
@@ -116,9 +117,18 @@ public class PainelLogin extends JPanel {
             }
         });
 
+
         botaoConfirmarLogin.addActionListener(e -> {
-            ((JanelaControlo) SwingUtilities.getWindowAncestor(botaoConfirmarLogin)).mostrarPainel("Cliente");
+            if (artistaOpcaoLogin.isSelected()) {
+                ((JanelaControlo) SwingUtilities.getWindowAncestor(botaoConfirmarLogin)).mostrarPainel("Artista");
+            } else {
+                ((JanelaControlo) SwingUtilities.getWindowAncestor(botaoConfirmarLogin)).mostrarPainel("Cliente");
+            }
         });
+
+
+
+
 
 
         // action listeners login (MUDAR)

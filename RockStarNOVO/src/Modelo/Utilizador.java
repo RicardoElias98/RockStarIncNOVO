@@ -37,4 +37,7 @@ public abstract class Utilizador implements Serializable {
         return saldo;
     }
 
+    public void setSaldo(double saldo) {
+        this.saldo = saldo;
+    }
 }

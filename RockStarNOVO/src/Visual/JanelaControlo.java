@@ -32,9 +32,10 @@ public class JanelaControlo extends JFrame {
         // estes rever se crio vazios ou a mandar já um cliente
 
         Cliente C = new Cliente("","");
+        Artista A = new Artista("","");
 
         visaoCliente = new Visual.PainelCliente(rockstar, C);
-        //visaoArtista = new Visual.PainelArtista(rockstar, utilizador);
+        visaoArtista = new Visual.PainelArtista(rockstar, A);
 
 
 
@@ -48,7 +49,7 @@ public class JanelaControlo extends JFrame {
         add(visaoRegisto, "Registo");
         add(visaoLogin, "Login");
         add(visaoCliente, "Cliente");
-       // add(visaoArtista, "Artista");
+        add(visaoArtista, "Artista");
 
         // Configurações da janela
         setResizable(true);
