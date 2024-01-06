@@ -17,6 +17,23 @@ public class Artista extends Utilizador {
         albuns = new ArrayList<>();
     }
 
+    @Override
+    public ArrayList<Musica> listarMusicas(Programa programa) {
+        return getMusicas();
+    }
+
+    @Override
+    public void pesquisarMusicas(Programa programa) {
+
+    }
+
+    @Override
+    public void verificaLogin(Programa programa) {
+
+    }
+
+
+
     private void adicionarMusica(Musica musica, Programa programa) {
         this.musicas.add(musica);
         programa.getMusicasTotais().add(musica);
@@ -56,19 +73,7 @@ public class Artista extends Utilizador {
         return saldo+valorAadicionar;
     }
 
-    @Override
-    protected void listarMusicas() {
 
-    }
-
-    @Override
-    protected void pesquisarMusicas() {
-    }
-
-    @Override
-    protected void verificaLogin() {
-
-    }
 
 // esta expressao passa para verifica login
     public boolean loginArtista(String username, String password, int pin, Programa programa) {

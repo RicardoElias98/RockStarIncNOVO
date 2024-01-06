@@ -1,6 +1,7 @@
 package Modelo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public abstract class Utilizador implements Serializable {
     protected String username;
@@ -14,12 +15,11 @@ public abstract class Utilizador implements Serializable {
     }
 
 
+    public abstract ArrayList<Musica> listarMusicas(Programa programa);
 
-    protected abstract void listarMusicas();
+    public abstract void pesquisarMusicas(Programa programa);
 
-    protected abstract void pesquisarMusicas();
-
-    protected abstract void verificaLogin();
+    public abstract void verificaLogin(Programa programa);
 
     // LOGOUT PODERÁ NAO Ser necessario. a não ser tornar o user temporario da FRAME = null, para novo login
     ///protected void logout() {

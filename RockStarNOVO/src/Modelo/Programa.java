@@ -48,13 +48,12 @@ public class Programa implements Serializable {
     }
 
 
-// isto caso mude de GUI pra programa
-    public void runPrograma() {
-        // carrega o ficheiro do programa. caso não exista, cria novo
-        // chama GUI
-        // faz as operações que quiser com os dados
-        // salva os dados no ficheiro antes de encerrar o programa
-    }
+
+
+
+
+    /// MÉTODO SAVE
+
     public void salvarDados() {
         try {
             // cria um fluxo de saída de objetos para o arquivo

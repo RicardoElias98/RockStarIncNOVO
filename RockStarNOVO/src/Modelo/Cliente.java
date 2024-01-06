@@ -2,7 +2,6 @@ package Modelo;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Cliente extends Utilizador  {
@@ -19,19 +18,20 @@ public class Cliente extends Utilizador  {
     }
 
     @Override
-    protected void listarMusicas() {
+    public ArrayList<Musica> listarMusicas(Programa programa) {
+    return programa.getMusicasTotais();
+    }
+
+    @Override
+    public void pesquisarMusicas(Programa programa) {
 
     }
 
     @Override
-    protected void pesquisarMusicas() {
+    public void verificaLogin(Programa programa) {
 
     }
 
-    @Override
-    protected void verificaLogin() {
-
-    }
 
     public ArrayList<Musica> getAquisicoes() {
         return aquisicoes;
