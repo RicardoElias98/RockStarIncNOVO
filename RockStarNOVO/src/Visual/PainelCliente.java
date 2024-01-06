@@ -9,6 +9,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.sql.ClientInfoStatus;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -47,7 +48,7 @@ public class PainelCliente extends JPanel {
         cliente = new Cliente("Jo","jo");
         this.programa = rockstar;
 
-        Musica minhaMusica = new Musica("Título da Música", "Autor da Música", LocalDate.now(), new ArrayList<>(), true, "Álbum da Música", 1, new ArrayList<>(), "Gênero da Música", 9.99);
+        Musica minhaMusica = new Musica("Título da Música", "Autor/Intérprete", LocalDateTime.now(), true, "Gênero", 9.99);
         Playlist minhaPlaylist = new Playlist("Nome da Playlist", new ArrayList<>(), true, "Descrição da Playlist");
         cliente.getAquisicoes().add(minhaMusica);
         cliente.getPlaylist().add(minhaPlaylist);
@@ -300,7 +301,7 @@ public class PainelCliente extends JPanel {
 
         for (Musica mus : cliente.getAquisicoes()) {
             if (mus!=null) {
-                tabela.addRow(new Object[]{mus.getAutor(),mus.getTitulo(),mus.getAlbum(),mus.getData().getYear()});
+                tabela.addRow(new Object[]{mus.getAutoria(),mus.getTitulo(),mus.getData().getYear()});
             }
 
         }

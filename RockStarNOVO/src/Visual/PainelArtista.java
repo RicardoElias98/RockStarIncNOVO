@@ -5,6 +5,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class PainelArtista extends JPanel {
@@ -32,7 +33,7 @@ public class PainelArtista extends JPanel {
         setVisible(true);
 
         artista = new Artista("Elias" , "123");
-        Musica minhaMusica = new Musica("Título", "Autor da Música", LocalDate.now(), new ArrayList<>(), true, "Álbum da Música", 1, new ArrayList<>(), "Gênero da Música", 9.99);
+        Musica minhaMusica = new Musica("Título da Música", "Autor/Intérprete", LocalDateTime.now(), true, "Gênero", 9.99);
         artista.getMusicas().add(minhaMusica);
         rockstar.getMusicasTotais().add(minhaMusica);
 
@@ -94,7 +95,7 @@ public class PainelArtista extends JPanel {
 
         for (Musica mus : artista.getMusicas()) {
             if (mus!=null) {
-                tabela.addRow(new Object[]{mus.getAutor(),mus.getTitulo(),mus.getAlbum(),mus.getData().getYear()});
+                tabela.addRow(new Object[]{mus.getAutoria(),mus.getTitulo(),mus.getNomeAlbum(),mus.getData().getYear()});
             }
 
         }

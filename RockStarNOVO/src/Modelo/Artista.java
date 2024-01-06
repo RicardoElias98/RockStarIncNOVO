@@ -22,7 +22,7 @@ public class Artista extends Utilizador {
         programa.getMusicasTotais().add(musica);
     }
 
-    private void corrigirTitulo(Musica mus, Programa programa, String novoTitulo) {
+   /* private void corrigirTitulo(Musica mus, Programa programa, String novoTitulo) {
         for (Musica mus : programa.getMusicasTotais()){
             if (mus.getIdMusica() == idDaMusica) {
                 mus.setTitulo(novoTitulo);
@@ -44,7 +44,7 @@ public class Artista extends Utilizador {
                 mus.adicionarAPlaylist(visibilidade);
             }
         }
-    }
+    }*/
 
     private void verEstatistias() {
         System.out.println("Total de músicas: " + this.contarMusicas() + "Valor total das músicas: " + this.valorTotalMusicas() + "");
