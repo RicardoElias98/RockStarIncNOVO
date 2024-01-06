@@ -26,6 +26,12 @@ public class PainelArtista extends JPanel {
 
     private JPanel painelMinhasMusicas;
 
+    private JTable tabelaMusicas;
+
+    private JScrollPane scrollPane2;
+
+    private DefaultTableModel tabela;
+
     public PainelArtista(Programa rockstar, Artista artista) {
 
         setLayout(new FlowLayout());
@@ -51,10 +57,12 @@ public class PainelArtista extends JPanel {
 
         corrigirTitulo.addActionListener(e -> {
             painelCorrigirTitulo.setVisible(true);
+            painelMinhasMusicas.setVisible(false);
         });
 
         minhasMusicas.addActionListener(e -> {
             painelMinhasMusicas.setVisible(true);
+            painelCorrigirTitulo.setVisible(false);
         });
     }
 
@@ -76,7 +84,7 @@ public class PainelArtista extends JPanel {
         JComboBox ordenar = new JComboBox<>(opcoesOrdenar);
         painelMinhasMusicas.add(ordenar);
 
-       DefaultTableModel tabela = new DefaultTableModel();
+        tabela = new DefaultTableModel();
 
         // Adicione suas colunas ao modelo da tabela
         tabela.addColumn("Artista");
@@ -84,7 +92,7 @@ public class PainelArtista extends JPanel {
         tabela.addColumn("Álbum");
         tabela.addColumn("Ano");
 
-        JTable tabelaMusicas = new JTable(tabela);
+        tabelaMusicas = new JTable(tabela);
         tabelaMusicas.setDefaultEditor(Object.class, null);
 
         int largura2 = 150; // Largura desejada para as colunas
@@ -100,7 +108,7 @@ public class PainelArtista extends JPanel {
 
         }
 
-        JScrollPane scrollPane2 = new JScrollPane(tabelaMusicas);
+        scrollPane2 = new JScrollPane(tabelaMusicas);
         scrollPane2.setPreferredSize(new Dimension(400, 300));
         scrollPane2.setVisible(false);
 
@@ -130,9 +138,22 @@ public class PainelArtista extends JPanel {
             for (Musica mus : artista.getMusicas()) {
                 if (mus.getTitulo().equals(nomeDaMusica.getText())) {
                     mus.setTitulo(novoTitulo.getText());
+                    System.out.println(mus.getTitulo());
+
+                    int rowCount = tabela.getRowCount();
+                    int colCount = tabela.getColumnCount();
+
+                    for (int row = 0; row < rowCount; row++) {
+                        for (int col = 0; col < colCount; col++) {
+                            Object musicaAmudar = tabela.getValueAt(row, col);
+                            if (musicaAmudar != null && musicaAmudar.equals(nomeDaMusica.getText())) {
+                                tabela.setValueAt(mus.getTitulo(), row, col);
+                            }
+                        }
+                    }
                 }
             }
-        });
+        });;    //ALTERA MAS NÃO ALTERA NA TABELA
     }
 
     private void iniciarPainelDeCima (Artista artista) {
