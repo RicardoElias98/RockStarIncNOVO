@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 
 public class JanelaControlo extends JFrame {
     // ATRIBUTOS
@@ -29,11 +30,13 @@ public class JanelaControlo extends JFrame {
         visaoRegisto = new PainelRegisto(rockstar);
         visaoLogin = new PainelLogin(rockstar);
         // estes rever se crio vazios ou a mandar já um cliente
-        /*
-        visaoCliente = new Visual.PainelCliente(rockstar, utilizador);
-        visaoArtista = new Visual.PainelArtista(rockstar, utilizador);
 
-         */
+        Cliente C = new Cliente("","");
+
+        visaoCliente = new Visual.PainelCliente(rockstar, C);
+        //visaoArtista = new Visual.PainelArtista(rockstar, utilizador);
+
+
 
         // Configuração do CardLayout
         cardLayout = new CardLayout();
@@ -44,11 +47,11 @@ public class JanelaControlo extends JFrame {
         add(visaoInicial, "Inicial");
         add(visaoRegisto, "Registo");
         add(visaoLogin, "Login");
-        //add(visaoCliente, "Cliente");
-        //add(visaoArtista, "Artista");
+        add(visaoCliente, "Cliente");
+       // add(visaoArtista, "Artista");
 
         // Configurações da janela
-        setResizable(false);
+        setResizable(true);
         // caso queira definir tamanho
         // setSize(1100, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

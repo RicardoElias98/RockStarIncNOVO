@@ -10,6 +10,12 @@ import java.awt.event.ItemEvent;
 // VARIOS PAINEIS QUE ESTAO NO CENTRO; TRABALHAR A PARTIR DAQUI
 
 public class PainelLogin extends JPanel {
+    private JTextField usernameLogin;
+    private JPasswordField passwordLogin;
+    private JCheckBox artistaOpcaoLogin;
+    private JPasswordField pinArtistaLogin;
+    private JButton botaoConfirmarLogin;
+
     private Programa rockstar;
 
     public PainelLogin(Programa rockstar) {
@@ -32,7 +38,7 @@ public class PainelLogin extends JPanel {
         add(Box.createVerticalStrut(50));
 
         //ESPAÇO PARA COLOCAR O USERNAME NO LOGIN
-        JTextField usernameLogin = new JTextField();
+        usernameLogin = new JTextField();
         usernameLogin.setToolTipText("exemplo: Joaquim243");
 
         JLabel usernameLoginTexto = new JLabel("Username");
@@ -41,7 +47,7 @@ public class PainelLogin extends JPanel {
         usernameLogin.setMaximumSize(new Dimension(100, 30));
 
         //ESPAÇO PARA COLOCAR A PASSWORD NO LOGIN
-        JPasswordField passwordLogin = new JPasswordField();
+        passwordLogin = new JPasswordField();
         passwordLogin.setToolTipText("Exemplo: AnimalDeEstimação + numero preferido");
 
         passwordLogin.setEchoChar('*');
@@ -52,7 +58,7 @@ public class PainelLogin extends JPanel {
         add(passwordLogin);
 
         //OPÇÃO DE SER MÚSICO NO LOGN
-        JCheckBox artistaOpcaoLogin = new JCheckBox("Sou Músico");
+        artistaOpcaoLogin = new JCheckBox();
 
         artistaOpcaoLogin.setBounds(200, 430, 200, 25);
 
@@ -61,8 +67,8 @@ public class PainelLogin extends JPanel {
         pinTextoLogin.setVisible(false);
 
 
-        JPasswordField pinArtistaLogin = new JPasswordField();
-        pinArtistaLogin.setMaximumSize(new Dimension(100, 30));
+        pinArtistaLogin = new JPasswordField();
+        pinArtistaLogin.setPreferredSize(new Dimension(100, 30));
         pinArtistaLogin.setVisible(false);
 
         JCheckBox verPasswordLogin = new JCheckBox("Ver Password");
@@ -96,7 +102,8 @@ public class PainelLogin extends JPanel {
         });
 
         //BOTÃO CONFIRMAR O LOGIN
-        JButton botaoConfirmarLogin = new JButton("Confirmar");
+        botaoConfirmarLogin = new JButton();
+        botaoConfirmarLogin.setText("Confirmar");
         add(botaoConfirmarLogin);
 
         //BOTÃO VOLTAR ATRÁS PARA DO LOGIN
@@ -107,6 +114,10 @@ public class PainelLogin extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 ((JanelaControlo) SwingUtilities.getWindowAncestor(botaoVoltarAtrasLogin)).mostrarPainel("Inicial");
             }
+        });
+
+        botaoConfirmarLogin.addActionListener(e -> {
+            ((JanelaControlo) SwingUtilities.getWindowAncestor(botaoConfirmarLogin)).mostrarPainel("Cliente");
         });
 
 
