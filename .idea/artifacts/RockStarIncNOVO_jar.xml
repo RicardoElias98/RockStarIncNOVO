@@ -1,5 +1,5 @@
 <component name="ArtifactManager">
-  <artifact name="RockStarIncNOVO:jar">
+  <artifact build-on-make="true" name="RockStarIncNOVO:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/RockStarIncNOVO_jar</output-path>
     <root id="root">
       <element id="archive" name="RockStarIncNOVO.jar">

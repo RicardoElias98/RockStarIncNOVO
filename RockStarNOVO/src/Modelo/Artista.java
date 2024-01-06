@@ -1,6 +1,8 @@
 package Modelo;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class Artista extends Utilizador {
 
@@ -20,9 +22,9 @@ public class Artista extends Utilizador {
         programa.getMusicasTotais().add(musica);
     }
 
-    private void corrigirTitulo(int idDaMusica, Programa programa, String novoTitulo) {
+    private void corrigirTitulo(Musica mus, Programa programa, String novoTitulo) {
         for (Musica mus : programa.getMusicasTotais()){
-            if (mus.getIdMuscia() == idDaMusica) {
+            if (mus.getIdMusica() == idDaMusica) {
                 mus.setTitulo(novoTitulo);
             }
         }
@@ -39,7 +41,7 @@ public class Artista extends Utilizador {
     private void alterarDisponiblidade(int idDaMusica, Programa programa, boolean visibilidade ) {
         for (Musica mus : programa.getMusicasTotais()){
             if (mus.getIdMuscia() == idDaMusica) {
-                mus.setDisponibilidade(visibilidade);
+                mus.adicionarAPlaylist(visibilidade);
             }
         }
     }

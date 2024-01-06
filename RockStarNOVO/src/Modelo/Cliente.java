@@ -5,7 +5,7 @@ import javax.swing.table.DefaultTableModel;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Cliente extends Utilizador implements Serializable {
+public class Cliente extends Utilizador  {
 
     private ArrayList<Playlist> playlist;
     private ArrayList<Musica> aquisicoes;
@@ -114,7 +114,7 @@ public class Cliente extends Utilizador implements Serializable {
     }
 
     public void adicionarRating(Musica musica, int pontuacao) {
-        musica.getRegistodeRating().add(pontuacao);
+
     }
 
     private void adicionarMusicasAoCarrinho(Musica musica) {
@@ -127,11 +127,11 @@ public class Cliente extends Utilizador implements Serializable {
             this.retirarSaldo(mus.getPreco());
             Artista artistaVendedor =null;
             for (Artista art : programa.getArtistas()){
-                if (mus.getAutor().equals(art.getUsername())){
+                if (mus.getAutoria().equals(art.getUsername())){
                     artistaVendedor = art;
                 }
             }
-            artistaVendedor.adicionarSaldo(mus.getPreco());
+            //artistaVendedor.adicionarSaldo(mus.getPreco());
             aquisicoes.add(mus);
         }
     }

@@ -4,13 +4,13 @@ public class Main {
     public static void main(String[] args) {
 
         //como só criamos uma instância, executa-se só o construtor sem atribuição de variável
-        new GestorInterface();
+        //new GestorInterface();
 
         // rockstar.iniciar();
 
 
         /////// TESTE DE OUTRA COISA; CLASSE ROCKSTAR APP PRA VER IDEIAS DE COISAS E ORGANIZAÇÃO GRAFICA
-        //RockstarApp oi = new RockstarApp();
+        RockstarApp oi = new RockstarApp();
 
     }
 }

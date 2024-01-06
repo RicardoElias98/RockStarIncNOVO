@@ -1,8 +1,9 @@
 package Modelo;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Aquisicao {
+public class Aquisicao implements Serializable {
     private Musica musica;
     private double precoDeAquisicao;
 

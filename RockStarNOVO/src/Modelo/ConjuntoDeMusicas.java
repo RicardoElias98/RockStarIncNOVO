@@ -1,8 +1,9 @@
 package Modelo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public abstract class ConjuntoDeMusicas {
+public abstract class ConjuntoDeMusicas  implements Serializable {
     protected String nome;
     public ArrayList<Musica> musicas;
 

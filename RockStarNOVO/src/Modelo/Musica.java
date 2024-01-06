@@ -1,74 +1,75 @@
 package Modelo;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.*;
 
-public class Musica {
+public class Musica implements Serializable {
+    private UUID idMusica;
     private String titulo;
-    private String autor;
-    private LocalDate data;
-    private ArrayList <Integer> registoDeValores;
+    private String autoria;
 
-    private boolean disponibilidade;
-    private String album;
-
-    private int idMusica;
-    private ArrayList <Integer> registodeRating; //HASMAP
-
-    private String genero; //USAR ENUM
+    // data da musica. não é a data em que é adicionada ao sistema, é atributo "real"
+    private LocalDateTime data;
 
     private double preco;
 
-    public Musica(String titulo, String autor, LocalDate data, ArrayList<Integer> registoDeValores, boolean disponibilidade, String album, int idMuscia, ArrayList<Integer> registodeRating, String genero, double preco) {
+    // mete-se no construtor para já definir qd adiciona musica se fica visivel ou nao
+    private boolean adicionarAPlaylist;
+
+    // string que vai ser usada só dps com setter na criação de álbum
+    private String nomeAlbum;
+    // verficar sé é necessario
+
+
+    // hashmap vai ligar cliente.getNome() e o valor que ele avalia a música
+    // qd for retorno, se ele não tiver avaliado, dizer nao avaliado
+    private HashMap<Cliente, Integer> avaliacao = new HashMap<>();
+
+    // historico de preços.
+    private HashMap<LocalDateTime, Double> historicoprecos = new HashMap<>();
+    ;
+
+    // hashmap de quanto ganhou por musica por exemplo
+    // usar pelo artista
+
+
+    //USAR Jcombo box que mete genero normalizado
+    private String genero;
+
+
+    public Musica(String titulo, String autoria, LocalDateTime data, boolean adicionarAPlaylist, String genero, double preco) {
+        this.idMusica = UUID.randomUUID();
         this.titulo = titulo;
-        this.autor = autor;
+        this.autoria = autoria;
         this.data = data;
-        this.registoDeValores = registoDeValores;
-        this.disponibilidade = disponibilidade;
-        this.album = album;
-        this.idMusica = idMusica;
-        this.registodeRating = registodeRating;
+        this.adicionarAPlaylist = adicionarAPlaylist;
+        // atribuição em album só depois
+        // this.nomeAlbum = album;
         this.genero = genero;
         this.preco = preco;
     }
 
-    public String getAutor() {
-        return autor;
+    public UUID getIdMusica() {
+        return idMusica;
+    }
+
+    public LocalDateTime getData() {
+        return data;
+    }
+
+    public String getAutoria() {
+        return autoria;
     }
 
     public String getTitulo() {
         return titulo;
     }
 
-    public LocalDate getData() {
-        return data;
+    public String getNomeAlbum() {
+        return nomeAlbum;
     }
 
-    public String getAlbum() {
-        return album;
-    }
-
-    public void setRegistodeRating(ArrayList<Integer> registodeRating) {
-        this.registodeRating = registodeRating;
-    }
-
-    public ArrayList<Integer> getRegistodeRating() {
-        return registodeRating;
-    }
-
-    @Override
-    public String toString() {
-        return "Modelo.Musica{" +
-                "titulo='" + titulo + '\'' +
-                ", autor='" + autor + '\'' +
-                ", data=" + data +
-                ", registoDeValores=" + registoDeValores +
-                ", disponibilidade=" + disponibilidade +
-                ", album='" + album + '\'' +
-                ", idMuscia=" + idMusica +
-                ", registodeRating=" + registodeRating +
-                '}';
-    }
 
     public String getGenero() {
         return genero;
@@ -78,25 +79,47 @@ public class Musica {
         return preco;
     }
 
-    public int getIdMuscia() {
-        return idMusica;
-    }
-
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
 
     public void setPreco(double preco) {
         this.preco = preco;
+        historicoprecos.put(LocalDateTime.now(), preco);
     }
 
-    public void setDisponibilidade(boolean disponibilidade) {
-        this.disponibilidade = disponibilidade;
+    public void setAdicionarAPlaylist(boolean adicionarAPlaylist) {
+        this.adicionarAPlaylist = adicionarAPlaylist;
     }
 
-    // private double mediaDoRating () {    //está comentado porque falta o return
+    // metodo adicionar rating (cliente)
 
-
-//    }
+    public void adicionarRating(Cliente cliente, Integer valor) {
+        this.avaliacao.put(cliente, valor);
     }
+
+    // metodo cliente ver rating que deu
+    public Integer verRatingDado(Cliente cliente) {
+        Integer rating = avaliacao.getOrDefault(cliente, 0);
+        return rating;
+    }
+
+    // metodo rating médio (tratar o 0.0 na parte visual)
+    public double obterRatingMedio() {
+        if (avaliacao.isEmpty()) {
+            return 0.0;
+        }
+        double soma = 0;
+        for (int valor : avaliacao.values()) {
+            soma += valor;
+        }
+        return soma / avaliacao.size();
+    }
+
+    public HashMap<LocalDateTime, Double> getHistoricoprecos() {
+        return historicoprecos;
+    }
+
+
+}
 
