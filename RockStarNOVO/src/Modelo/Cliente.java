@@ -52,7 +52,7 @@ public class Cliente extends Utilizador  {
 
 
 
-    public void adicionarMusicaAplaylist(Playlist playlist1, JTable tabelaMusicas,JTable tabelaPlaylists, int linha, int coluna) {
+    public void adicionarMusicaAplaylist(Playlist playlist1, JTable tabelaMusicas, DefaultTableModel tabelaPlaylists, int linha, int coluna) {
         //Obter o objeto música de onde se clica
         Object objetoNaLinha = tabelaMusicas.getValueAt(linha, coluna);
         String objetoString = (String) objetoNaLinha;
