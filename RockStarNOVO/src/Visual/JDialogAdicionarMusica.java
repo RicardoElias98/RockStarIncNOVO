@@ -25,7 +25,6 @@ public class JDialogAdicionarMusica  extends JDialog {
         // Layout
         setBackground(Color.ORANGE);
         setLayout(new GridLayout(0, 2));
-
         // Componentes
         tituloField = new JTextField();
         autoriaField = new JTextField();
@@ -38,10 +37,8 @@ public class JDialogAdicionarMusica  extends JDialog {
         group.add(publicaRadio);
         group.add(privadaRadio);
         publicaRadio.setSelected(true);
-
         okButton = new JButton("OK");
         cancelButton = new JButton("Cancelar");
-
         // Adiciona componentes
         add(new JLabel("Título:"));
         add(tituloField);
@@ -59,13 +56,10 @@ public class JDialogAdicionarMusica  extends JDialog {
         add(privadaRadio);
         add(okButton);
         add(cancelButton);
-
         // Listeners
         okButton.addActionListener(e -> okButtonClicked());
         cancelButton.addActionListener(e -> setVisible(false));
-
         setSize(400, 300);
-
         setResizable(false);
         setLocationRelativeTo(parent);
     }
@@ -88,9 +82,6 @@ public class JDialogAdicionarMusica  extends JDialog {
         }
     }
 
-    public static void main(String[] args) {
-
-    }
 }
 
     // o action listener de adicionar musica vai disparar isto

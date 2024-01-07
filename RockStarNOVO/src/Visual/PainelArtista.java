@@ -6,6 +6,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class PainelArtista extends JPanel {
@@ -25,11 +26,11 @@ public class PainelArtista extends JPanel {
     private JPanel painelCorrigirTitulo;
 
     private JPanel painelMinhasMusicas;
+    private JPanel painelAdicionarMusicas;
 
     private JTable tabelaMusicas;
 
     private JScrollPane scrollPane2;
-
     private DefaultTableModel tabela;
 
     public PainelArtista(Programa rockstar, Artista artista) {
@@ -39,8 +40,8 @@ public class PainelArtista extends JPanel {
         setVisible(true);
 
         Musica minhaMusica = new Musica("Título da Música", "daniel", LocalDateTime.now(), true, "Gênero", 9.99);
-        artista.getMusicas().add(minhaMusica);
-        rockstar.getMusicasTotais().add(minhaMusica);
+        //artista.getMusicas().add(minhaMusica);
+        //rockstar.getMusicasTotais().add(minhaMusica);
 
         painelDeCimaFixo = new JPanel();
         iniciarPainelDeCima(artista);
@@ -51,8 +52,6 @@ public class PainelArtista extends JPanel {
         saudacaoUser.add(saudacaoLabel);
         add(saudacaoLabel);
 
-
-
         painelCorrigirTitulo =new JPanel();
         iniciarPainelCorrigirTitulo(rockstar, artista);
         add(painelCorrigirTitulo);
@@ -61,17 +60,67 @@ public class PainelArtista extends JPanel {
         inicarPainelMinhasMusicas(artista);
         add(painelMinhasMusicas);
 
+        painelAdicionarMusicas = new JPanel();
+        inicarPainelAdicionarMusica(artista, rockstar);
+        add(painelAdicionarMusicas);
+
         corrigirTitulo.addActionListener(e -> {
             painelCorrigirTitulo.setVisible(true);
             painelMinhasMusicas.setVisible(false);
+            painelAdicionarMusicas.setVisible(false);
         });
 
         minhasMusicas.addActionListener(e -> {
             painelMinhasMusicas.setVisible(true);
             painelCorrigirTitulo.setVisible(false);
+            painelAdicionarMusicas.setVisible(false);
+        });
+
+        adicionarMusica.addActionListener(e -> {
+            painelAdicionarMusicas.setVisible(true);
+            painelMinhasMusicas.setVisible(false);
+            painelCorrigirTitulo.setVisible(false);
         });
     }
 
+    private void inicarPainelAdicionarMusica(Artista artista, Programa rockstar) {
+        painelAdicionarMusicas.setLayout(new FlowLayout());
+        painelAdicionarMusicas.setBackground(Color.ORANGE);
+        painelAdicionarMusicas.setVisible(false);
+
+        JTextField nomeDaMusica = new JTextField("Nome da música");
+        JTextField preco = new JTextField("Preço");
+        JComboBox generoBox = new JComboBox<>(new String[]{"Pop", "Rock", "Jazz","Metal","Clássica", "Hip Hop"});
+        JComboBox publicaOuPrivada = new JComboBox<>(new String[]{"Pública", "Privada"});
+        JButton confirmarCriacao = new JButton("Confirmar");
+
+        painelAdicionarMusicas.add(nomeDaMusica);
+        painelAdicionarMusicas.add(preco);
+        painelAdicionarMusicas.add(generoBox);
+        painelAdicionarMusicas.add(publicaOuPrivada);
+        painelAdicionarMusicas.add(confirmarCriacao);
+
+        String publicaOuNao1 = (String) publicaOuPrivada.getSelectedItem();
+        String genero = (String) generoBox.getSelectedItem();
+
+
+        confirmarCriacao.addActionListener(e -> {
+            if (publicaOuNao1 != null && !nomeDaMusica.equals("") && genero != null) {
+                Musica musicaCriada = new Musica(nomeDaMusica.getText(),artista.getUsername(),LocalDateTime.now(),publicaOuNao(publicaOuNao1),genero,Double.parseDouble(preco.getText()));
+                System.out.println(musicaCriada + "criada com sucesso");
+                rockstar.getMusicasTotais().add(musicaCriada);
+                artista.getMusicas().add(musicaCriada);
+            }
+
+        });
+    }
+
+    private boolean publicaOuNao (String publicaOuPrivada) {
+        if (publicaOuPrivada.equals("Pública")) {
+            return true;
+        } else
+        return false;
+    }
     private void inicarPainelMinhasMusicas (Artista artista) {
         painelMinhasMusicas.setLayout(new FlowLayout());
         painelMinhasMusicas.setBackground(Color.ORANGE);
@@ -184,7 +233,7 @@ public class PainelArtista extends JPanel {
         painelDeCimaFixo.add(minhasMusicas);
 
         saldo = new JButton();
-        saldo.setText("Saldo: " + artista.getSaldo() + "€");
+        saldo.setText(String.format("Saldo: %.2f€", artista.getSaldo()));
         painelDeCimaFixo.add(saldo);
 
         logout = new JButton();
