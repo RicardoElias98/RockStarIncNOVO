@@ -1,6 +1,7 @@
 package Modelo;
 
 
+import javax.swing.*;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 
 public class Programa implements Serializable {
 
+    private Cliente clienteInicial;  //TESTE
     private ArrayList<Cliente> clientes;
     private ArrayList<Artista> artistas;
     private ArrayList<Musica> musicasTotais;
@@ -75,6 +77,7 @@ public class Programa implements Serializable {
         }
         return false;
     }
+
 
 
     // método devolução user na array de utilizadores (clientes ou artistas)

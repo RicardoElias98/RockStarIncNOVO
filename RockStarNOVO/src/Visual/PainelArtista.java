@@ -34,8 +34,6 @@ public class PainelArtista extends JPanel {
 
     public PainelArtista(Programa rockstar, Artista artista) {
 
-
-
         setLayout(new FlowLayout());
         setBackground(Color.ORANGE);
         setVisible(true);

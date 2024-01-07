@@ -7,10 +7,7 @@ import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.sql.ClientInfoStatus;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Comparator;
 
 public class PainelCliente extends JPanel {
@@ -37,11 +34,7 @@ public class PainelCliente extends JPanel {
     private  JButton verMinhasPL;
     private JPanel painelCarrinho;
     private JPanel painelMusicasSistema;
-
     private JPanel painelSaldo;
-
-
-
 
 
     public PainelCliente(Programa rockstar, Cliente cliente) {
@@ -53,9 +46,9 @@ public class PainelCliente extends JPanel {
         saudacaoUser.add(saudacaoLabel);
         add(saudacaoLabel);
         Musica minhaMusica = new Musica("Título da Música", "Autor/Intérprete", LocalDateTime.now(), true, "Gênero", 9.99);
-        //Playlist minhaPlaylist = new Playlist("Nome da Playlist", new ArrayList<>(), true, "Descrição da Playlist");
+        Playlist minhaPlaylist = new Playlist("Nome da Playlist","bla",true,3,"Rock");
         cliente.getAquisicoes().add(minhaMusica);
-        //cliente.getPlaylist().add(minhaPlaylist);
+        cliente.getPlaylist().add(minhaPlaylist);
 
         setLayout(new FlowLayout());
         setBackground(Color.ORANGE);
@@ -246,12 +239,24 @@ public class PainelCliente extends JPanel {
         JTable tabelaPlaylists = new JTable(tabelaPlaylist);
         tabelaPlaylists.setDefaultEditor(Object.class, null);
 
+
+        tabelaPlaylist.addColumn("Nome");
+        tabelaPlaylist.addColumn("Descrição");
+
+
+        for (Playlist play : cliente.getPlaylist()) {
+            if (play != null && !existePlaylistNaTabela(tabelaPlaylists, play)) {
+                tabelaPlaylist.addRow(new Object[]{play.getNome(), play.getDescricao()});
+            }
+        }
+
         JScrollPane scrollPane = new JScrollPane(tabelaPlaylists);
         scrollPane.setPreferredSize(new Dimension(800, 300));
         scrollPane.setVisible(false);
         painelPlayList.add(scrollPane, BorderLayout.CENTER);
 
         verMinhasPL.addActionListener(e -> {
+            tabelaPlaylists.setVisible(true);
             scrollPane.setVisible(true);
         });
 
@@ -266,6 +271,25 @@ public class PainelCliente extends JPanel {
                 //tabelaPlaylist.addRow(new Object[]{playlistNova.getNome(),playlistNova.getMusicas().lengt,playlistNova.isVisibilidade(),playlistNova.getDescricao()});
             });
         });
+    }
+
+    private boolean existeMusicaNaTabela(DefaultTableModel tabela, Musica musica) {
+        for (int i = 0; i < tabela.getRowCount(); i++) {
+            // Comparar nome
+            if (musica.getTitulo().equals(tabela.getValueAt(i, 1))) {
+                return true; // A música já está na tabela
+            }
+        }
+        return false; // A música não está na tabela
+    }
+    public boolean existePlaylistNaTabela(JTable tabela, Playlist playlist) {
+        for (int i = 0; i < tabela.getRowCount(); i++) {
+            // Comparar (nome)
+            if (playlist.getNome().equals(tabela.getValueAt(i, 0))) {
+                return true; // A playlist já está na tabela
+            }
+        }
+        return false; // A playlist não está na tabela
     }
 
     private void iniciarPainelMinhasMusicas (Cliente cliente) {
@@ -290,7 +314,7 @@ public class PainelCliente extends JPanel {
 
         tabela = new DefaultTableModel();
 
-        // Adicione suas colunas ao modelo da tabela
+
         tabela.addColumn("Artista");
         tabela.addColumn("Música");
         tabela.addColumn("Álbum");
@@ -305,11 +329,11 @@ public class PainelCliente extends JPanel {
             tabelaMusicas.getColumnModel().getColumn(i).setPreferredWidth(largura2);
         }
 
-        for (Musica mus : cliente.getAquisicoes()) {
-            if (mus!=null) {
-                tabela.addRow(new Object[]{mus.getAutoria(),mus.getTitulo(),mus.getData().getYear()});
-            }
 
+        for (Musica mus : cliente.getAquisicoes()) {
+            if (mus != null && !existeMusicaNaTabela(tabela, mus)) {
+                tabela.addRow(new Object[]{mus.getAutoria(), mus.getTitulo(), mus.getData().getYear()});
+            }
         }
 
 
