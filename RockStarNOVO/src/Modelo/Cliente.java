@@ -161,8 +161,10 @@ public class Cliente extends Utilizador {
                         art.saldo = art.getSaldo() + mus.getPreco();
                     }
                 }
-
             }
+            historicocompras.add(new Compra(aquisicoesEmEsperaPorValidacao, precoTotal));
+
+            JOptionPane.showMessageDialog(null, "Compra efetuada com sucesso", "Você adquiriu "+aquisicoesEmEsperaPorValidacao.size()+" músicas.", JOptionPane.WARNING_MESSAGE);
         } else JOptionPane.showMessageDialog(null, "Saldo insuficiente", "Ups", JOptionPane.WARNING_MESSAGE);
     }
 
