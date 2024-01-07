@@ -10,7 +10,6 @@ import java.util.ArrayList;
 
 public class Programa implements Serializable {
 
-    private Cliente clienteInicial;  //TESTE
     private ArrayList<Cliente> clientes;
     private ArrayList<Artista> artistas;
     private ArrayList<Musica> musicasTotais;
@@ -28,7 +27,7 @@ public class Programa implements Serializable {
 
         //// hardcode de objetos pra teste
 
-        Artista a = new Artista("daniel", "123", 123);
+        Artista a = new Artista("daniel", "123");
         Cliente c = new Cliente("ricardo", "1234");
 
         artistas.add(a);
@@ -82,8 +81,10 @@ public class Programa implements Serializable {
 
 
 
+
     // método devolução user na array de utilizadores (clientes ou artistas)
     // usar sabendo que o user é valido, após execução de funcao login
+    // são  os métodos de getter de cliente específico
 
     public Artista artistaNaArray(String username) {
         for (Artista artista : artistas) {

@@ -1,18 +1,15 @@
 package Modelo;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.UUID;
 
 public class Artista extends Utilizador {
 
-    private int pin;
+    private int pin = 12345;
     private ArrayList<Musica> musicas;
     private ArrayList<Album> albuns;
 
-    public Artista(String username, String password, int pin) {
+    public Artista(String username, String password) {
         super(username, password);
-        this.pin = pin;
         musicas = new ArrayList<>();
         albuns = new ArrayList<>();
     }
@@ -28,10 +25,18 @@ public class Artista extends Utilizador {
     }
 
     @Override
+    public boolean existe(Programa programa) {
+        for (Artista a : programa.getArtistas()) {
+            if(this.getUsername().equals(a.getUsername())){
+                return true;
+            }
+        }
+        return false;}
+
+    @Override
     public void verificaLogin(Programa programa) {
 
     }
-
 
 
     private void adicionarMusica(Musica musica, Programa programa) {
@@ -70,12 +75,11 @@ public class Artista extends Utilizador {
     }
 
     public double adicionarSaldo(double valorAadicionar) {
-        return saldo+valorAadicionar;
+        return saldo + valorAadicionar;
     }
 
 
-
-// esta expressao passa para verifica login
+    // esta expressao passa para verifica login
     public boolean loginArtista(String username, String password, int pin, Programa programa) {
         int contadorParaLogin = 0;
 
@@ -92,18 +96,6 @@ public class Artista extends Utilizador {
         } else return false;
     }
 
-    public boolean registarArtista(String username, Programa programa) {
-        int contadorParaRegisto = 0;
-
-        for (Cliente c : programa.getClientes()) {
-            if (username.equals(c.getUsername())) {
-                contadorParaRegisto++;
-            }
-        }
-        if (contadorParaRegisto == 0) {
-            return true;
-        } else return false;
-    }
 
     public ArrayList<Musica> getMusicas() {
         return musicas;
@@ -121,8 +113,8 @@ public class Artista extends Utilizador {
         } else return false;
     }
 
-    private int contarMusicas () {
-        int contador= 0;
+    private int contarMusicas() {
+        int contador = 0;
         for (Musica mus : this.getMusicas()) {
             if (mus != null) {
                 contador++;
@@ -131,10 +123,10 @@ public class Artista extends Utilizador {
         return contador;
     }
 
-    private double valorTotalMusicas () {
+    private double valorTotalMusicas() {
         double valor = 0;
         for (Musica mus : this.getMusicas()) {
-            if (mus!=null) {
+            if (mus != null) {
                 valor = valor + mus.getPreco();
             }
         }
