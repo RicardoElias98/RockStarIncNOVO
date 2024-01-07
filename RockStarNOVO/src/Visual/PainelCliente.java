@@ -9,6 +9,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 
@@ -50,10 +51,10 @@ public class PainelCliente extends JPanel {
         JLabel saudacaoLabel = new JLabel("Olá, " + cliente.getUsername());
         saudacaoUser.add(saudacaoLabel);
         add(saudacaoLabel);
-        // Musica minhaMusica = new Musica("Título da Música", "Autor/Intérprete", LocalDateTime.now(), true, "Gênero", 9.99);
-        // Playlist minhaPlaylist = new Playlist("Nome da Playlist","bla",true,3,"Rock");
-        // cliente.getAquisicoes().add(minhaMusica);
-        // cliente.getPlaylist().add(minhaPlaylist);
+         Musica minhaMusica = new Musica("Título da Música", "Autor/Intérprete", LocalDateTime.now(), true, "Gênero", 9.99);
+         Playlist minhaPlaylist = new Playlist("Nome da Playlist","bla",true,3,"Rock");
+         cliente.getAquisicoes().add(minhaMusica);
+        cliente.getPlaylist().add(minhaPlaylist);
 
         setLayout(new FlowLayout());
         setBackground(Color.ORANGE);
@@ -142,7 +143,7 @@ public class PainelCliente extends JPanel {
         inserirValor.addActionListener(e -> {
             double valor = Double.parseDouble(valorAadicionar.getText());
             if (valor >= 0) { cliente.setSaldo(cliente.getSaldo() + valor);
-                saldo.setText("Saldo: " + cliente.getSaldo() + "€");
+                saldo.setText(String.format("Saldo: %.2f€", cliente.getSaldo()));
             }
         });
     }
@@ -243,7 +244,8 @@ public class PainelCliente extends JPanel {
         confirmarCompra.addActionListener(e -> {
             cliente.finalizarCarrinho(rockstar);
             atualizarTabelaMinhasMusicas(cliente);
-            saldo.setText("Saldo: " + cliente.getSaldo() + "€");
+            tabelaCesto.setRowCount(0);
+            saldo.setText(String.format("Saldo: %.2f€", cliente.getSaldo()));
         });
 
         JButton cancelarCompra = new JButton();
@@ -254,7 +256,6 @@ public class PainelCliente extends JPanel {
             cliente.getAquisicoesEmEsperaPorValidacao().clear();
         });
     }
-
 
     private void inicarPainelPlaylist (Cliente cliente) {
         painelPlayList.setLayout(new FlowLayout());

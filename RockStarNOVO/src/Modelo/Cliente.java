@@ -137,7 +137,10 @@ public class Cliente extends Utilizador  {
         aquisicoesEmEsperaPorValidacao.add(musica);
         return true;
         }
-        else return false;
+        else {
+            JOptionPane.showMessageDialog(null, "Música já adicionada/comprada", "Ups", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
     }
 
     public void finalizarCarrinho(Programa rockstar) {
