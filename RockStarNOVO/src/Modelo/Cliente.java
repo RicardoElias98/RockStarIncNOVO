@@ -14,7 +14,7 @@ public class Cliente extends Utilizador  {
         super(username, password);
        playlist = new ArrayList<>();
        aquisicoes = new ArrayList<>();
-        aquisicoesEmEsperaPorValidacao = aquisicoesEmEsperaPorValidacao;
+       aquisicoesEmEsperaPorValidacao = aquisicoesEmEsperaPorValidacao;
     }
 
     @Override
@@ -36,6 +36,13 @@ public class Cliente extends Utilizador  {
     public ArrayList<Musica> getAquisicoes() {
         return aquisicoes;
     }
+
+
+
+
+
+
+
 
     public void adicionarMusicaAplaylist(Playlist playlist1, JTable tabelaMusicas,JTable tabelaPlaylists, int linha, int coluna) {
         //Obter o objeto música de onde se clica
@@ -60,7 +67,7 @@ public class Cliente extends Utilizador  {
     }
 
     public Playlist criarPlaylist(String genero, int numMusicas, Programa programa, String nome, String descricao) {
-        Playlist playlistCriada = new Playlist(nome,new ArrayList<>(),true,descricao);
+        Playlist playlistCriada = new Playlist("aaa","aaa",true);
         ArrayList <Musica> arrayListDoGenero = new ArrayList<>();
         ArrayList <Musica> musicasJaAdicionadas = new ArrayList<>();
         int contador = 0;
@@ -85,9 +92,9 @@ public class Cliente extends Utilizador  {
         }
         return playlistCriada;
     }
-
+/*
     public Playlist criarPlaylist() {
-        Playlist pl = new Playlist("",new ArrayList<>(),true,"");
+
         return pl;
     }
 

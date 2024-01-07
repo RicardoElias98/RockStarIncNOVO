@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class PainelArtista extends JPanel {
-    private Artista artista;
+
     private JButton adicionarMusica;
     private JButton corrigirTitulo;
     private JButton alterarPreco;
@@ -34,11 +34,12 @@ public class PainelArtista extends JPanel {
 
     public PainelArtista(Programa rockstar, Artista artista) {
 
+
+
         setLayout(new FlowLayout());
         setBackground(Color.ORANGE);
         setVisible(true);
 
-        artista = new Artista("Elias" , "123",123);
         Musica minhaMusica = new Musica("Título da Música", "Autor/Intérprete", LocalDateTime.now(), true, "Gênero", 9.99);
         artista.getMusicas().add(minhaMusica);
         rockstar.getMusicasTotais().add(minhaMusica);
@@ -46,6 +47,13 @@ public class PainelArtista extends JPanel {
         painelDeCimaFixo = new JPanel();
         iniciarPainelDeCima(artista);
         add(painelDeCimaFixo);
+
+        JPanel saudacaoUser = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JLabel saudacaoLabel = new JLabel("Olá, " + artista.getUsername());
+        saudacaoUser.add(saudacaoLabel);
+        add(saudacaoLabel);
+
+
 
         painelCorrigirTitulo =new JPanel();
         iniciarPainelCorrigirTitulo(rockstar, artista);
@@ -183,7 +191,16 @@ public class PainelArtista extends JPanel {
 
         logout = new JButton();
         logout.setText("Logout");
+        logout.addActionListener(e -> {
+            ((JanelaControlo) SwingUtilities.getWindowAncestor(logout)).mostrarPainel("Inicial");
+        });
         painelDeCimaFixo.add(logout);
+
+
+
+
+
+
     }
 }
 

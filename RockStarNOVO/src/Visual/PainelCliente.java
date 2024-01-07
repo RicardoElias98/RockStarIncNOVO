@@ -15,7 +15,7 @@ import java.util.Comparator;
 
 public class PainelCliente extends JPanel {
 
-    private Programa programa;
+
     private JButton musicasDoSistema;
     private JButton minhasMusicas;
     private JButton minhasPlaylists;
@@ -45,13 +45,17 @@ public class PainelCliente extends JPanel {
 
 
     public PainelCliente(Programa rockstar, Cliente cliente) {
-        cliente = new Cliente("Jo","jo");
-        this.programa = rockstar;
 
+        //PAINEL DO OLÁ
+
+        JPanel saudacaoUser = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JLabel saudacaoLabel = new JLabel("Olá, " + cliente.getUsername());
+        saudacaoUser.add(saudacaoLabel);
+        add(saudacaoLabel);
         Musica minhaMusica = new Musica("Título da Música", "Autor/Intérprete", LocalDateTime.now(), true, "Gênero", 9.99);
-        Playlist minhaPlaylist = new Playlist("Nome da Playlist", new ArrayList<>(), true, "Descrição da Playlist");
+        //Playlist minhaPlaylist = new Playlist("Nome da Playlist", new ArrayList<>(), true, "Descrição da Playlist");
         cliente.getAquisicoes().add(minhaMusica);
-        cliente.getPlaylist().add(minhaPlaylist);
+        //cliente.getPlaylist().add(minhaPlaylist);
 
         setLayout(new FlowLayout());
         setBackground(Color.ORANGE);
@@ -216,7 +220,7 @@ public class PainelCliente extends JPanel {
         criarPlaylistRandom.setText("Criar playlist aleatória");
         painelPlayList.add(criarPlaylistRandom);
 
-        Playlist playlistNova = cliente.criarPlaylist();
+        //Playlist playlistNova = cliente.criarPlaylist();
         JTextField nome = new JTextField();
         nome.setText("Nome");
         nome.setPreferredSize(new Dimension(200, 30));
@@ -255,10 +259,10 @@ public class PainelCliente extends JPanel {
             scrollPane.setVisible(false);
             painelPlaylistVazia.setVisible(true);
             confirmarplNova.addActionListener(e1 -> {
-                playlistNova.setNome(nome.getText());
-                playlistNova.atribuirVisibilidade(visibilidade.getText());
-                playlistNova.setDescricao(descricao.getText());
-                cliente.getPlaylist().add(playlistNova);
+               // playlistNova.setNome(nome.getText());
+               // playlistNova.atribuirVisibilidade(visibilidade.getText());
+               // playlistNova.setDescricao(descricao.getText());
+               // cliente.getPlaylist().add(playlistNova);
                 //tabelaPlaylist.addRow(new Object[]{playlistNova.getNome(),playlistNova.getMusicas().lengt,playlistNova.isVisibilidade(),playlistNova.getDescricao()});
             });
         });
@@ -268,6 +272,8 @@ public class PainelCliente extends JPanel {
         painelMinhasMusicas.setLayout(new FlowLayout());
         painelMinhasMusicas.setBackground(Color.ORANGE);
         painelMinhasMusicas.setVisible(false);
+
+        // painel do olá
 
         pesquisarTodas = new JButton();
         pesquisarTodas.setText("Ver todas");
@@ -434,6 +440,10 @@ public class PainelCliente extends JPanel {
 
         logout = new JButton();
         logout.setText("Logout");
+        logout.addActionListener(e -> {
+            ((JanelaControlo) SwingUtilities.getWindowAncestor(logout)).mostrarPainel("Inicial");
+        });
+        painelDeCimaFixo.add(logout);
         painelDeCimaFixo.add(logout);
     }
 }

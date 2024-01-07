@@ -29,10 +29,10 @@ public class JanelaControlo extends JFrame {
         visaoInicial = new PainelInicial();
         visaoRegisto = new PainelRegisto(rockstar);
         visaoLogin = new PainelLogin(rockstar);
-        Cliente C = new Cliente("","");
-        Artista A = new Artista("","", 123);
-        visaoCliente = new PainelCliente(rockstar, C);
-        visaoArtista = new PainelArtista(rockstar, A);
+       Cliente C = new Cliente("zzz","");
+       Artista A = new Artista("aaaaa","", 123);
+       visaoCliente = new PainelCliente(rockstar, C);
+       visaoArtista = new PainelArtista(rockstar, A);
 
         // Configuração do CardLayout
         cardLayout = new CardLayout();
@@ -70,6 +70,21 @@ public class JanelaControlo extends JFrame {
     public void mostrarPainel (String nomePainel) {
         cardLayout.show(getContentPane(), nomePainel);
     }
+
+
+    // setters que vão definir utilizador após login
+    public void setVisaoCliente(Programa rockstar, Cliente cliente) {
+        visaoCliente = new PainelCliente(rockstar, cliente);
+        add(visaoCliente, "Cliente");
+
+    }
+
+    public void setVisaoArtista(Programa rockstar, Artista artista) {
+        this.visaoArtista = new PainelArtista(rockstar, artista);
+        add(visaoArtista, "Artista");
+
+    }
+
 
 }
 

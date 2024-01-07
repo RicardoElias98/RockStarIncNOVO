@@ -3,14 +3,14 @@ package Modelo;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public abstract class ConjuntoDeMusicas  implements Serializable {
+public abstract class ConjuntoDeMusicas implements Serializable {
     protected String nome;
-    public ArrayList<Musica> musicas;
+    protected ArrayList<Musica> musicas;
 
-    public ConjuntoDeMusicas(String nome, ArrayList<Musica> musicas) {
+    public ConjuntoDeMusicas(String nome){
         this.nome = nome;
-        this.musicas = musicas;
     }
+
 
     public String getNome() {
         return nome;
@@ -20,7 +20,6 @@ public abstract class ConjuntoDeMusicas  implements Serializable {
         return musicas;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+
+
 }

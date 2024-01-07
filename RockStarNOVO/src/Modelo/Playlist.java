@@ -6,10 +6,21 @@ public class Playlist extends ConjuntoDeMusicas {
     private boolean visibilidade;
     private String descricao;
 
-    public Playlist(String nome, ArrayList<Musica> musicas, boolean visibilidade, String descricao) {
-        super(nome, musicas);
+    // criar playlist vazia
+    public Playlist(String nome,String descricao, boolean visibilidade) {
+        super(nome);
         this.visibilidade = visibilidade;
         this.descricao = descricao;
+        this.musicas=new ArrayList<>();
+    }
+    // criar playlist com género e numero de playlists
+
+    public Playlist(String nome, String descricao, boolean visibilidade, int numeroMusicas, String genero) {
+        super(nome);
+        this.musicas = new ArrayList<>();
+        this.visibilidade = visibilidade;
+        this.descricao = descricao;
+
     }
 
     public boolean isVisibilidade() {
@@ -20,12 +31,7 @@ public class Playlist extends ConjuntoDeMusicas {
         return descricao;
     }
 
-    @Override
-    public String toString() {
-        return "Playlist{" +
-                "nome='" + nome + '\'' +
-                '}';
-    }
+
 
     public boolean atribuirVisibilidade(String visibilidade) {
         if (visibilidade.equals("Sim")) {

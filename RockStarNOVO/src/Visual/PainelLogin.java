@@ -50,6 +50,12 @@ public class PainelLogin extends JPanel {
 
         passwordLogin.setEchoChar('*');
         passwordLogin.setMaximumSize(new Dimension(100, 30));
+
+        usernameLoginTexto.setAlignmentX(Component.CENTER_ALIGNMENT);
+        usernameLogin.setAlignmentX(Component.CENTER_ALIGNMENT);
+        passwordLoginTexto.setAlignmentX(Component.CENTER_ALIGNMENT);
+        passwordLogin.setAlignmentX(Component.CENTER_ALIGNMENT);
+
         add(usernameLoginTexto);
         add(usernameLogin);
         add(passwordLoginTexto);
@@ -67,7 +73,7 @@ public class PainelLogin extends JPanel {
 
 
         pinArtistaLogin = new JPasswordField();
-        pinArtistaLogin.setPreferredSize(new Dimension(100, 30));
+        pinArtistaLogin.setMaximumSize(new Dimension(100, 30));
         pinArtistaLogin.setVisible(false);
         pinArtistaLogin.addKeyListener(new KeyListener() {
             @Override
@@ -98,6 +104,17 @@ public class PainelLogin extends JPanel {
         add(pinArtistaLogin);
 
 
+        //BOTÃO CONFIRMAR O LOGIN
+        botaoConfirmarLogin = new JButton();
+        botaoConfirmarLogin.setText("Confirmar");
+        add(botaoConfirmarLogin);
+
+        //BOTÃO VOLTAR ATRÁS PARA DO LOGIN
+        JButton botaoVoltarAtrasLogin = new JButton("Regressar");
+        botaoVoltarAtrasLogin.setVisible(true);
+        add(botaoVoltarAtrasLogin);
+
+
         //APARECE O PIN SE SELECIONAR A OPÇÃO DE MÚSICO E VICE-VERSA
         artistaOpcaoLogin.addItemListener(e -> {
             if (e.getStateChange() == ItemEvent.SELECTED) {
@@ -120,15 +137,7 @@ public class PainelLogin extends JPanel {
             }
         });
 
-        //BOTÃO CONFIRMAR O LOGIN
-        botaoConfirmarLogin = new JButton();
-        botaoConfirmarLogin.setText("Confirmar");
-        add(botaoConfirmarLogin);
 
-        //BOTÃO VOLTAR ATRÁS PARA DO LOGIN
-        JButton botaoVoltarAtrasLogin = new JButton("Regressar");
-        botaoVoltarAtrasLogin.setVisible(true);
-        add(botaoVoltarAtrasLogin);
         botaoVoltarAtrasLogin.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 ((JanelaControlo) SwingUtilities.getWindowAncestor(botaoVoltarAtrasLogin)).mostrarPainel("Inicial");
@@ -141,13 +150,19 @@ public class PainelLogin extends JPanel {
                 int valorPrimitivo = Integer.parseInt(new String(pinArtistaLogin.getPassword()));
                 if (rockstar.login(usernameLogin.getText(), new String(passwordLogin.getPassword()), valorPrimitivo)) {
 
+
+                    JOptionPane.showMessageDialog(null, "Login bem-sucedido!");
+                    ((JanelaControlo) SwingUtilities.getWindowAncestor(botaoConfirmarLogin)).getContentPane().remove(4);
+                    ((JanelaControlo) SwingUtilities.getWindowAncestor(botaoConfirmarLogin)).setVisaoArtista(rockstar,rockstar.artistaNaArray(usernameLogin.getText()));
                     ((JanelaControlo) SwingUtilities.getWindowAncestor(botaoConfirmarLogin)).mostrarPainel("Artista");
                 } else {
                     JOptionPane.showMessageDialog(null, "Artista ou password/pin inválidos", "Erro", JOptionPane.WARNING_MESSAGE);
                 }
             } else {
-                if (rockstar.login(usernameLogin.getText(), new String(passwordLogin.getPassword()))) {
+                if (rockstar.loginC(usernameLogin.getText(), new String(passwordLogin.getPassword()))) {
                     JOptionPane.showMessageDialog(null, "Login bem-sucedido!");
+                    ((JanelaControlo) SwingUtilities.getWindowAncestor(botaoConfirmarLogin)).getContentPane().remove(3);
+                    ((JanelaControlo) SwingUtilities.getWindowAncestor(botaoConfirmarLogin)).setVisaoCliente(rockstar,rockstar.clienteNaArray(usernameLogin.getText()));
                     ((JanelaControlo) SwingUtilities.getWindowAncestor(botaoConfirmarLogin)).mostrarPainel("Cliente");
                 } else {
                     JOptionPane.showMessageDialog(null, "Cliente ou Password inválidos", "Erro", JOptionPane.WARNING_MESSAGE);
