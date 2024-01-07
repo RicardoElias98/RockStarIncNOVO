@@ -138,11 +138,7 @@ public class PainelLogin extends JPanel {
         });
 
 
-        botaoVoltarAtrasLogin.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                ((JanelaControlo) SwingUtilities.getWindowAncestor(botaoVoltarAtrasLogin)).mostrarPainel("Inicial");
-            }
-        });
+        botaoVoltarAtrasLogin.addActionListener(e -> ((JanelaControlo) SwingUtilities.getWindowAncestor(botaoVoltarAtrasLogin)).mostrarPainel("Inicial"));
 
 
         botaoConfirmarLogin.addActionListener(e -> {
@@ -153,7 +149,7 @@ public class PainelLogin extends JPanel {
 
                     JOptionPane.showMessageDialog(null, "Login bem-sucedido!");
                     ((JanelaControlo) SwingUtilities.getWindowAncestor(botaoConfirmarLogin)).getContentPane().remove(4);
-                    ((JanelaControlo) SwingUtilities.getWindowAncestor(botaoConfirmarLogin)).setVisaoArtista(rockstar,rockstar.artistaNaArray(usernameLogin.getText()));
+                    ((JanelaControlo) SwingUtilities.getWindowAncestor(botaoConfirmarLogin)).setVisaoArtista(rockstar, rockstar.artistaNaArray(usernameLogin.getText()));
                     ((JanelaControlo) SwingUtilities.getWindowAncestor(botaoConfirmarLogin)).mostrarPainel("Artista");
                 } else {
                     JOptionPane.showMessageDialog(null, "Artista ou password/pin inválidos", "Erro", JOptionPane.WARNING_MESSAGE);
@@ -162,7 +158,7 @@ public class PainelLogin extends JPanel {
                 if (rockstar.loginC(usernameLogin.getText(), new String(passwordLogin.getPassword()))) {
                     JOptionPane.showMessageDialog(null, "Login bem-sucedido!");
                     ((JanelaControlo) SwingUtilities.getWindowAncestor(botaoConfirmarLogin)).getContentPane().remove(3);
-                    ((JanelaControlo) SwingUtilities.getWindowAncestor(botaoConfirmarLogin)).setVisaoCliente(rockstar,rockstar.clienteNaArray(usernameLogin.getText()));
+                    ((JanelaControlo) SwingUtilities.getWindowAncestor(botaoConfirmarLogin)).setVisaoCliente(rockstar, rockstar.clienteNaArray(usernameLogin.getText()));
                     ((JanelaControlo) SwingUtilities.getWindowAncestor(botaoConfirmarLogin)).mostrarPainel("Cliente");
                 } else {
                     JOptionPane.showMessageDialog(null, "Cliente ou Password inválidos", "Erro", JOptionPane.WARNING_MESSAGE);

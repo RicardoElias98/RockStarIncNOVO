@@ -14,7 +14,7 @@ public class Cliente extends Utilizador  {
         super(username, password);
        playlist = new ArrayList<>();
        aquisicoes = new ArrayList<>();
-       aquisicoesEmEsperaPorValidacao = aquisicoesEmEsperaPorValidacao;
+       aquisicoesEmEsperaPorValidacao = new ArrayList<>();
     }
 
     @Override
@@ -28,6 +28,17 @@ public class Cliente extends Utilizador  {
     }
 
     @Override
+
+    public boolean existe(Programa programa) {
+        for (Cliente c : programa.getClientes()) {
+            if(this.getUsername().equals(c.getUsername())){
+                return true;
+            }
+        }
+        return false;}
+
+
+    @Override
     public void verificaLogin(Programa programa) {
 
     }
@@ -36,9 +47,6 @@ public class Cliente extends Utilizador  {
     public ArrayList<Musica> getAquisicoes() {
         return aquisicoes;
     }
-
-
-
 
 
 

@@ -30,7 +30,7 @@ public class JanelaControlo extends JFrame {
         visaoRegisto = new PainelRegisto(rockstar);
         visaoLogin = new PainelLogin(rockstar);
        Cliente C = new Cliente("zzz","");
-       Artista A = new Artista("aaaaa","", 123);
+       Artista A = new Artista("aaaaa","");
        visaoCliente = new PainelCliente(rockstar, C);
        visaoArtista = new PainelArtista(rockstar, A);
 
