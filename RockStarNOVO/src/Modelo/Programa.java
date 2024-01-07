@@ -26,6 +26,9 @@ public class Programa implements Serializable {
         this.albunsTotais = new ArrayList<>();
 
         //// hardcode de objetos pra teste
+        /////////////////////////////////////
+
+
 
         Artista a = new Artista("daniel", "123");
         Cliente c = new Cliente("ricardo", "1234");
@@ -43,6 +46,7 @@ public class Programa implements Serializable {
 
     public ArrayList<Artista> getArtistas() {
         return artistas;
+
     }
 
     public ArrayList<Musica> getMusicasTotais() {

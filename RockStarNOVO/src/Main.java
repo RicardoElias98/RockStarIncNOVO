@@ -9,8 +9,6 @@ public class Main {
         // rockstar.iniciar();
 
 
-        /////// TESTE DE OUTRA COISA; CLASSE ROCKSTAR APP PRA VER IDEIAS DE COISAS E ORGANIZAÇÃO GRAFICA
-        //RockstarApp oi = new RockstarApp();
 
     }
 }
