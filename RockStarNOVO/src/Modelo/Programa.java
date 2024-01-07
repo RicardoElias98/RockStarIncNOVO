@@ -30,8 +30,10 @@ public class Programa implements Serializable {
 
         Artista a = new Artista("daniel", "123", 123);
         Cliente c = new Cliente("ricardo", "1234");
+
         artistas.add(a);
         clientes.add(c);
+
 
     }
 

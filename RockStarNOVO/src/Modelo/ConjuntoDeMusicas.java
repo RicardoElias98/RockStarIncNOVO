@@ -20,6 +20,7 @@ public abstract class ConjuntoDeMusicas implements Serializable {
         return musicas;
     }
 
-
-
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 }

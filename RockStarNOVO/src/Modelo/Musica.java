@@ -120,6 +120,9 @@ public class Musica implements Serializable {
         return historicoprecos;
     }
 
+    public HashMap<Cliente, Integer> getAvaliacao() {
+        return avaliacao;
+    }
 
 }
 

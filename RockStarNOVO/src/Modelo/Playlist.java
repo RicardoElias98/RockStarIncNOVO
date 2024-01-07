@@ -43,8 +43,12 @@ public class Playlist extends ConjuntoDeMusicas {
         this.visibilidade = visibilidade;
     }
 
+
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
 }
+
+
+
 

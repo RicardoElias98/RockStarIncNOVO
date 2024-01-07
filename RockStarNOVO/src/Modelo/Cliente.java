@@ -14,7 +14,7 @@ public class Cliente extends Utilizador  {
         super(username, password);
        playlist = new ArrayList<>();
        aquisicoes = new ArrayList<>();
-       aquisicoesEmEsperaPorValidacao = aquisicoesEmEsperaPorValidacao;
+       aquisicoesEmEsperaPorValidacao = new ArrayList<>();
     }
 
     @Override
@@ -44,7 +44,7 @@ public class Cliente extends Utilizador  {
 
 
 
-    public void adicionarMusicaAplaylist(Playlist playlist1, JTable tabelaMusicas,JTable tabelaPlaylists, int linha, int coluna) {
+    public void adicionarMusicaAplaylist(Playlist playlist1, JTable tabelaMusicas, DefaultTableModel tabelaPlaylists, int linha, int coluna) {
         //Obter o objeto música de onde se clica
         Object objetoNaLinha = tabelaMusicas.getValueAt(linha, coluna);
         String objetoString = (String) objetoNaLinha;
@@ -57,7 +57,7 @@ public class Cliente extends Utilizador  {
                     for (int colunaTabela = 0; colunaTabela < tabelaPlaylists.getColumnCount(); colunaTabela++) {
                         Object valor = tabelaPlaylists.getValueAt(linhaTabela, colunaTabela);
                         if (valor.equals(playlist1.getNome())) {
-                            tabelaPlaylists.setValueAt(contarNumMusicas(playlist1), linhaTabela, colunaTabela+1);
+                            tabelaPlaylists.setValueAt(contarNumMusicas(playlist1), linhaTabela, colunaTabela+2);
                         }
                     }
 
@@ -124,23 +124,32 @@ public class Cliente extends Utilizador  {
 
     }
 
-    private void adicionarMusicasAoCarrinho(Musica musica) {
+    public boolean adicionarMusicasAoCarrinho(Musica musica) {
         if (!aquisicoesEmEsperaPorValidacao.contains(musica) && !aquisicoes.contains(musica)){
-        aquisicoesEmEsperaPorValidacao.add(musica);}
+        aquisicoesEmEsperaPorValidacao.add(musica);
+        return true;
+        }
+        else return false;
     }
 
-    private void finalizarCarrinho(Programa programa) {
-        for (Musica mus : aquisicoesEmEsperaPorValidacao){
-            this.retirarSaldo(mus.getPreco());
-            Artista artistaVendedor =null;
-            for (Artista art : programa.getArtistas()){
-                if (mus.getAutoria().equals(art.getUsername())){
-                    artistaVendedor = art;
-                }
-            }
-            //artistaVendedor.adicionarSaldo(mus.getPreco());
-            aquisicoes.add(mus);
+    public void finalizarCarrinho(Programa rockstar) {
+        double precoTotal = 0;
+        for (Musica musicas : aquisicoesEmEsperaPorValidacao) {
+            precoTotal = precoTotal + musicas.getPreco();
         }
+
+        if (this.saldo > precoTotal) {
+            for (Musica mus : aquisicoesEmEsperaPorValidacao) {
+                this.saldo = this.getSaldo() - mus.getPreco();
+                aquisicoes.add(mus);
+                for (Artista art : rockstar.getArtistas()) {
+                    if (mus.getAutoria().equals(art.getUsername())) {
+                        art.adicionarSaldo(mus.getPreco());
+                    }
+                }
+
+            }
+        } else JOptionPane.showMessageDialog(null, "Saldo insuficiente", "Ups", JOptionPane.WARNING_MESSAGE);
     }
 
     private void cancelarCarrinho() {
@@ -153,9 +162,6 @@ public class Cliente extends Utilizador  {
         return valorAdepostiar+saldo;
     }
 
-    public double retirarSaldo(double valorARetirar) {
-        return saldo-valorARetirar;
-    }
 
     public boolean login(String username, String password, Programa programa) {
         int contadorParaLogin = 0;
