@@ -51,7 +51,7 @@ public class PainelCliente extends JPanel {
         JLabel saudacaoLabel = new JLabel("Olá, " + cliente.getUsername());
         saudacaoUser.add(saudacaoLabel);
         add(saudacaoLabel);
-         Musica minhaMusica = new Musica("Título da Música", "Autor/Intérprete", LocalDateTime.now(), true, "Gênero", 9.99);
+         Musica minhaMusica = new Musica("Título da Música", "daniel", LocalDateTime.now(), true, "Gênero", 9.99);
          Playlist minhaPlaylist = new Playlist("Nome da Playlist","bla",true,3,"Rock");
          cliente.getAquisicoes().add(minhaMusica);
         cliente.getPlaylist().add(minhaPlaylist);

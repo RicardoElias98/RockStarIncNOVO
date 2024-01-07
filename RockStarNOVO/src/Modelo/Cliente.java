@@ -153,9 +153,10 @@ public class Cliente extends Utilizador  {
             for (Musica mus : aquisicoesEmEsperaPorValidacao) {
                 this.saldo = this.getSaldo() - mus.getPreco();
                 aquisicoes.add(mus);
+
                 for (Artista art : rockstar.getArtistas()) {
                     if (mus.getAutoria().equals(art.getUsername())) {
-                        art.adicionarSaldo(mus.getPreco());
+                        art.saldo = art.getSaldo() + mus.getPreco();
                     }
                 }
 

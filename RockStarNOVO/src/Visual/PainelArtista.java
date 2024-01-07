@@ -38,7 +38,7 @@ public class PainelArtista extends JPanel {
         setBackground(Color.ORANGE);
         setVisible(true);
 
-        Musica minhaMusica = new Musica("Título da Música", "Autor/Intérprete", LocalDateTime.now(), true, "Gênero", 9.99);
+        Musica minhaMusica = new Musica("Título da Música", "daniel", LocalDateTime.now(), true, "Gênero", 9.99);
         artista.getMusicas().add(minhaMusica);
         rockstar.getMusicasTotais().add(minhaMusica);
 
