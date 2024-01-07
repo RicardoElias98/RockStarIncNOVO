@@ -4,22 +4,24 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
 
-public class Cliente extends Utilizador  {
+public class Cliente extends Utilizador {
 
     private ArrayList<Playlist> playlist;
     private ArrayList<Musica> aquisicoes;
     private ArrayList<Musica> aquisicoesEmEsperaPorValidacao;
+    private ArrayList<Compra> historicocompras;
 
     public Cliente(String username, String password) {
         super(username, password);
-       playlist = new ArrayList<>();
-       aquisicoes = new ArrayList<>();
-       aquisicoesEmEsperaPorValidacao = new ArrayList<>();
+        playlist = new ArrayList<>();
+        aquisicoes = new ArrayList<>();
+        aquisicoesEmEsperaPorValidacao = new ArrayList<>();
+        historicocompras = new ArrayList<>();
     }
 
     @Override
     public ArrayList<Musica> listarMusicas(Programa programa) {
-    return programa.getMusicasTotais();
+        return programa.getMusicasTotais();
     }
 
     @Override
@@ -31,11 +33,12 @@ public class Cliente extends Utilizador  {
 
     public boolean existe(Programa programa) {
         for (Cliente c : programa.getClientes()) {
-            if(this.getUsername().equals(c.getUsername())){
+            if (this.getUsername().equals(c.getUsername())) {
                 return true;
             }
         }
-        return false;}
+        return false;
+    }
 
 
     @Override
@@ -48,9 +51,9 @@ public class Cliente extends Utilizador  {
         return aquisicoes;
     }
 
-
-
-
+    public ArrayList<Compra> getHistoricocompras() {
+        return historicocompras;
+    }
 
     public void adicionarMusicaAplaylist(Playlist playlist1, JTable tabelaMusicas, DefaultTableModel tabelaPlaylists, int linha, int coluna) {
         //Obter o objeto música de onde se clica
@@ -65,7 +68,7 @@ public class Cliente extends Utilizador  {
                     for (int colunaTabela = 0; colunaTabela < tabelaPlaylists.getColumnCount(); colunaTabela++) {
                         Object valor = tabelaPlaylists.getValueAt(linhaTabela, colunaTabela);
                         if (valor.equals(playlist1.getNome())) {
-                            tabelaPlaylists.setValueAt(contarNumMusicas(playlist1), linhaTabela, colunaTabela+2);
+                            tabelaPlaylists.setValueAt(contarNumMusicas(playlist1), linhaTabela, colunaTabela + 2);
                         }
                     }
 
@@ -75,13 +78,13 @@ public class Cliente extends Utilizador  {
     }
 
     public Playlist criarPlaylist(String genero, int numMusicas, Programa programa, String nome, String descricao) {
-        Playlist playlistCriada = new Playlist("aaa","aaa",true);
-        ArrayList <Musica> arrayListDoGenero = new ArrayList<>();
-        ArrayList <Musica> musicasJaAdicionadas = new ArrayList<>();
+        Playlist playlistCriada = new Playlist("aaa", "aaa", true);
+        ArrayList<Musica> arrayListDoGenero = new ArrayList<>();
+        ArrayList<Musica> musicasJaAdicionadas = new ArrayList<>();
         int contador = 0;
         int contadorTamanho = 0;
         for (Musica pro : programa.getMusicasTotais()) {
-            if (pro.getGenero().equals(genero)){
+            if (pro.getGenero().equals(genero)) {
                 arrayListDoGenero.add(pro);
             }
         }
@@ -113,14 +116,14 @@ public class Cliente extends Utilizador  {
         Object objetoNaLinha = tabelaPlaylists.getValueAt(linha, coluna);
         String objetoString = (String) objetoNaLinha;
 
-            if (objetoString.equals(nomePlaylist.getNome())) {
-                this.getPlaylist().remove(nomePlaylist);
-                tabelaPlaylist.removeRow(linha);
-                System.out.println(nomePlaylist + "removida com sucesso");
-                minhasPlaylistsClientePainel.revalidate();
-                minhasPlaylistsClientePainel.repaint();
-            }
+        if (objetoString.equals(nomePlaylist.getNome())) {
+            this.getPlaylist().remove(nomePlaylist);
+            tabelaPlaylist.removeRow(linha);
+            System.out.println(nomePlaylist + "removida com sucesso");
+            minhasPlaylistsClientePainel.revalidate();
+            minhasPlaylistsClientePainel.repaint();
         }
+    }
 
     public void mudarVisibilidade(boolean visibilidade, Playlist pl) {
         if (visibilidade) {
@@ -133,11 +136,10 @@ public class Cliente extends Utilizador  {
     }
 
     public boolean adicionarMusicasAoCarrinho(Musica musica) {
-        if (!aquisicoesEmEsperaPorValidacao.contains(musica) && !aquisicoes.contains(musica)){
-        aquisicoesEmEsperaPorValidacao.add(musica);
-        return true;
-        }
-        else {
+        if (!aquisicoesEmEsperaPorValidacao.contains(musica) && !aquisicoes.contains(musica)) {
+            aquisicoesEmEsperaPorValidacao.add(musica);
+            return true;
+        } else {
             JOptionPane.showMessageDialog(null, "Música já adicionada/comprada", "Ups", JOptionPane.WARNING_MESSAGE);
             return false;
         }
@@ -165,13 +167,13 @@ public class Cliente extends Utilizador  {
     }
 
     private void cancelarCarrinho() {
-        for (Musica mus : aquisicoesEmEsperaPorValidacao){
+        for (Musica mus : aquisicoesEmEsperaPorValidacao) {
             aquisicoesEmEsperaPorValidacao.remove(mus);
         }
     }
 
     public double alterarSaldo(double valorAdepostiar) {
-        return valorAdepostiar+saldo;
+        return valorAdepostiar + saldo;
     }
 
 
@@ -193,7 +195,7 @@ public class Cliente extends Utilizador  {
         } else return false;
     }
 
-    public boolean registar (String username, Programa programa) {
+    public boolean registar(String username, Programa programa) {
         int contadorParaRegisto = 0;
 
         for (Cliente c : programa.getClientes()) {
@@ -210,7 +212,7 @@ public class Cliente extends Utilizador  {
         return playlist;
     }
 
-    public int contarNumMusicas (Playlist playlist) {
+    public int contarNumMusicas(Playlist playlist) {
         int contador = 0;
         for (Musica m : playlist.getMusicas()) {
             if (!m.getTitulo().equals("")) {
@@ -220,9 +222,9 @@ public class Cliente extends Utilizador  {
         return contador;
     }
 
-    private int numeroAleatorio (ArrayList arrayList) {
+    private int numeroAleatorio(ArrayList arrayList) {
         double numeroGerado = Math.random();
-        int numeroGeradoFinal = (int) (numeroGerado*(arrayList.size()));
+        int numeroGeradoFinal = (int) (numeroGerado * (arrayList.size()));
         return numeroGeradoFinal;
     }
 

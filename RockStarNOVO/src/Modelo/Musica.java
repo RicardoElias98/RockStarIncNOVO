@@ -37,6 +37,10 @@ public class Musica implements Serializable {
     //USAR Jcombo box que mete genero normalizado
     private String genero;
 
+    // para calcular quanto ganhou o artista com a sua música
+    private double receita;
+
+
 
     public Musica(String titulo, String autoria, LocalDateTime data, boolean adicionarAPlaylist, String genero, double preco) {
         this.idMusica = UUID.randomUUID();
@@ -96,6 +100,18 @@ public class Musica implements Serializable {
 
     public void adicionarRating(Cliente cliente, Integer valor) {
         this.avaliacao.put(cliente, valor);
+    }
+
+    public boolean isAdicionarAPlaylist() {
+        return adicionarAPlaylist;
+    }
+
+    public double getReceita() {
+        return receita;
+    }
+    // metodo a ser chmado quando se adiciona a musica a album
+    public void setNomeAlbum(String nomeAlbum) {
+        this.nomeAlbum = nomeAlbum;
     }
 
     // metodo cliente ver rating que deu
