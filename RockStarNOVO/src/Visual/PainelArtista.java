@@ -18,7 +18,6 @@ public class PainelArtista extends JPanel {
     private JButton adicionarMusica;
     private JButton corrigirTitulo;
     private JButton alterarPreco;
-    private JButton inativarMusica;
     private JButton minhasMusicas;
     private JButton criarAlbum;
 
@@ -39,7 +38,7 @@ public class PainelArtista extends JPanel {
     private JScrollPane scrollPane2;
     private DefaultTableModel tabela;
 
-    private JPanel painelCriarAlbum;
+
 
 
     public PainelArtista(Programa rockstar, Artista artista) {
@@ -47,10 +46,6 @@ public class PainelArtista extends JPanel {
         setLayout(new FlowLayout());
         setBackground(Color.ORANGE);
         setVisible(true);
-
-        Musica minhaMusica = new Musica("Título da Música", "daniel", LocalDateTime.now(), true, "Gênero", 9.99);
-        //artista.getMusicas().add(minhaMusica);
-        //rockstar.getMusicasTotais().add(minhaMusica);
 
         painelDeCimaFixo = new JPanel();
         iniciarPainelDeCima(artista, rockstar);

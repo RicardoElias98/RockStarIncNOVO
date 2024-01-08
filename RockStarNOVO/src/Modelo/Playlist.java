@@ -13,7 +13,7 @@ public class Playlist extends ConjuntoDeMusicas {
         this.descricao = descricao;
         this.musicas=new ArrayList<>();
     }
-    // criar playlist com género e numero de playlists
+
 
 
     public Playlist(String nome, String descricao, boolean visibilidade, int numeroMusicas, String genero) {

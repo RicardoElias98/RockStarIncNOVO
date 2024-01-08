@@ -20,16 +20,6 @@ public class Cliente extends Utilizador {
     }
 
     @Override
-    public ArrayList<Musica> listarMusicas(Programa programa) {
-        return programa.getMusicasTotais();
-    }
-
-    @Override
-    public void pesquisarMusicas(Programa programa) {
-
-    }
-
-    @Override
 
     public boolean existe(Programa programa) {
         for (Cliente c : programa.getClientes()) {
@@ -41,10 +31,7 @@ public class Cliente extends Utilizador {
     }
 
 
-    @Override
-    public void verificaLogin(Programa programa) {
 
-    }
 
 
     public ArrayList<Musica> getAquisicoes() {
@@ -105,14 +92,6 @@ public class Cliente extends Utilizador {
         }
         return playlistCriada;
     }
-/*
-    public Playlist criarPlaylist() {
-
-        return pl;
-    }
-
-   /*  private Playlist verPlaylist () { //está comentado porque falta o return
-    } */
 
     public void removerPlaylist(Playlist nomePlaylist, int linha, int coluna, JTable tabelaPlaylists, DefaultTableModel tabelaPlaylist, JPanel minhasPlaylistsClientePainel) {
         Object objetoNaLinha = tabelaPlaylists.getValueAt(linha, coluna);
@@ -131,10 +110,6 @@ public class Cliente extends Utilizador {
         if (visibilidade) {
             pl.setVisibilidade(false);
         } else pl.setVisibilidade(true);
-    }
-
-    public void adicionarRating(Musica musica, int pontuacao) {
-
     }
 
     //músicas Inativas não dão para comprar
@@ -170,48 +145,6 @@ public class Cliente extends Utilizador {
 
             JOptionPane.showMessageDialog(null, "Compra efetuada com sucesso", "Número de músicas adquiridas " + aquisicoesEmEsperaPorValidacao.size() + ".", JOptionPane.WARNING_MESSAGE);
         } else JOptionPane.showMessageDialog(null, "Saldo insuficiente", "Ups", JOptionPane.WARNING_MESSAGE);
-    }
-
-    private void cancelarCarrinho() {
-        for (Musica mus : aquisicoesEmEsperaPorValidacao) {
-            aquisicoesEmEsperaPorValidacao.remove(mus);
-        }
-    }
-
-    public double alterarSaldo(double valorAdepostiar) {
-        return valorAdepostiar + saldo;
-    }
-
-
-    public boolean login(String username, String password, Programa programa) {
-        int contadorParaLogin = 0;
-
-        String passEmString = new String(password);
-
-        for (Cliente c : programa.getClientes()) {
-            if (username.equals(c.getUsername())) {
-                contadorParaLogin++;
-            }
-            if (passEmString.equals(c.getPassword())) {
-                contadorParaLogin++;
-            }
-        }
-        if (contadorParaLogin == 2) {
-            return true;
-        } else return false;
-    }
-
-    public boolean registar(String username, Programa programa) {
-        int contadorParaRegisto = 0;
-
-        for (Cliente c : programa.getClientes()) {
-            if (username.equals(c.getUsername())) {
-                contadorParaRegisto++;
-            }
-        }
-        if (contadorParaRegisto == 0) {
-            return true;
-        } else return false;
     }
 
     public ArrayList<Playlist> getPlaylist() {

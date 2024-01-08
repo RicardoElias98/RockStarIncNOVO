@@ -1,11 +1,12 @@
 package Modelo;
 
 
-import javax.swing.*;
+
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -30,7 +31,7 @@ public class Programa implements Serializable {
         /////////////////////////////////////
 
 
-       /* Cliente cliente1 = new Cliente("Daniel", "senha1");
+        /*Cliente cliente1 = new Cliente("Daniel", "senha1");
         Cliente cliente2 = new Cliente("Rita", "senha2");
         Cliente cliente3 = new Cliente("Ana", "senha3");
         Cliente cliente4 = new Cliente("Lucas", "senha4");

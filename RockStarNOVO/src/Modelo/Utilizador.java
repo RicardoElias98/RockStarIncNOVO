@@ -15,17 +15,10 @@ public abstract class Utilizador implements Serializable {
     }
 
 
-    public abstract ArrayList<Musica> listarMusicas(Programa programa);
 
-    public abstract void pesquisarMusicas(Programa programa);
 
    public abstract boolean existe(Programa programa);
 
-
-
-    // LOGOUT PODERÁ NAO Ser necessario. a não ser tornar o user temporario da FRAME = null, para novo login
-    ///protected void logout() {
-    ///////
 
     public String getUsername() {
         return username;
@@ -43,5 +36,4 @@ public abstract class Utilizador implements Serializable {
         this.saldo = saldo;
     }
 
-    public abstract void verificaLogin(Programa programa);
 }

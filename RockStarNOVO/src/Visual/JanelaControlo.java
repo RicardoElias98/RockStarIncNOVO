@@ -45,7 +45,7 @@ public class JanelaControlo extends JFrame {
         add(visaoCliente, "Cliente");
         add(visaoArtista, "Artista");
 
-        // Configurações da janela
+
         setResizable(true);
         // caso queira definir tamanho
         // setSize(1100, 600);

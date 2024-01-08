@@ -15,13 +15,7 @@ public class Compra {
         this.dataDaCompra = LocalDateTime.now();
     }
 
-    public LocalDateTime getDataDaCompra() {
-        return dataDaCompra;
-    }
 
-    public ArrayList<Musica> getMusicasCompradas() {
-        return musicasCompradas;
-    }
 
     public double getCustoCompra() {
         return custoCompra;
