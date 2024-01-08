@@ -47,18 +47,19 @@ public class PainelCliente extends JPanel {
 
         //PAINEL DO OLÁ
 
+        setLayout(new FlowLayout());
+        setBackground(Color.ORANGE);
+        setVisible(true);
         JPanel saudacaoUser = new JPanel(new FlowLayout(FlowLayout.CENTER));
         JLabel saudacaoLabel = new JLabel("Olá, " + cliente.getUsername());
         saudacaoUser.add(saudacaoLabel);
-        add(saudacaoLabel);
+        add(saudacaoUser);
          Musica minhaMusica = new Musica("Título da Música", "daniel", LocalDateTime.now(), true, "Gênero", 9.99);
          Playlist minhaPlaylist = new Playlist("Nome da Playlist","bla",true,3,"Rock");
          cliente.getAquisicoes().add(minhaMusica);
         cliente.getPlaylist().add(minhaPlaylist);
 
-        setLayout(new FlowLayout());
-        setBackground(Color.ORANGE);
-        setVisible(true);
+
 
         painelDeCimaFixo = new JPanel();
         iniciarPainelDeCima(cliente);
