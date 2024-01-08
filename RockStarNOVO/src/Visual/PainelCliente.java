@@ -12,9 +12,11 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Map;
 
 public class PainelCliente extends JPanel {
 
@@ -902,10 +904,21 @@ public class PainelCliente extends JPanel {
 
             for (Musica musica : cliente.getAquisicoes()) {
                 if (objetoString.equals(musica.getTitulo())) {
-                    System.out.println(musica.getHistoricoprecos().values());
 
                     JPanel painelStats = new JPanel();
-                    JTextArea textArea = new JTextArea(String.valueOf(musica.getHistoricoprecos().values()));
+                    DateTimeFormatter formatador = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+                        String historicoPrecos="";
+
+                        for (Map.Entry<LocalDateTime, Double> entrada : musica.getHistoricoprecos().entrySet()) {
+                        LocalDateTime tempdata = entrada.getKey();
+                        Double preco = entrada.getValue();
+                        String dataFormatada = tempdata.format(formatador);
+
+                            historicoPrecos+= "Data: " +dataFormatada+ ", Preço: " + preco+"\n";
+                    }
+
+                    JTextArea textArea = new JTextArea(historicoPrecos);
                     textArea.setEditable(false);
                     textArea.setWrapStyleWord(true);
                     textArea.setLineWrap(true);
@@ -915,6 +928,8 @@ public class PainelCliente extends JPanel {
 
                 }
             }
+
+
 
 
         });

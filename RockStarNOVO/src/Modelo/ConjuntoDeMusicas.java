@@ -16,6 +16,8 @@ public abstract class ConjuntoDeMusicas implements Serializable {
         return nome;
     }
 
+
+
     public ArrayList<Musica> getMusicas() {
         return musicas;
     }
@@ -23,4 +25,5 @@ public abstract class ConjuntoDeMusicas implements Serializable {
     public void setNome(String nome) {
         this.nome = nome;
     }
+
 }

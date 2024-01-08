@@ -1,4 +1,5 @@
 package Visual;
+
 import Modelo.*;
 
 import javax.swing.*;
@@ -7,11 +8,10 @@ import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
 
 public class PainelArtista extends JPanel {
 
@@ -53,7 +53,7 @@ public class PainelArtista extends JPanel {
         //rockstar.getMusicasTotais().add(minhaMusica);
 
         painelDeCimaFixo = new JPanel();
-        iniciarPainelDeCima(artista);
+        iniciarPainelDeCima(artista, rockstar);
         add(painelDeCimaFixo);
 
         JPanel saudacaoUser = new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -61,7 +61,7 @@ public class PainelArtista extends JPanel {
         saudacaoUser.add(saudacaoLabel);
         add(saudacaoLabel);
 
-        painelCorrigirTitulo =new JPanel();
+        painelCorrigirTitulo = new JPanel();
         iniciarPainelCorrigirTitulo(rockstar, artista);
         add(painelCorrigirTitulo);
 
@@ -99,7 +99,7 @@ public class PainelArtista extends JPanel {
 
             String musica = JOptionPane.showInputDialog("Insira o nome da música a alterar");
             for (Musica mus : artista.getMusicas()) {
-                if (musica.equals(mus.getTitulo()) && mus != null && musica!=null) {
+                if (musica.equals(mus.getTitulo()) && mus != null && musica != null) {
                     String valorNovo = JOptionPane.showInputDialog("Insira o novo preço");
                     double valorNovoDouble = Double.parseDouble(valorNovo);
                     mus.setPreco(valorNovoDouble);
@@ -125,7 +125,7 @@ public class PainelArtista extends JPanel {
 
         JTextField nomeDaMusica = new JTextField("Nome da música");
         JTextField preco = new JTextField("Preço");
-        JComboBox generoBox = new JComboBox<>(new String[]{"Pop", "Rock", "Jazz","Metal","Clássica", "Hip Hop"});
+        JComboBox generoBox = new JComboBox<>(new String[]{"Pop", "Rock", "Jazz", "Metal", "Clássica", "Hip Hop"});
         JComboBox publicaOuPrivada = new JComboBox<>(new String[]{"Pública", "Privada"});
         JButton confirmarCriacao = new JButton("Confirmar");
 
@@ -141,7 +141,7 @@ public class PainelArtista extends JPanel {
 
         confirmarCriacao.addActionListener(e -> {
             if (publicaOuNao1 != null && !nomeDaMusica.equals("") && genero != null) {
-                Musica musicaCriada = new Musica(nomeDaMusica.getText(),artista.getUsername(),LocalDateTime.now(),publicaOuNao(publicaOuNao1),genero,Double.parseDouble(preco.getText()));
+                Musica musicaCriada = new Musica(nomeDaMusica.getText(), artista.getUsername(), LocalDateTime.now(), publicaOuNao(publicaOuNao1), genero, Double.parseDouble(preco.getText()));
                 System.out.println(musicaCriada + "criada com sucesso");
                 rockstar.getMusicasTotais().add(musicaCriada);
                 artista.getMusicas().add(musicaCriada);
@@ -150,24 +150,25 @@ public class PainelArtista extends JPanel {
         });
     }
 
-    private void atualizarTabelaMinhasMusicas (Artista artista) {
+    private void atualizarTabelaMinhasMusicas(Artista artista) {
         tabela.setRowCount(0);
         for (Musica mus : artista.getMusicas()) {
             if (mus != null) {
-                tabela.addRow(new Object[]{mus.getPreco(),mus.getTitulo(),mus.getNomeAlbum(),mus.getData().getYear(),mus.isAdicionarAPlaylist()});
+                tabela.addRow(new Object[]{mus.getPreco(), mus.getTitulo(), mus.getNomeAlbum(), mus.getData().getYear(), mus.isAdicionarAPlaylist()});
             }
         }
     }
 
 
-    private boolean publicaOuNao (String publicaOuPrivada) {
+    private boolean publicaOuNao(String publicaOuPrivada) {
         if (publicaOuPrivada.equals("Pública")) {
             return true;
         } else if (publicaOuPrivada.equals("Privada")) {
             return false;
         } else return false;
     }
-    private void inicarPainelMinhasMusicas (Artista artista) {
+
+    private void inicarPainelMinhasMusicas(Artista artista) {
         painelMinhasMusicas.setLayout(new FlowLayout());
         painelMinhasMusicas.setBackground(Color.ORANGE);
         painelMinhasMusicas.setVisible(false);
@@ -204,8 +205,8 @@ public class PainelArtista extends JPanel {
         }
 
         for (Musica mus : artista.getMusicas()) {
-            if (mus!=null) {
-                tabela.addRow(new Object[]{mus.getPreco(),mus.getTitulo(),mus.getNomeAlbum(),mus.getData().getYear(),mus.isAdicionarAPlaylist()});
+            if (mus != null) {
+                tabela.addRow(new Object[]{mus.getPreco(), mus.getTitulo(), mus.getNomeAlbum(), mus.getData().getYear(), mus.isAdicionarAPlaylist()});
             }
 
         }
@@ -233,7 +234,7 @@ public class PainelArtista extends JPanel {
                 tabela.setRowCount(0);
                 for (Musica mus : artista.getMusicas()) {
                     if (mus != null && mus.getTitulo().equals(musica)) {
-                        tabela.addRow(new Object[]{mus.getPreco(),mus.getTitulo(),mus.getNomeAlbum(),mus.getData().getYear(),mus.isAdicionarAPlaylist()});
+                        tabela.addRow(new Object[]{mus.getPreco(), mus.getTitulo(), mus.getNomeAlbum(), mus.getData().getYear(), mus.isAdicionarAPlaylist()});
                     }
                 }
             }
@@ -246,7 +247,7 @@ public class PainelArtista extends JPanel {
                 tabela.setRowCount(0);
                 for (Musica mus : artista.getMusicas()) {
                     if (mus != null && mus.getNomeAlbum().equals(album)) {
-                        tabela.addRow(new Object[]{mus.getPreco(),mus.getTitulo(),mus.getNomeAlbum(),mus.getData().getYear(),mus.isAdicionarAPlaylist()});
+                        tabela.addRow(new Object[]{mus.getPreco(), mus.getTitulo(), mus.getNomeAlbum(), mus.getData().getYear(), mus.isAdicionarAPlaylist()});
                     }
                 }
             }
@@ -346,12 +347,12 @@ public class PainelArtista extends JPanel {
                         musc.setAdicionarAPlaylist(false);
                     } else musc.setAdicionarAPlaylist(true);
                 }
-                    tabelaMusicas.getModel().setValueAt(musc.isAdicionarAPlaylist(), linha, 4);
-                }
-            });
-        }
+                tabelaMusicas.getModel().setValueAt(musc.isAdicionarAPlaylist(), linha, 4);
+            }
+        });
+    }
 
-    private void iniciarPainelCorrigirTitulo (Programa rockstar ,Artista artista) {
+    private void iniciarPainelCorrigirTitulo(Programa rockstar, Artista artista) {
         painelCorrigirTitulo.setLayout(new FlowLayout());
         painelCorrigirTitulo.setBackground(Color.ORANGE);
         painelCorrigirTitulo.setVisible(false);
@@ -382,10 +383,11 @@ public class PainelArtista extends JPanel {
                     }
                 }
             }
-        });;    //ALTERA MAS NÃO ALTERA NA TABELA
+        });
+        ;    //ALTERA MAS NÃO ALTERA NA TABELA
     }
 
-    private void iniciarPainelDeCima (Artista artista) {
+    private void iniciarPainelDeCima(Artista artista, Programa rockstar) {
         painelDeCimaFixo.setLayout(new FlowLayout());
         painelDeCimaFixo.setBackground(Color.ORANGE);
         setVisible(true);
@@ -404,7 +406,7 @@ public class PainelArtista extends JPanel {
 
         alterarPreco = new JButton();
         alterarPreco.setText("Alterar Preço");
-        painelDeCimaFixo.add( alterarPreco);
+        painelDeCimaFixo.add(alterarPreco);
 
         minhasMusicas = new JButton();
         minhasMusicas.setText("Minhas Músicas");
@@ -418,6 +420,91 @@ public class PainelArtista extends JPanel {
         verEstatisticas.setText("Estatísticas");
         painelDeCimaFixo.add(verEstatisticas);
 
+        verEstatisticas.addActionListener(e -> {
+
+            // total artistas registados
+            int nTotalArtistas = rockstar.getArtistas().size();
+
+            // total clientes registados
+            int nTotalClientes = rockstar.getClientes().size();
+
+            // total de Musicas
+            int nTotalMusicas = rockstar.getMusicasTotais().size();
+
+            // valor total das músicas
+            double precoTodasAsMusicas = 0.00;
+            for (Musica m: rockstar.getMusicasTotais()) {
+              precoTodasAsMusicas += m.getPreco();
+            }
+
+            // total gasto por todos os clientes // valor total das vendas
+            double gastoTotal = 0.00;
+            for (Cliente c : rockstar.getClientes()) {
+                gastoTotal += c.totalGasto();
+            }
+
+            // valor total de álbuns por géneros
+            //hashmap genero, numero de albuns
+
+            String totalAlbunsGenero ="";
+
+            if (rockstar.getAlbunsTotais().isEmpty()) {
+                totalAlbunsGenero = "Não existem álbuns criados";
+            } else {
+                HashMap<String, Integer> totalAlbunsGeneroMap = new HashMap<>();
+                for (Album a : rockstar.getAlbunsTotais()) {
+                    totalAlbunsGeneroMap.put(a.getAlbumGenero(), totalAlbunsGeneroMap.getOrDefault(a.getAlbumGenero(), 0) + 1);
+                }
+                for (Map.Entry<String, Integer> entrada : totalAlbunsGeneroMap.entrySet()) {
+                    String string = entrada.getKey();
+                    Integer contagem = entrada.getValue();
+                    totalAlbunsGenero += "\n"+"Nº de álbuns do género" + string + ": " + contagem+"";
+                }
+            }
+
+
+            // quantas músicas do artista já foram descarregadas
+            int descargas = 0;
+            for (Cliente c : rockstar.getClientes()) {
+                for (Musica musica: c.getAquisicoes()) {
+                    if (artista.getUsername()==musica.getAutoria()){
+                        descargas++;
+                    }
+                }
+            }
+
+
+
+            // musica mais bem classificada do artista
+            String ratingMedio = "As suas músicas ainda não obtiveram qualquer avaliação";
+            double tempRating = 0.00;
+            for (Musica m : artista.getMusicas()) {
+                if (m.obterRatingMedio() > tempRating) {
+                    ratingMedio = m.getTitulo() +", com a nota "+ m.obterRatingMedio();
+                }
+            }
+
+
+            ////PAINEL
+
+            JPanel painelStats = new JPanel();
+            JTextArea textArea = new JTextArea("Nº total de artistas: "+nTotalArtistas+"" +
+                    "\n"+"Nº total de clientes: "+nTotalClientes+"\n"+"Nº total de musicas: "+nTotalMusicas+
+                    "\n"+"Valor total do conjunto de músicas: "+precoTodasAsMusicas+"€\n"
+                    +"Volume total de transações: "+gastoTotal+"€\n"+"Álbuns por género: "+totalAlbunsGenero+""+
+                    "\n"+"A sua música com melhor avaliação: "+ratingMedio+"\n"+"Número de downloadas das suas músicas: " +
+                    descargas)
+                    ;
+            textArea.setEditable(false);
+            textArea.setWrapStyleWord(true);
+            textArea.setLineWrap(true);
+            textArea.setSize(600,600);
+            painelStats.add(textArea);
+            JOptionPane.showMessageDialog(null, painelStats, "Estatísticas", JOptionPane.PLAIN_MESSAGE);
+
+        });
+
+
         logout = new JButton();
         logout.setText("Logout");
         logout.addActionListener(e -> {
@@ -426,10 +513,7 @@ public class PainelArtista extends JPanel {
         painelDeCimaFixo.add(logout);
 
 
-
-
-
-
     }
+
 }
 

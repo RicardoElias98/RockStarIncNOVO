@@ -1,13 +1,14 @@
 package Modelo;
 
-import java.util.ArrayList;
-
 public class Album extends ConjuntoDeMusicas {
-        private String genero;
+        private String albumGenero;
 
-    public Album(String nome, String genero) {
+    public Album(String nome, String albumGenero) {
         super(nome);
-        this.genero = genero;
-        //this.musicas = musicas;
+        this.albumGenero = albumGenero;
+    }
+
+    public String getAlbumGenero() {
+        return albumGenero;
     }
 }

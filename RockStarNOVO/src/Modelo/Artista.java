@@ -72,18 +72,7 @@ public class Artista extends Utilizador {
         }
     }*/
 
-    private void verEstatisticasPessoais() {
 
-
-        System.out.println("Total de músicas: " + this.contarMusicas() + "Valor total das músicas: " + this.valorTotalMusicas() + "");
-
-//FALTAM ESTES -->
-// Ver estatísticas: total de utilizadores,
-// valor total das vendas,
-// total de álbuns por género musical
-// . Para além destes valores, apresente mais dois valores à sua escolha,
-// que considere úteis num sistema deste tipo.
-    }
 
     public double adicionarSaldo(double valorAadicionar) {
         return saldo + valorAadicionar;
@@ -147,6 +136,8 @@ public class Artista extends Utilizador {
         }
         return valor;
     }
+
+
 }
 
 

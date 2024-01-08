@@ -52,6 +52,8 @@ public class Musica implements Serializable {
         // this.nomeAlbum = album;
         this.genero = genero;
         this.preco = preco;
+        this.historicoprecos.put(data,preco);
+
     }
 
     public UUID getIdMusica() {
