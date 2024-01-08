@@ -4,7 +4,6 @@ public class Main {
 
         //como só criamos uma instância, executa-se só o construtor sem atribuição de variável
         new GestorInterface();
-
-
+        
     }
 }
