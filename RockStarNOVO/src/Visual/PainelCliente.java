@@ -12,6 +12,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 
 public class PainelCliente extends JPanel {
@@ -133,12 +135,23 @@ public class PainelCliente extends JPanel {
             // NOTA ISTO PODE SER USADO PARA OUTROS INPUTS DO UTILIZADOR
             // RICARDO
 
-            String valor = JOptionPane.showInputDialog("Insira o valor para carregar a conta");
-            double saldoadd = Double.parseDouble(valor);
-            if (saldoadd >= 0) {
-                cliente.setSaldo(cliente.getSaldo() + saldoadd);
+            //REVER SALDO
+
+            String valor;
+            double saldoadd;
+            do {
+                valor = JOptionPane.showInputDialog(null, "Insira quantos €€ quer depositar. Só aceitamos valores inteiros", "Adicionar Saldo", JOptionPane.INFORMATION_MESSAGE);
+                if (!(valor.matches("\\d+")) || Double.parseDouble(valor) == 0.0) {
+                    JOptionPane.showMessageDialog(null, "Insira um valor válido.");
+                }
+            } while (!(valor.matches("\\d+")) || Double.parseDouble(valor) == 0.0);
+            saldoadd = Double.parseDouble(valor);
+            if (valor != null) {
+                if (saldoadd >= 0) {
+                    cliente.setSaldo(cliente.getSaldo() + saldoadd);
+                    saldo.setText(String.format("Saldo: %.2f€", cliente.getSaldo()));
+                }
             }
-            saldo.setText(String.format("Saldo: %.2f€", cliente.getSaldo()));
 
         });
 
@@ -293,7 +306,74 @@ public class PainelCliente extends JPanel {
 
         criarPlaylistRandom = new JButton();
         criarPlaylistRandom.setText("Criar playlist aleatória");
+        criarPlaylistRandom.addActionListener(e -> {
+
+            // Criar o painel que vai conter os componentes de entrada
+            JPanel gerarPlaylistRandom = new JPanel();
+            gerarPlaylistRandom.setLayout(new BoxLayout(gerarPlaylistRandom, BoxLayout.Y_AXIS));
+
+            // Adicionar componentes ao painel
+            JTextField campoTexto1 = new JTextField(20);
+            JTextField campoTexto2 = new JTextField(20);
+            JTextField campoTexto3 = geraTextfieldSoAceitaDigitos();
+            JComboBox<String> comboBox = new JComboBox<>(new String[]{"Pop", "Rock", "Jazz", "Metal", "Clássica", "Hip Hop", "Ambient", "Folk"});
+            JCheckBox tornarPublica = new JCheckBox("Tornar Playlist Publica");
+
+            gerarPlaylistRandom.add(new JLabel("Nome da Playlist (20 caracteres max)"));
+            gerarPlaylistRandom.add(campoTexto1);
+            gerarPlaylistRandom.add(new JLabel("Descrição (300 caracteres max)"));
+            gerarPlaylistRandom.add(campoTexto2);
+            gerarPlaylistRandom.add(new JLabel("Indique o número de músicas a incluir"));
+            gerarPlaylistRandom.add(campoTexto3);
+            gerarPlaylistRandom.add(new JLabel("Selecione um género:"));
+            gerarPlaylistRandom.add(comboBox);
+            gerarPlaylistRandom.add(tornarPublica);
+
+
+            // Exibir o JOptionPane com o painel personalizado
+            int result = JOptionPane.showConfirmDialog(null, gerarPlaylistRandom,
+                    "Por favor, indique", JOptionPane.OK_CANCEL_OPTION);
+            // codigo que cria e adiciona
+            if (result == JOptionPane.OK_OPTION) {
+
+                Playlist nova = new Playlist(campoTexto1.getText(), campoTexto2.getText(), tornarPublica.isSelected());
+                int numMusicas = Integer.parseInt(campoTexto3.getText());
+                ArrayList<Musica> arrayTemp = new ArrayList<>();
+
+                for (Musica musica : cliente.getAquisicoes()) {
+                    if (musica.getGenero() == comboBox.getSelectedItem() && musica.isAdicionarAPlaylist()) {
+                        arrayTemp.add(musica);
+                    }
+                }
+                Collections.shuffle(arrayTemp);
+
+                if (arrayTemp.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Não existem músicas do género " + " na sua coleção que possam ser adicionadas a nova Playlist", "Playlist não criada", JOptionPane.ERROR_MESSAGE);
+                } else {
+                  for (int i = 0; i <= Math.min(numMusicas, arrayTemp.size()); i++) {
+                        nova.getMusicas().add(arrayTemp.get(i));
+                    }
+                  cliente.getPlaylist().add(nova);
+                if (nova.getMusicas().size() == arrayTemp.size()){
+                  o: JOptionPane.showMessageDialog(null, "Playlist "+nova.getNome()+"já disponível na sua área de Playlists", "Playlist criada com sucesso", JOptionPane.DEFAULT_OPTION);
+                }  else {
+                    JOptionPane.showMessageDialog(null, "Foi gerada a Playlist "+nova.getNome()+"com todas as músicas desse género que você tem e que permitem ser adicionadas a playlist.", "Playlist criada com sucesso.", JOptionPane.WARNING_MESSAGE);
+                }
+                }
+            }
+
+
+            // playlistNova.setNome(nome.getText());
+            // playlistNova.atribuirVisibilidade(visibilidade.getText());
+            // playlistNova.setDescricao(descricao.getText());
+            // cliente.getPlaylist().add(playlistNova);
+            //tabelaPlaylist.addRow(new Object[]{playlistNova.getNome(),playlistNova.getMusicas().lengt,playlistNova.isVisibilidade(),playlistNova.getDescricao()});
+        });
+
+
+        ;
         painelPlayList.add(criarPlaylistRandom);
+
 
         //Playlist playlistNova = cliente.criarPlaylist();
         JTextField nome = new JTextField();
@@ -755,4 +835,39 @@ public class PainelCliente extends JPanel {
         painelDeCimaFixo.add(logout);
         painelDeCimaFixo.add(logout);
     }
+
+    //
+
+    // PARA TERMOS CAMPOS PREENCHIDOS SÓ COM DIGITOS
+    // UTILIZAR TEXTFIELD ESPECIFICO JÁ COM KEYLISTENER QE BLOQUEIA.
+    // keylistener para só permitir digitos
+
+    // construtor de textfield que aceita só digitos
+    public JTextField geraTextfieldSoAceitaDigitos() {
+        KeyListener soDigitosTecla = new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char pin = e.getKeyChar();
+                if (!Character.isDigit(pin)) {
+                    e.consume();
+                }
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+            }
+        };
+        JTextField soDigitos = new JTextField(10);
+        soDigitos.addKeyListener(soDigitosTecla);
+        return soDigitos;
+    }
+
+
 }
+
+
+

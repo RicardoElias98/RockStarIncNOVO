@@ -106,6 +106,7 @@ public class Musica implements Serializable {
     public boolean isAdicionarAPlaylist() {
         return adicionarAPlaylist;
     }
+
     // método pra artista saber quanto fez por música
     public double getReceita() {
         return receita;
