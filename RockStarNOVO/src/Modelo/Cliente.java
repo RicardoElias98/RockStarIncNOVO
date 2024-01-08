@@ -62,7 +62,7 @@ public class Cliente extends Utilizador {
 
         //Método para adicionar música à playlist
         for (Musica m : this.getAquisicoes()) {
-            if (objetoString.equals(m.getTitulo())) {
+            if (objetoString.equals(m.getTitulo()) && m.isAdicionarAPlaylist()) {
                 playlist1.musicas.add(m);
                 for (int linhaTabela = 0; linhaTabela < tabelaPlaylists.getRowCount(); linhaTabela++) {
                     for (int colunaTabela = 0; colunaTabela < tabelaPlaylists.getColumnCount(); colunaTabela++) {
@@ -74,6 +74,7 @@ public class Cliente extends Utilizador {
 
                 }
             }
+            else JOptionPane.showMessageDialog(null, "Escolheu uma música inativa", "Ups", JOptionPane.WARNING_MESSAGE);
         }
     }
 
@@ -135,12 +136,13 @@ public class Cliente extends Utilizador {
 
     }
 
+    //músicas Inativas não dão para comprar
     public boolean adicionarMusicasAoCarrinho(Musica musica) {
-        if (!aquisicoesEmEsperaPorValidacao.contains(musica) && !aquisicoes.contains(musica)) {
+        if (!aquisicoesEmEsperaPorValidacao.contains(musica) && !aquisicoes.contains(musica) && musica.isAdicionarAPlaylist()) {
             aquisicoesEmEsperaPorValidacao.add(musica);
             return true;
         } else {
-            JOptionPane.showMessageDialog(null, "Música já adicionada/comprada", "Ups", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Música já adicionada/comprada ou escolheu uma música inativa", "Ups", JOptionPane.WARNING_MESSAGE);
             return false;
         }
     }

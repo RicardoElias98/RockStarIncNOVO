@@ -5,6 +5,8 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -149,7 +151,7 @@ public class PainelArtista extends JPanel {
         tabela.setRowCount(0);
         for (Musica mus : artista.getMusicas()) {
             if (mus != null) {
-                tabela.addRow(new Object[]{mus.getPreco(),mus.getTitulo(),mus.getNomeAlbum(),mus.getData().getYear()});
+                tabela.addRow(new Object[]{mus.getPreco(),mus.getTitulo(),mus.getNomeAlbum(),mus.getData().getYear(),mus.isAdicionarAPlaylist()});
             }
         }
     }
@@ -186,6 +188,7 @@ public class PainelArtista extends JPanel {
         tabela.addColumn("Música");
         tabela.addColumn("Álbum");
         tabela.addColumn("Ano");
+        tabela.addColumn("Ativa/Inativa");
 
         tabelaMusicas = new JTable(tabela);
         tabelaMusicas.setDefaultEditor(Object.class, null);
@@ -198,7 +201,7 @@ public class PainelArtista extends JPanel {
 
         for (Musica mus : artista.getMusicas()) {
             if (mus!=null) {
-                tabela.addRow(new Object[]{mus.getPreco(),mus.getTitulo(),mus.getNomeAlbum(),mus.getData().getYear()});
+                tabela.addRow(new Object[]{mus.getPreco(),mus.getTitulo(),mus.getNomeAlbum(),mus.getData().getYear(),mus.isAdicionarAPlaylist()});
             }
 
         }
@@ -219,7 +222,6 @@ public class PainelArtista extends JPanel {
         });
 
 
-
         pesquisar.addActionListener(e -> {
             String opcaoSelecionada = (String) pesquisar.getSelectedItem();
             if ("Nome da Música".equalsIgnoreCase(opcaoSelecionada)) {
@@ -227,7 +229,7 @@ public class PainelArtista extends JPanel {
                 tabela.setRowCount(0);
                 for (Musica mus : artista.getMusicas()) {
                     if (mus != null && mus.getTitulo().equals(musica)) {
-                        tabela.addRow(new Object[]{mus.getPreco(),mus.getTitulo(),mus.getNomeAlbum(),mus.getData().getYear()});
+                        tabela.addRow(new Object[]{mus.getPreco(),mus.getTitulo(),mus.getNomeAlbum(),mus.getData().getYear(),mus.isAdicionarAPlaylist()});
                     }
                 }
             }
@@ -240,7 +242,7 @@ public class PainelArtista extends JPanel {
                 tabela.setRowCount(0);
                 for (Musica mus : artista.getMusicas()) {
                     if (mus != null && mus.getNomeAlbum().equals(album)) {
-                        tabela.addRow(new Object[]{mus.getPreco(),mus.getTitulo(),mus.getNomeAlbum(),mus.getData().getYear()});
+                        tabela.addRow(new Object[]{mus.getPreco(),mus.getTitulo(),mus.getNomeAlbum(),mus.getData().getYear(),mus.isAdicionarAPlaylist()});
                     }
                 }
             }
@@ -280,11 +282,41 @@ public class PainelArtista extends JPanel {
             }
         });
 
+        JPopupMenu menuOpcoes = new JPopupMenu();
+        JMenuItem opcao1 = new JMenuItem("Adicionar a Álbum");
+        JMenuItem opcao2 = new JMenuItem("Alterar disponibilidade");
+        menuOpcoes.add(opcao1);
+        menuOpcoes.add(opcao2);
+        menuOpcoes.setVisible(false);
 
+        tabelaMusicas.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (SwingUtilities.isRightMouseButton(e)) {
+                    menuOpcoes.show(tabelaMusicas, e.getX(), e.getY());
+                    menuOpcoes.setVisible(true);
+                }
+            }
+        });
 
+        opcao2.addActionListener(e -> {
+            int linha = tabelaMusicas.getSelectedRow();
+            int coluna = tabelaMusicas.getSelectedColumn();
 
+            //Obter o objeto música de onde se clica
+            Object objetoNaLinha = tabelaMusicas.getValueAt(linha, coluna);
+            String objetoString = (String) objetoNaLinha;
 
-    }
+            for (Musica musc : artista.getMusicas()) {
+                if (objetoString.equals(musc.getTitulo())) {
+                    if (musc.isAdicionarAPlaylist()) {
+                        musc.setAdicionarAPlaylist(false);
+                    } else musc.setAdicionarAPlaylist(true);
+                }
+                    tabelaMusicas.getModel().setValueAt(musc.isAdicionarAPlaylist(), linha, 4);
+                }
+            });
+        }
 
     private void iniciarPainelCorrigirTitulo (Programa rockstar ,Artista artista) {
         painelCorrigirTitulo.setLayout(new FlowLayout());

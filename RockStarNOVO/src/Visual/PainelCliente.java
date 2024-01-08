@@ -179,6 +179,7 @@ public class PainelCliente extends JPanel {
         tabela2.addColumn("Álbum");
         tabela2.addColumn("Ano");
         tabela2.addColumn("Preço");
+        tabela2.addColumn("Ativa");
 
 
         JTable tabelaMusicasSistema = new JTable(tabela2);
@@ -192,7 +193,7 @@ public class PainelCliente extends JPanel {
 
         for (Musica mus : rockstar.getMusicasTotais()) {
             if (mus != null && !existeMusicaNaTabela(tabela2, mus)) {
-                tabela2.addRow(new Object[]{mus.getAutoria(), mus.getTitulo(), mus.getNomeAlbum(), mus.getData().getYear(), mus.getPreco()});
+                tabela2.addRow(new Object[]{mus.getAutoria(), mus.getTitulo(), mus.getNomeAlbum(), mus.getData().getYear(), mus.getPreco(),mus.isAdicionarAPlaylist()});
             }
         }
 
@@ -622,7 +623,6 @@ public class PainelCliente extends JPanel {
                 nomeParaAopcao.addActionListener(e1 -> {
                     //método para adicionar no backhend
                     cliente.adicionarMusicaAplaylist(pl, tabelaMusicas, tabelaPlaylist, linha, coluna);
-                    System.out.println("Música adicionada com sucesso à playlist" + pl);
                 });
             }
             menuOpcoesPlaylistssss.setVisible(true);
