@@ -699,7 +699,7 @@ public class PainelCliente extends JPanel {
         painelDeCimaFixo.add(minhasPlaylists);
 
         saldo = new JButton();
-        saldo.setText("Saldo: " + cliente.getSaldo() + "€");
+        saldo.setText(String.format("Saldo: %.2f€", cliente.getSaldo()));
         painelDeCimaFixo.add(saldo);
 
         comprasPendentes = new JButton();
