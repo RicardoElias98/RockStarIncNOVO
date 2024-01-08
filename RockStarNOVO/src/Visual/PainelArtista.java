@@ -3,11 +3,13 @@ import Modelo.*;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class PainelArtista extends JPanel {
 
@@ -34,6 +36,9 @@ public class PainelArtista extends JPanel {
 
     private JScrollPane scrollPane2;
     private DefaultTableModel tabela;
+
+    private JTextField nomeDaMusicaPesquisa;
+
 
     public PainelArtista(Programa rockstar, Artista artista) {
 
@@ -66,6 +71,7 @@ public class PainelArtista extends JPanel {
         inicarPainelAdicionarMusica(artista, rockstar);
         add(painelAdicionarMusicas);
 
+
         corrigirTitulo.addActionListener(e -> {
             painelCorrigirTitulo.setVisible(true);
             painelMinhasMusicas.setVisible(false);
@@ -84,7 +90,28 @@ public class PainelArtista extends JPanel {
             painelMinhasMusicas.setVisible(false);
             painelCorrigirTitulo.setVisible(false);
         });
+
+        alterarPreco.addActionListener(e -> {
+            painelAdicionarMusicas.setVisible(false);
+            painelMinhasMusicas.setVisible(false);
+            painelCorrigirTitulo.setVisible(false);
+
+            String musica = JOptionPane.showInputDialog("Insira o nome da música a alterar");
+            for (Musica mus : artista.getMusicas()) {
+                if (musica.equals(mus.getTitulo()) && mus != null && musica!=null) {
+                    String valorNovo = JOptionPane.showInputDialog("Insira o novo preço");
+                    double valorNovoDouble = Double.parseDouble(valorNovo);
+                    mus.setPreco(valorNovoDouble);
+                    atualizarTabelaMinhasMusicas(artista);
+                }
+            }
+        });
     }
+
+
+
+
+
 
     private void inicarPainelAdicionarMusica(Artista artista, Programa rockstar) {
         painelAdicionarMusicas.setLayout(new FlowLayout());
@@ -122,7 +149,7 @@ public class PainelArtista extends JPanel {
         tabela.setRowCount(0);
         for (Musica mus : artista.getMusicas()) {
             if (mus != null) {
-                tabela.addRow(new Object[]{mus.getAutoria(),mus.getTitulo(),mus.getNomeAlbum(),mus.getData().getYear()});
+                tabela.addRow(new Object[]{mus.getPreco(),mus.getTitulo(),mus.getNomeAlbum(),mus.getData().getYear()});
             }
         }
     }
@@ -144,18 +171,18 @@ public class PainelArtista extends JPanel {
         painelMinhasMusicas.add(pesquisarTodas);
 
 
-        String[] opcoes = {"Pesquisar por", "Nome da Música", "Nome do Artista"};
+        String[] opcoes = {"Pesquisar por", "Nome da Música", "Nome do Álbum"};
         JComboBox pesquisar = new JComboBox<>(opcoes);
         painelMinhasMusicas.add(pesquisar);
 
-        String[] opcoesOrdenar = {"Ordenar por", "Nome da Música", "Nome do Artista"};
+        String[] opcoesOrdenar = {"Ordenar por", "Nome da Música", "Nome do Álbum"};
         JComboBox ordenar = new JComboBox<>(opcoesOrdenar);
         painelMinhasMusicas.add(ordenar);
 
         tabela = new DefaultTableModel();
 
         // Adicione suas colunas ao modelo da tabela
-        tabela.addColumn("Artista");
+        tabela.addColumn("Preço");
         tabela.addColumn("Música");
         tabela.addColumn("Álbum");
         tabela.addColumn("Ano");
@@ -171,7 +198,7 @@ public class PainelArtista extends JPanel {
 
         for (Musica mus : artista.getMusicas()) {
             if (mus!=null) {
-                tabela.addRow(new Object[]{mus.getAutoria(),mus.getTitulo(),mus.getNomeAlbum(),mus.getData().getYear()});
+                tabela.addRow(new Object[]{mus.getPreco(),mus.getTitulo(),mus.getNomeAlbum(),mus.getData().getYear()});
             }
 
         }
@@ -188,6 +215,73 @@ public class PainelArtista extends JPanel {
             painelMinhasMusicas.repaint();
             painelMinhasMusicas.revalidate();
         });
+
+
+
+        pesquisar.addActionListener(e -> {
+            String opcaoSelecionada = (String) pesquisar.getSelectedItem();
+            if ("Nome da Música".equalsIgnoreCase(opcaoSelecionada)) {
+                String musica = JOptionPane.showInputDialog("Insira o nome da música");
+                tabela.setRowCount(0);
+                for (Musica mus : artista.getMusicas()) {
+                    if (mus != null && mus.getTitulo().equals(musica)) {
+                        tabela.addRow(new Object[]{mus.getPreco(),mus.getTitulo(),mus.getNomeAlbum(),mus.getData().getYear()});
+                    }
+                }
+            }
+        });
+
+        pesquisar.addActionListener(e -> {
+            String opcaoSelecionada = (String) pesquisar.getSelectedItem();
+            if ("Nome do Álbum".equalsIgnoreCase(opcaoSelecionada)) {
+                String album = JOptionPane.showInputDialog("Insira o nome do álbum");
+                tabela.setRowCount(0);
+                for (Musica mus : artista.getMusicas()) {
+                    if (mus != null && mus.getNomeAlbum().equals(album)) {
+                        tabela.addRow(new Object[]{mus.getPreco(),mus.getTitulo(),mus.getNomeAlbum(),mus.getData().getYear()});
+                    }
+                }
+            }
+        });
+
+        //MÉTODO ORDENAR PELO NOME DA MÚSICA
+
+        ordenar.addActionListener(e -> {
+            String opcaoSelecionada = (String) ordenar.getSelectedItem();
+            if ("Nome da Música".equals(opcaoSelecionada)) {
+                TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(tabela); // modelo da tabela
+                tabelaMusicas.setRowSorter(sorter); // Associar o TableRowSorter à JTable
+                // Definir o comparador para a coluna "Nome da Música" (ordem alfabética)
+                sorter.setComparator(1, Comparator.<String>naturalOrder());
+                sorter.setSortable(0, false);
+                sorter.setSortable(2, false);
+                sorter.setSortable(3, false);
+                // Aplica a ordenação
+                sorter.sort();
+            }
+        });
+
+        //MÉTODO ORDENAR PELO NOME DO ÁLBUM
+
+        ordenar.addActionListener(e -> {
+            String opcaoSelecionada = (String) ordenar.getSelectedItem();
+            if ("Nome do Álbum".equals(opcaoSelecionada)) {
+                TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(tabela); // modelo da tabela
+                tabelaMusicas.setRowSorter(sorter); // Associar o TableRowSorter à JTable
+
+                sorter.setSortable(0, false);
+                sorter.setSortable(0, false);
+                sorter.setComparator(2, Comparator.<String>naturalOrder());
+                sorter.setSortable(3, false);
+                // Aplica a ordenação
+                sorter.sort();
+            }
+        });
+
+
+
+
+
     }
 
     private void iniciarPainelCorrigirTitulo (Programa rockstar ,Artista artista) {
