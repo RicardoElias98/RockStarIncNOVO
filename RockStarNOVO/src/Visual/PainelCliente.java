@@ -53,11 +53,19 @@ public class PainelCliente extends JPanel {
         JPanel saudacaoUser = new JPanel(new FlowLayout(FlowLayout.CENTER));
         JLabel saudacaoLabel = new JLabel("Olá, " + cliente.getUsername());
         saudacaoUser.add(saudacaoLabel);
+<<<<<<< HEAD
         add(saudacaoUser);
          Musica minhaMusica = new Musica("Título da Música", "daniel", LocalDateTime.now(), true, "Gênero", 9.99);
          Playlist minhaPlaylist = new Playlist("Nome da Playlist","bla",true,3,"Rock");
          cliente.getAquisicoes().add(minhaMusica);
         cliente.getPlaylist().add(minhaPlaylist);
+=======
+        add(saudacaoLabel);
+        //Musica minhaMusica = new Musica("Título da Música", "daniel", LocalDateTime.now(), true, "Gênero", 9.99);
+        //Playlist minhaPlaylist = new Playlist("Nome da Playlist","bla",true,3,"Rock");
+        //cliente.getAquisicoes().add(minhaMusica);
+        //cliente.getPlaylist().add(minhaPlaylist);
+>>>>>>> origin/master
 
 
 
