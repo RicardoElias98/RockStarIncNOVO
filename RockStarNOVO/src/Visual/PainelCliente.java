@@ -56,17 +56,7 @@ public class PainelCliente extends JPanel {
         JLabel saudacaoLabel = new JLabel("Olá, " + cliente.getUsername());
         saudacaoUser.add(saudacaoLabel);
         add(saudacaoUser);
-        Musica minhaMusica = new Musica("Título da Música", "daniel", LocalDateTime.now(), true, "Gênero", 9.99);
-        Playlist minhaPlaylist = new Playlist("Nome da Playlist", "bla", true, 3, "Rock");
-        cliente.getAquisicoes().add(minhaMusica);
-        cliente.getPlaylist().add(minhaPlaylist);
         add(saudacaoLabel);
-
-        //Musica minhaMusica = new Musica("Título da Música", "daniel", LocalDateTime.now(), true, "Gênero", 9.99);
-        //Playlist minhaPlaylist = new Playlist("Nome da Playlist","bla",true,3,"Rock");
-        //cliente.getAquisicoes().add(minhaMusica);
-        //cliente.getPlaylist().add(minhaPlaylist);
-
 
         painelDeCimaFixo = new JPanel();
         iniciarPainelDeCima(cliente);
@@ -813,7 +803,7 @@ public class PainelCliente extends JPanel {
                 menuOpcoesPlaylistssss.add(nomeParaAopcao);
 
                 nomeParaAopcao.addActionListener(e1 -> {
-                    //método para adicionar no backhend
+                    //método para adicionar no backend
                     cliente.adicionarMusicaAplaylist(pl, tabelaMusicas, tabelaPlaylist, linha, coluna);
                     menuOpcoesPlaylistssss.setVisible(false);
                 });
@@ -904,6 +894,28 @@ public class PainelCliente extends JPanel {
         });
 
         opcao3.addActionListener(e -> {
+            int linha = tabelaMusicas.getSelectedRow();
+            int coluna = tabelaMusicas.getSelectedColumn();
+
+            Object objetoNaLinha = tabelaMusicas.getValueAt(linha, coluna);
+            String objetoString = (String) objetoNaLinha;
+
+            for (Musica musica : cliente.getAquisicoes()) {
+                if (objetoString.equals(musica.getTitulo())) {
+                    System.out.println(musica.getHistoricoprecos().values());
+
+                    JPanel painelStats = new JPanel();
+                    JTextArea textArea = new JTextArea(String.valueOf(musica.getHistoricoprecos().values()));
+                    textArea.setEditable(false);
+                    textArea.setWrapStyleWord(true);
+                    textArea.setLineWrap(true);
+                    textArea.setSize(600,600);
+                    painelStats.add(textArea);
+                    JOptionPane.showMessageDialog(null, painelStats, "Histórico De Preços", JOptionPane.PLAIN_MESSAGE);
+
+                }
+            }
+
 
         });
 

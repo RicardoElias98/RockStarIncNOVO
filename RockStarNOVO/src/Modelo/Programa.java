@@ -30,7 +30,7 @@ public class Programa implements Serializable {
         /////////////////////////////////////
 
 
-        /*Cliente cliente1 = new Cliente("Daniel", "senha1");
+       /* Cliente cliente1 = new Cliente("Daniel", "senha1");
         Cliente cliente2 = new Cliente("Rita", "senha2");
         Cliente cliente3 = new Cliente("Ana", "senha3");
         Cliente cliente4 = new Cliente("Lucas", "senha4");
@@ -243,8 +243,6 @@ public class Programa implements Serializable {
         Musica m40 = new Musica("Work", "Rihanna", LocalDateTime.of(2016, 1, 27, 0, 0), false, "Pop", 0.00);
         getMusicasTotais().add(m40);
         artistaNaArray(m40.getAutoria()).getMusicas().add(m40);*/
-
-
     }
 
 
