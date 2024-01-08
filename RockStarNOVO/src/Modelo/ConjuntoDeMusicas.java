@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public abstract class ConjuntoDeMusicas implements Serializable {
     protected String nome;
-    protected ArrayList<Musica> musicas;
+    protected ArrayList<Musica> musicas = new ArrayList<>();
 
     public ConjuntoDeMusicas(String nome){
         this.nome = nome;

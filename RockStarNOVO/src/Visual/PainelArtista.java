@@ -39,7 +39,7 @@ public class PainelArtista extends JPanel {
     private JScrollPane scrollPane2;
     private DefaultTableModel tabela;
 
-    private JTextField nomeDaMusicaPesquisa;
+    private JPanel painelCriarAlbum;
 
 
     public PainelArtista(Programa rockstar, Artista artista) {
@@ -72,7 +72,6 @@ public class PainelArtista extends JPanel {
         painelAdicionarMusicas = new JPanel();
         inicarPainelAdicionarMusica(artista, rockstar);
         add(painelAdicionarMusicas);
-
 
         corrigirTitulo.addActionListener(e -> {
             painelCorrigirTitulo.setVisible(true);
@@ -108,11 +107,15 @@ public class PainelArtista extends JPanel {
                 }
             }
         });
+
+        criarAlbum.addActionListener(e -> {
+            String album = JOptionPane.showInputDialog("Insira o nome da novo Álbum");
+            String albumGenero = JOptionPane.showInputDialog("Género : Pop, Rock, Jazz, Metal, Clássica, Hip Hop");
+            Album albumNovo = new Album(album, albumGenero);
+            artista.getAlbuns().add(albumNovo);
+        });
+
     }
-
-
-
-
 
 
     private void inicarPainelAdicionarMusica(Artista artista, Programa rockstar) {
@@ -297,6 +300,35 @@ public class PainelArtista extends JPanel {
                     menuOpcoes.setVisible(true);
                 }
             }
+        });
+
+        opcao1.addActionListener(e -> {
+
+            int linha = tabelaMusicas.getSelectedRow();
+            int coluna = tabelaMusicas.getSelectedColumn();
+
+            JPopupMenu menuOpcoesAlbum = new JPopupMenu();
+
+            //Obter o objeto música de onde se clica
+            Object objetoNaLinha = tabelaMusicas.getValueAt(linha, coluna);
+            String objetoString = (String) objetoNaLinha;
+
+            for (Album alb : artista.getAlbuns()) {
+                JMenuItem nomeParaAopcao = new JMenuItem(alb.getNome());
+                menuOpcoesAlbum.add(nomeParaAopcao);
+
+                nomeParaAopcao.addActionListener(e1 -> {
+                    for (Musica mus : artista.getMusicas()) {
+                        if (mus.getTitulo().equals(objetoString)) {
+                            alb.getMusicas().add(mus);
+                            mus.setNomeAlbum(alb.getNome());
+                            System.out.println("Música adicionada ao álbum: " + mus.getTitulo() + " - " + alb.getNome());
+                            atualizarTabelaMinhasMusicas(artista);
+                        }
+                    }
+                });
+            }
+            menuOpcoesAlbum.setVisible(true);
         });
 
         opcao2.addActionListener(e -> {

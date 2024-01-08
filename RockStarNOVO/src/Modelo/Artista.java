@@ -120,6 +120,10 @@ public class Artista extends Utilizador {
         } else return false;
     }
 
+    public ArrayList<Album> getAlbuns() {
+        return albuns;
+    }
+
     private int contarMusicas() {
         int contador = 0;
         for (Musica mus : this.getMusicas()) {
