@@ -18,6 +18,8 @@ public class PainelArtista extends JPanel {
     private JButton minhasMusicas;
     private JButton verEstatisticas;
 
+    private JButton criarAlbum;
+
     private JButton saldo;
 
     private JButton logout;
@@ -74,6 +76,7 @@ public class PainelArtista extends JPanel {
             painelMinhasMusicas.setVisible(true);
             painelCorrigirTitulo.setVisible(false);
             painelAdicionarMusicas.setVisible(false);
+            atualizarTabelaMinhasMusicas(artista);
         });
 
         adicionarMusica.addActionListener(e -> {
@@ -114,6 +117,16 @@ public class PainelArtista extends JPanel {
 
         });
     }
+
+    private void atualizarTabelaMinhasMusicas (Artista artista) {
+        tabela.setRowCount(0);
+        for (Musica mus : artista.getMusicas()) {
+            if (mus != null) {
+                tabela.addRow(new Object[]{mus.getAutoria(),mus.getTitulo(),mus.getNomeAlbum(),mus.getData().getYear()});
+            }
+        }
+    }
+
 
     private boolean publicaOuNao (String publicaOuPrivada) {
         if (publicaOuPrivada.equals("Pública")) {
@@ -219,6 +232,10 @@ public class PainelArtista extends JPanel {
         adicionarMusica = new JButton();
         adicionarMusica.setText("Adicionar música");
         painelDeCimaFixo.add(adicionarMusica);
+
+        criarAlbum = new JButton();
+        criarAlbum.setText("Criar álbum");
+        painelDeCimaFixo.add(criarAlbum);
 
         corrigirTitulo = new JButton();
         corrigirTitulo.setText("Corrigir título");
