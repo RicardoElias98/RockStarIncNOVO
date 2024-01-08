@@ -154,6 +154,7 @@ public class Cliente extends Utilizador {
         if (this.saldo > precoTotal) {
             for (Musica mus : aquisicoesEmEsperaPorValidacao) {
                 this.saldo = this.getSaldo() - mus.getPreco();
+                mus.novaVenda(mus.getPreco());
                 aquisicoes.add(mus);
 
                 for (Artista art : rockstar.getArtistas()) {

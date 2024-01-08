@@ -105,10 +105,15 @@ public class Musica implements Serializable {
     public boolean isAdicionarAPlaylist() {
         return adicionarAPlaylist;
     }
-
+    // método pra artista saber quanto fez por música
     public double getReceita() {
         return receita;
     }
+    // incrementa a cada venda
+    public void novaVenda(double venda) {
+        this.receita += venda;
+    }
+
     // metodo a ser chmado quando se adiciona a musica a album
     public void setNomeAlbum(String nomeAlbum) {
         this.nomeAlbum = nomeAlbum;

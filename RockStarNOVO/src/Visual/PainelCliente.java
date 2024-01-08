@@ -1,4 +1,5 @@
 package Visual;
+
 import Modelo.*;
 
 import javax.swing.*;
@@ -33,14 +34,13 @@ public class PainelCliente extends JPanel {
     private JPanel painelPlayList;
     private JButton criarPlaylist;
     private JButton criarPlaylistRandom;
-    private  JButton verMinhasPL;
+    private JButton verMinhasPL;
     private JPanel painelCarrinho;
     private JPanel painelMusicasSistema;
     private JPanel painelSaldo;
     private DefaultTableModel tabelaCesto;
 
     private DefaultTableModel tabelaPlaylist;
-
 
 
     public PainelCliente(Programa rockstar, Cliente cliente) {
@@ -53,20 +53,17 @@ public class PainelCliente extends JPanel {
         JPanel saudacaoUser = new JPanel(new FlowLayout(FlowLayout.CENTER));
         JLabel saudacaoLabel = new JLabel("Olá, " + cliente.getUsername());
         saudacaoUser.add(saudacaoLabel);
-<<<<<<< HEAD
         add(saudacaoUser);
-         Musica minhaMusica = new Musica("Título da Música", "daniel", LocalDateTime.now(), true, "Gênero", 9.99);
-         Playlist minhaPlaylist = new Playlist("Nome da Playlist","bla",true,3,"Rock");
-         cliente.getAquisicoes().add(minhaMusica);
+        Musica minhaMusica = new Musica("Título da Música", "daniel", LocalDateTime.now(), true, "Gênero", 9.99);
+        Playlist minhaPlaylist = new Playlist("Nome da Playlist", "bla", true, 3, "Rock");
+        cliente.getAquisicoes().add(minhaMusica);
         cliente.getPlaylist().add(minhaPlaylist);
-=======
         add(saudacaoLabel);
+
         //Musica minhaMusica = new Musica("Título da Música", "daniel", LocalDateTime.now(), true, "Gênero", 9.99);
         //Playlist minhaPlaylist = new Playlist("Nome da Playlist","bla",true,3,"Rock");
         //cliente.getAquisicoes().add(minhaMusica);
         //cliente.getPlaylist().add(minhaPlaylist);
->>>>>>> origin/master
-
 
 
         painelDeCimaFixo = new JPanel();
@@ -132,6 +129,17 @@ public class PainelCliente extends JPanel {
             painelCarrinho.setVisible(false);
             painelMinhasMusicas.setVisible(false);
             painelPlayList.setVisible(false);
+
+            // NOTA ISTO PODE SER USADO PARA OUTROS INPUTS DO UTILIZADOR
+            // RICARDO
+
+            String valor = JOptionPane.showInputDialog("Insira o valor para carregar a conta");
+            double saldoadd = Double.parseDouble(valor);
+            if (saldoadd >= 0) {
+                cliente.setSaldo(cliente.getSaldo() + saldoadd);
+            }
+            saldo.setText(String.format("Saldo: %.2f€", cliente.getSaldo()));
+
         });
 
     }
@@ -151,12 +159,14 @@ public class PainelCliente extends JPanel {
 
         inserirValor.addActionListener(e -> {
             double valor = Double.parseDouble(valorAadicionar.getText());
-            if (valor >= 0) { cliente.setSaldo(cliente.getSaldo() + valor);
+            if (valor >= 0) {
+                cliente.setSaldo(cliente.getSaldo() + valor);
                 saldo.setText(String.format("Saldo: %.2f€", cliente.getSaldo()));
             }
         });
     }
-    private void iniciarPainelMusicasSistema(Programa rockstar, Cliente cliente){
+
+    private void iniciarPainelMusicasSistema(Programa rockstar, Cliente cliente) {
         painelMusicasSistema.setLayout(new FlowLayout());
         painelMusicasSistema.setBackground(Color.ORANGE);
         painelMusicasSistema.setVisible(false);
@@ -180,9 +190,9 @@ public class PainelCliente extends JPanel {
             tabelaMusicasSistema.getColumnModel().getColumn(i).setPreferredWidth(largura3);
         }
 
-        for (Musica mus: rockstar.getMusicasTotais() ) {
+        for (Musica mus : rockstar.getMusicasTotais()) {
             if (mus != null && !existeMusicaNaTabela(tabela2, mus)) {
-                tabela2.addRow(new Object[]{mus.getAutoria(),mus.getTitulo(),mus.getNomeAlbum(),mus.getData().getYear(),mus.getPreco()});
+                tabela2.addRow(new Object[]{mus.getAutoria(), mus.getTitulo(), mus.getNomeAlbum(), mus.getData().getYear(), mus.getPreco()});
             }
         }
 
@@ -201,7 +211,7 @@ public class PainelCliente extends JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (SwingUtilities.isRightMouseButton(e)) {
-                    menuOpcoesSistema.show(tabelaMusicasSistema,e.getX(), e.getY());
+                    menuOpcoesSistema.show(tabelaMusicasSistema, e.getX(), e.getY());
                     menuOpcoesSistema.setVisible(true);
                 }
             }
@@ -215,11 +225,12 @@ public class PainelCliente extends JPanel {
             Object objetoNaLinha = tabelaMusicasSistema.getValueAt(linha, coluna);
             String objetoString = (String) objetoNaLinha;
 
-            for (Musica musc : rockstar.getMusicasTotais()){
+            for (Musica musc : rockstar.getMusicasTotais()) {
                 if (objetoString.equals(musc.getTitulo())) {
-                    if (cliente.adicionarMusicasAoCarrinho(musc)){
-                        tabelaCesto.addRow(new Object[]{musc.getTitulo(),musc.getPreco()});
-                    };
+                    if (cliente.adicionarMusicasAoCarrinho(musc)) {
+                        tabelaCesto.addRow(new Object[]{musc.getTitulo(), musc.getPreco()});
+                    }
+                    ;
                     painelCarrinho.revalidate();
                     painelCarrinho.repaint();
                 }
@@ -266,7 +277,7 @@ public class PainelCliente extends JPanel {
         });
     }
 
-    private void inicarPainelPlaylist (Cliente cliente) {
+    private void inicarPainelPlaylist(Cliente cliente) {
         painelPlayList.setLayout(new FlowLayout());
         painelPlayList.setBackground(Color.ORANGE);
         painelPlayList.setVisible(false);
@@ -323,7 +334,7 @@ public class PainelCliente extends JPanel {
 
         for (Playlist play : cliente.getPlaylist()) {
             if (play != null && !existePlaylistNaTabela(tabelaPlaylists, play)) {
-                tabelaPlaylist.addRow(new Object[]{play.getNome(), play.getDescricao(),play.getMusicas().size(),play.isVisibilidade()});
+                tabelaPlaylist.addRow(new Object[]{play.getNome(), play.getDescricao(), play.getMusicas().size(), play.isVisibilidade()});
             }
         }
 
@@ -342,10 +353,10 @@ public class PainelCliente extends JPanel {
             scrollPane.setVisible(false);
             painelPlaylistVazia.setVisible(true);
             confirmarplNova.addActionListener(e1 -> {
-               // playlistNova.setNome(nome.getText());
-               // playlistNova.atribuirVisibilidade(visibilidade.getText());
-               // playlistNova.setDescricao(descricao.getText());
-               // cliente.getPlaylist().add(playlistNova);
+                // playlistNova.setNome(nome.getText());
+                // playlistNova.atribuirVisibilidade(visibilidade.getText());
+                // playlistNova.setDescricao(descricao.getText());
+                // cliente.getPlaylist().add(playlistNova);
                 //tabelaPlaylist.addRow(new Object[]{playlistNova.getNome(),playlistNova.getMusicas().lengt,playlistNova.isVisibilidade(),playlistNova.getDescricao()});
             });
         });
@@ -361,7 +372,7 @@ public class PainelCliente extends JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (SwingUtilities.isRightMouseButton(e)) {
-                    menuOpcoesPlaylist.show(tabelaPlaylists,e.getX(), e.getY());
+                    menuOpcoesPlaylist.show(tabelaPlaylists, e.getX(), e.getY());
                     menuOpcoesPlaylist.setVisible(true);
                 }
             }
@@ -375,9 +386,9 @@ public class PainelCliente extends JPanel {
             Object objetoNaLinha = tabelaPlaylists.getValueAt(linha, coluna);
             String objetoString = (String) objetoNaLinha;
 
-            for (Playlist pl : cliente.getPlaylist()){
-                if (objetoString.equals(pl.getNome())){
-                    cliente.removerPlaylist(pl,linha, coluna,tabelaPlaylists,tabelaPlaylist,painelPlayList);
+            for (Playlist pl : cliente.getPlaylist()) {
+                if (objetoString.equals(pl.getNome())) {
+                    cliente.removerPlaylist(pl, linha, coluna, tabelaPlaylists, tabelaPlaylist, painelPlayList);
                 }
             }
         });
@@ -393,7 +404,7 @@ public class PainelCliente extends JPanel {
             for (Playlist pl : cliente.getPlaylist()) {
                 if (objetoString.equals(pl.getNome())) {
                     System.out.println(pl.isVisibilidade());
-                    cliente.mudarVisibilidade(pl.isVisibilidade(),pl);
+                    cliente.mudarVisibilidade(pl.isVisibilidade(), pl);
                     System.out.println(pl.isVisibilidade());
                     tabelaPlaylists.getModel().setValueAt(pl.isVisibilidade(), linha, 3);
                 }
@@ -401,7 +412,7 @@ public class PainelCliente extends JPanel {
         });
 
         criarPlaylist.addActionListener(e -> {
-            Playlist playlistNova = new Playlist("","",true,0,"");
+            Playlist playlistNova = new Playlist("", "", true, 0, "");
             scrollPane.setVisible(false);
             painelPlaylistVazia.setVisible(true);
             confirmarplNova.addActionListener(e1 -> {
@@ -409,7 +420,7 @@ public class PainelCliente extends JPanel {
                 playlistNova.atribuirVisibilidade(visibilidade.getText());
                 playlistNova.setDescricao(descricao.getText());
                 cliente.getPlaylist().add(playlistNova);
-                tabelaPlaylist.addRow(new Object[]{playlistNova.getNome(),playlistNova.getDescricao(),playlistNova.getMusicas().size(),playlistNova.isVisibilidade()});
+                tabelaPlaylist.addRow(new Object[]{playlistNova.getNome(), playlistNova.getDescricao(), playlistNova.getMusicas().size(), playlistNova.isVisibilidade()});
             });
         });
 
@@ -424,6 +435,7 @@ public class PainelCliente extends JPanel {
         }
         return false; // A música não está na tabela
     }
+
     public boolean existePlaylistNaTabela(JTable tabela, Playlist playlist) {
         for (int i = 0; i < tabela.getRowCount(); i++) {
             // Comparar (nome)
@@ -434,7 +446,7 @@ public class PainelCliente extends JPanel {
         return false; // A playlist não está na tabela
     }
 
-    private void iniciarPainelMinhasMusicas (Cliente cliente) {
+    private void iniciarPainelMinhasMusicas(Cliente cliente) {
         painelMinhasMusicas.setLayout(new FlowLayout());
         painelMinhasMusicas.setBackground(Color.ORANGE);
         painelMinhasMusicas.setVisible(false);
@@ -475,7 +487,7 @@ public class PainelCliente extends JPanel {
 
         for (Musica mus : cliente.getAquisicoes()) {
             if (mus != null) {
-                tabela.addRow(new Object[]{mus.getAutoria(), mus.getTitulo(), mus.getNomeAlbum(), mus.getData().getYear(),mus.verRatingDado(cliente)});
+                tabela.addRow(new Object[]{mus.getAutoria(), mus.getTitulo(), mus.getNomeAlbum(), mus.getData().getYear(), mus.verRatingDado(cliente)});
             }
         }
 
@@ -531,7 +543,7 @@ public class PainelCliente extends JPanel {
                         if (textoDigitado.equals(musicas.getTitulo())) {
                             caixaDeTexto.setText(String.valueOf(musicas));
                             caixaDeTexto.setVisible(true);
-                            painelMinhasMusicas.add(caixaDeTexto,FlowLayout.TRAILING);
+                            painelMinhasMusicas.add(caixaDeTexto, FlowLayout.TRAILING);
                             painelMinhasMusicas.revalidate();
                             painelMinhasMusicas.repaint();
                         }
@@ -590,7 +602,7 @@ public class PainelCliente extends JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (SwingUtilities.isRightMouseButton(e)) {
-                    menuOpcoes.show(tabelaMusicas,e.getX(), e.getY());
+                    menuOpcoes.show(tabelaMusicas, e.getX(), e.getY());
                     menuOpcoes.setVisible(true);
                 }
             }
@@ -603,14 +615,14 @@ public class PainelCliente extends JPanel {
 
             JPopupMenu menuOpcoesPlaylistssss = new JPopupMenu();
 
-            for (Playlist pl : cliente.getPlaylist()){
+            for (Playlist pl : cliente.getPlaylist()) {
                 JMenuItem nomeParaAopcao = new JMenuItem(pl.getNome());
                 menuOpcoesPlaylistssss.add(nomeParaAopcao);
 
                 nomeParaAopcao.addActionListener(e1 -> {
                     //método para adicionar no backhend
-                    cliente.adicionarMusicaAplaylist(pl,tabelaMusicas,tabelaPlaylist,linha,coluna);
-                    System.out.println("Música adicionada com sucesso à playlist"  + pl);
+                    cliente.adicionarMusicaAplaylist(pl, tabelaMusicas, tabelaPlaylist, linha, coluna);
+                    System.out.println("Música adicionada com sucesso à playlist" + pl);
                 });
             }
             menuOpcoesPlaylistssss.setVisible(true);
@@ -646,7 +658,7 @@ public class PainelCliente extends JPanel {
         opcao2.addActionListener(e -> {
             int linha = tabelaMusicas.getSelectedRow();
             int coluna = tabelaMusicas.getSelectedColumn();
-            menuOpcoesAvaliar.show(tabelaMusicas,linha,coluna);
+            menuOpcoesAvaliar.show(tabelaMusicas, linha, coluna);
             menuOpcoesAvaliar.setVisible(true);
 
             Object objetoNaLinha = tabelaMusicas.getValueAt(linha, coluna);
@@ -654,25 +666,45 @@ public class PainelCliente extends JPanel {
 
             for (Musica musica : cliente.getAquisicoes()) {
                 if (objetoString.equals(musica.getTitulo())) {
-                    avaliar1.addActionListener((e1) -> {musica.adicionarRating(cliente, 1); atualizarTabelaMinhasMusicas(cliente);
+                    avaliar1.addActionListener((e1) -> {
+                        musica.adicionarRating(cliente, 1);
+                        atualizarTabelaMinhasMusicas(cliente);
                     });
-                    avaliar2.addActionListener((e1) -> {musica.adicionarRating(cliente, 2); atualizarTabelaMinhasMusicas(cliente);
+                    avaliar2.addActionListener((e1) -> {
+                        musica.adicionarRating(cliente, 2);
+                        atualizarTabelaMinhasMusicas(cliente);
                     });
-                    avaliar3.addActionListener((e1) -> {musica.adicionarRating(cliente, 3); atualizarTabelaMinhasMusicas(cliente);
+                    avaliar3.addActionListener((e1) -> {
+                        musica.adicionarRating(cliente, 3);
+                        atualizarTabelaMinhasMusicas(cliente);
                     });
-                    avaliar4.addActionListener((e1) -> {musica.adicionarRating(cliente, 4); atualizarTabelaMinhasMusicas(cliente);
+                    avaliar4.addActionListener((e1) -> {
+                        musica.adicionarRating(cliente, 4);
+                        atualizarTabelaMinhasMusicas(cliente);
                     });
-                    avaliar5.addActionListener((e1) -> {musica.adicionarRating(cliente, 5); atualizarTabelaMinhasMusicas(cliente);
+                    avaliar5.addActionListener((e1) -> {
+                        musica.adicionarRating(cliente, 5);
+                        atualizarTabelaMinhasMusicas(cliente);
                     });
-                    avaliar6.addActionListener((e1) -> {musica.adicionarRating(cliente, 6); atualizarTabelaMinhasMusicas(cliente);
+                    avaliar6.addActionListener((e1) -> {
+                        musica.adicionarRating(cliente, 6);
+                        atualizarTabelaMinhasMusicas(cliente);
                     });
-                    avaliar7.addActionListener((e1) -> {musica.adicionarRating(cliente, 7); atualizarTabelaMinhasMusicas(cliente);
+                    avaliar7.addActionListener((e1) -> {
+                        musica.adicionarRating(cliente, 7);
+                        atualizarTabelaMinhasMusicas(cliente);
                     });
-                    avaliar8.addActionListener((e1) -> {musica.adicionarRating(cliente, 8); atualizarTabelaMinhasMusicas(cliente);
+                    avaliar8.addActionListener((e1) -> {
+                        musica.adicionarRating(cliente, 8);
+                        atualizarTabelaMinhasMusicas(cliente);
                     });
-                    avaliar9.addActionListener((e1) -> {musica.adicionarRating(cliente, 9); atualizarTabelaMinhasMusicas(cliente);
+                    avaliar9.addActionListener((e1) -> {
+                        musica.adicionarRating(cliente, 9);
+                        atualizarTabelaMinhasMusicas(cliente);
                     });
-                    avaliar10.addActionListener((e1) -> {musica.adicionarRating(cliente, 10); atualizarTabelaMinhasMusicas(cliente);
+                    avaliar10.addActionListener((e1) -> {
+                        musica.adicionarRating(cliente, 10);
+                        atualizarTabelaMinhasMusicas(cliente);
                     });
                 }
             }
@@ -680,17 +712,17 @@ public class PainelCliente extends JPanel {
 
     }
 
-    private void atualizarTabelaMinhasMusicas (Cliente cliente) {
+    private void atualizarTabelaMinhasMusicas(Cliente cliente) {
         tabela.setRowCount(0);
         for (Musica mus : cliente.getAquisicoes()) {
             if (mus != null) {
-                tabela.addRow(new Object[]{mus.getAutoria(), mus.getTitulo(), mus.getNomeAlbum(), mus.getData().getYear(),mus.verRatingDado(cliente)});
+                tabela.addRow(new Object[]{mus.getAutoria(), mus.getTitulo(), mus.getNomeAlbum(), mus.getData().getYear(), mus.verRatingDado(cliente)});
             }
         }
     }
 
 
-    private void iniciarPainelDeCima (Cliente cliente) {
+    private void iniciarPainelDeCima(Cliente cliente) {
         painelDeCimaFixo.setLayout(new FlowLayout());
         painelDeCimaFixo.setBackground(Color.ORANGE);
         setVisible(true);
