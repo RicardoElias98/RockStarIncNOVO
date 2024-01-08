@@ -216,6 +216,14 @@ public class PainelCliente extends JPanel {
 
         painelMusicasSistema.add(scrollPane3);
 
+        JButton pesquisarTodasSistema = new JButton();
+        pesquisarTodasSistema.setText("Ver todas");
+        painelMusicasSistema.add(pesquisarTodasSistema);
+
+        String[] opcoes = {"Pesquisar por", "Nome da Música", "Nome do Artista"};
+        JComboBox pesquisarSistema = new JComboBox<>(opcoes);
+        painelMusicasSistema.add(pesquisarSistema);
+
         JPopupMenu menuOpcoesSistema = new JPopupMenu();
         JMenuItem opcao001 = new JMenuItem("Adicionar ao carrinho");
         menuOpcoesSistema.add(opcao001);
@@ -250,6 +258,50 @@ public class PainelCliente extends JPanel {
                 }
             }
         });
+
+        pesquisarSistema.addActionListener(e -> {
+            String opcaoSelecionada = (String) pesquisarSistema.getSelectedItem();
+            if ("Nome da Música".equalsIgnoreCase(opcaoSelecionada)) {
+                String musica = JOptionPane.showInputDialog("Insira o nome da música");
+                tabela2.setRowCount(0);
+                for (Musica mus : rockstar.getMusicasTotais()) {
+                    if (mus != null && mus.getTitulo().equals(musica)) {
+                        tabela2.addRow(new Object[]{mus.getAutoria(), mus.getTitulo(), mus.getNomeAlbum(), mus.getData().getYear(), mus.getPreco(),mus.isAdicionarAPlaylist()});
+                    }
+                }
+            }
+        });
+
+        pesquisarSistema.addActionListener(e -> {
+            String opcaoSelecionada = (String) pesquisarSistema.getSelectedItem();
+            if ("Nome do Artista".equalsIgnoreCase(opcaoSelecionada)) {
+                String artistaNomeSistema = JOptionPane.showInputDialog("Insira o nome do artista");
+                tabela2.setRowCount(0);
+                for (Musica mus : rockstar.getMusicasTotais()) {
+                    if (mus != null && mus.getAutoria().equals(artistaNomeSistema)) {
+                        tabela2.addRow(new Object[]{mus.getAutoria(), mus.getTitulo(), mus.getNomeAlbum(), mus.getData().getYear(), mus.getPreco(),mus.isAdicionarAPlaylist()});
+                    }
+                }
+            }
+        });
+
+
+        pesquisarTodasSistema.addActionListener(e -> {
+            tabelaMusicasSistema.setVisible(true);
+            scrollPane3.setVisible(true);
+            painelMusicasSistema.revalidate();
+            painelMusicasSistema.repaint();
+            tabela2.setRowCount(0);
+            for (Musica mus : rockstar.getMusicasTotais()) {
+                if (mus != null && !existeMusicaNaTabela(tabela2, mus)) {
+                    tabela2.addRow(new Object[]{mus.getAutoria(), mus.getTitulo(), mus.getNomeAlbum(), mus.getData().getYear(), mus.getPreco(),mus.isAdicionarAPlaylist()});
+                }
+            }
+        });
+
+
+
+
     }
 
     private void iniciarPainelCarrinho(Cliente cliente, Programa rockstar) {
