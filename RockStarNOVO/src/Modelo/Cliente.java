@@ -153,7 +153,7 @@ public class Cliente extends Utilizador {
             precoTotal = precoTotal + musicas.getPreco();
         }
 
-        if (this.saldo > precoTotal) {
+        if (this.saldo >= precoTotal) {
             for (Musica mus : aquisicoesEmEsperaPorValidacao) {
                 this.saldo = this.getSaldo() - mus.getPreco();
                 mus.novaVenda(mus.getPreco());
