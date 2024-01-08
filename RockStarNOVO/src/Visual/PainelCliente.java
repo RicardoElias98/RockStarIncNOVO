@@ -224,6 +224,10 @@ public class PainelCliente extends JPanel {
         JComboBox pesquisarSistema = new JComboBox<>(opcoes);
         painelMusicasSistema.add(pesquisarSistema);
 
+        String[] opcoesOrdenarSistema = {"Ordenar por", "Nome da Música", "Nome do Artista"};
+        JComboBox ordenarSistema = new JComboBox<>(opcoesOrdenarSistema);
+        painelMusicasSistema.add(ordenarSistema);
+
         JPopupMenu menuOpcoesSistema = new JPopupMenu();
         JMenuItem opcao001 = new JMenuItem("Adicionar ao carrinho");
         menuOpcoesSistema.add(opcao001);
@@ -296,6 +300,42 @@ public class PainelCliente extends JPanel {
                 if (mus != null && !existeMusicaNaTabela(tabela2, mus)) {
                     tabela2.addRow(new Object[]{mus.getAutoria(), mus.getTitulo(), mus.getNomeAlbum(), mus.getData().getYear(), mus.getPreco(),mus.isAdicionarAPlaylist()});
                 }
+            }
+        });
+
+        //MÉTODO ORDENAR PELO NOME DA MÚSICA
+
+        ordenarSistema.addActionListener(e -> {
+            String opcaoSelecionada = (String) ordenarSistema.getSelectedItem();
+            if ("Nome da Música".equals(opcaoSelecionada)) {
+                TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(tabela2); // modelo da tabela
+                tabelaMusicasSistema.setRowSorter(sorter); // Associar o TableRowSorter à JTable
+                // Definir o comparador para a coluna "Nome da Música" (ordem alfabética)
+                sorter.setComparator(1, Comparator.<String>naturalOrder());
+                sorter.setSortable(0, false);
+                sorter.setSortable(2, false);
+                sorter.setSortable(3, false);
+                sorter.setSortable(4, false);
+                sorter.setSortable(5, false);
+                // Aplica a ordenação
+                sorter.sort();
+            }
+        });
+
+        ordenarSistema.addActionListener(e -> {
+            String opcaoSelecionada = (String) ordenarSistema.getSelectedItem();
+            if ("Nome do Artista".equals(opcaoSelecionada)) {
+                TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(tabela2); // modelo da tabela
+                tabelaMusicasSistema.setRowSorter(sorter); // Associar o TableRowSorter à JTable
+                // Definir o comparador para a coluna "Nome do Artista" (ordem alfabética)
+                sorter.setComparator(0, Comparator.<String>naturalOrder());
+                sorter.setSortable(1, false);
+                sorter.setSortable(2, false);
+                sorter.setSortable(3, false);
+                sorter.setSortable(4, false);
+                sorter.setSortable(5, false);
+                // Aplica a ordenação
+                sorter.sort();
             }
         });
 
