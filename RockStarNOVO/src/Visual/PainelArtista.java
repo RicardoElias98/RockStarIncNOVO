@@ -214,6 +214,8 @@ public class PainelArtista extends JPanel {
             scrollPane2.setVisible(true);
             painelMinhasMusicas.repaint();
             painelMinhasMusicas.revalidate();
+
+            atualizarTabelaMinhasMusicas(artista);
         });
 
 
