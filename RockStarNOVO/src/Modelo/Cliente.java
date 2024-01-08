@@ -74,7 +74,9 @@ public class Cliente extends Utilizador {
 
                 }
             }
-            else JOptionPane.showMessageDialog(null, "Escolheu uma música inativa", "Ups", JOptionPane.WARNING_MESSAGE);
+            else if (!m.isAdicionarAPlaylist()) {
+                JOptionPane.showMessageDialog(null, "Escolheu uma música inativa", "Ups", JOptionPane.WARNING_MESSAGE);
+            }
         }
     }
 

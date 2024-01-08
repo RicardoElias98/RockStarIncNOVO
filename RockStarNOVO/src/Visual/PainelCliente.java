@@ -581,9 +581,26 @@ public class PainelCliente extends JPanel {
         pesquisar.addActionListener(e -> {
             String opcaoSelecionada = (String) pesquisar.getSelectedItem();
             if ("Nome da Música".equalsIgnoreCase(opcaoSelecionada)) {
-                nomeDaMusicaPesquisa.setVisible(true);
-                painelMinhasMusicas.revalidate();
-                painelMinhasMusicas.repaint();
+                String musica = JOptionPane.showInputDialog("Insira o nome da música");
+                tabela.setRowCount(0);
+                for (Musica mus : cliente.getAquisicoes()) {
+                    if (mus != null && mus.getTitulo().equals(musica)) {
+                        tabela.addRow(new Object[]{mus.getAutoria(), mus.getTitulo(), mus.getNomeAlbum(), mus.getData().getYear(), mus.verRatingDado(cliente)});
+                    }
+                }
+            }
+        });
+
+        pesquisar.addActionListener(e -> {
+            String opcaoSelecionada = (String) pesquisar.getSelectedItem();
+            if ("Nome do Artista".equalsIgnoreCase(opcaoSelecionada)) {
+                String artistaNome = JOptionPane.showInputDialog("Insira o nome do artista");
+                tabela.setRowCount(0);
+                for (Musica mus : cliente.getAquisicoes()) {
+                    if (mus != null && mus.getAutoria().equals(artistaNome)) {
+                        tabela.addRow(new Object[]{mus.getAutoria(), mus.getTitulo(), mus.getNomeAlbum(), mus.getData().getYear(), mus.verRatingDado(cliente)});
+                    }
+                }
             }
         });
 
@@ -598,11 +615,12 @@ public class PainelCliente extends JPanel {
             scrollPane2.setVisible(true);
             painelMinhasMusicas.revalidate();
             painelMinhasMusicas.repaint();
+            atualizarTabelaMinhasMusicas(cliente);
         });
 
         //APOS CARREGAR NO ENTER
 
-        JTextField caixaDeTexto = new JTextField();
+       /* JTextField caixaDeTexto = new JTextField();
         caixaDeTexto.setEditable(false);
         caixaDeTexto.setVisible(false);
         nomeDaMusicaPesquisa.addKeyListener(new KeyListener() {
@@ -636,7 +654,7 @@ public class PainelCliente extends JPanel {
             public void keyReleased(KeyEvent e) {
                 // Este método é chamado quando uma tecla é libertada
             }
-        });
+        }); */
 
         //MÉTODO ORDENAR PELO NOME DA MÚSICA
 
@@ -703,6 +721,7 @@ public class PainelCliente extends JPanel {
                 nomeParaAopcao.addActionListener(e1 -> {
                     //método para adicionar no backhend
                     cliente.adicionarMusicaAplaylist(pl, tabelaMusicas, tabelaPlaylist, linha, coluna);
+                    menuOpcoesPlaylistssss.setVisible(false);
                 });
             }
             menuOpcoesPlaylistssss.setVisible(true);

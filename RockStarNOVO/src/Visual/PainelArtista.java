@@ -163,8 +163,9 @@ public class PainelArtista extends JPanel {
     private boolean publicaOuNao (String publicaOuPrivada) {
         if (publicaOuPrivada.equals("Pública")) {
             return true;
-        } else
-        return false;
+        } else if (publicaOuPrivada.equals("Privada")) {
+            return false;
+        } else return false;
     }
     private void inicarPainelMinhasMusicas (Artista artista) {
         painelMinhasMusicas.setLayout(new FlowLayout());
