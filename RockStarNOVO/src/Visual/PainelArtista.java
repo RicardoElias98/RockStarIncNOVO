@@ -20,13 +20,13 @@ public class PainelArtista extends JPanel {
     private JButton alterarPreco;
     private JButton inativarMusica;
     private JButton minhasMusicas;
-    private JButton verEstatisticas;
-
     private JButton criarAlbum;
 
     private JButton saldo;
 
     private JButton logout;
+
+    private JButton verEstatisticas;
     private JPanel painelDeCimaFixo;
 
     private JPanel painelCorrigirTitulo;
@@ -413,6 +413,10 @@ public class PainelArtista extends JPanel {
         saldo = new JButton();
         saldo.setText(String.format("Saldo: %.2f€", artista.getSaldo()));
         painelDeCimaFixo.add(saldo);
+
+        verEstatisticas = new JButton();
+        verEstatisticas.setText("Estatísticas");
+        painelDeCimaFixo.add(verEstatisticas);
 
         logout = new JButton();
         logout.setText("Logout");

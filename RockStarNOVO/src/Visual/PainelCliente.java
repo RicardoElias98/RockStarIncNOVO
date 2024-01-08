@@ -693,8 +693,10 @@ public class PainelCliente extends JPanel {
         JPopupMenu menuOpcoes = new JPopupMenu();
         JMenuItem opcao1 = new JMenuItem("Adicionar a playlist");
         JMenuItem opcao2 = new JMenuItem("Avaliar");
+        JMenuItem opcao3 = new JMenuItem("Histórico de preços");
         menuOpcoes.add(opcao1);
         menuOpcoes.add(opcao2);
+        menuOpcoes.add(opcao3);
         menuOpcoes.setVisible(false);
 
         tabelaMusicas.addMouseListener(new MouseAdapter() {
@@ -807,6 +809,10 @@ public class PainelCliente extends JPanel {
                     });
                 }
             }
+        });
+
+        opcao3.addActionListener(e -> {
+
         });
 
     }
