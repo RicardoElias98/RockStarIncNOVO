@@ -1,5 +1,6 @@
 package Modelo;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Artista extends Utilizador {
@@ -13,6 +14,9 @@ public class Artista extends Utilizador {
         musicas = new ArrayList<>();
         albuns = new ArrayList<>();
     }
+
+
+
 
     @Override
     public ArrayList<Musica> listarMusicas(Programa programa) {

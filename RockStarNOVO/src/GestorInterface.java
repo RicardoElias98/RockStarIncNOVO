@@ -1,6 +1,7 @@
 import Modelo.*;
 import Visual.*;
 import java.io.*;
+import java.time.LocalDateTime;
 
 public class GestorInterface {
 
@@ -14,7 +15,9 @@ public class GestorInterface {
         // classe a partir de qual são apresentados todos os painéis e respetivos subpaineis, com acesso
         // à parte lógica / dados
        new JanelaControlo("Rockstar.Inc", rockstar);
+
     }
+
 
     private Programa carregarPrograma() {
 
